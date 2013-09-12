@@ -18,22 +18,22 @@
  *               
  * 
  */
-?>
-<?php
 /*
  * @author CRP Henri Tudor - TAO Team - {@link http://www.tao.lu}
  * @license GPLv2  http://www.opensource.org/licenses/gpl-2.0.php
  *
  */
+require_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'lib' . DIRECTORY_SEPARATOR . 'qtism' . DIRECTORY_SEPARATOR . 'qtism.php');
+
 $extpath = dirname(__FILE__).DIRECTORY_SEPARATOR;
 $taopath = dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR.'tao'.DIRECTORY_SEPARATOR;
 
 return array(
-	'name' => 'taoQtiTest',
-	'description' => 'the TAO QTI test implementation',
+	'name' => 'taoQtiCommon',
+	'description' => 'the TAO QTI common libraries',
 	'version' => '2.5',
 	'author' => 'Open Assessment Technologies',
-	'dependencies' => array('taoTests', 'taoQTI', 'taoResultServer'),
+	'dependencies' => array('tao'),
 	'models' => array(
 		'http://www.tao.lu/Ontologies/TAOTest.rdf'
 	),
