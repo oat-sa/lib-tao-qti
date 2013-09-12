@@ -85,6 +85,7 @@ class taoQtiCommon_helpers_VariableFiller {
      * @param string $clientSideValue The value received from the client-side.
      * @return Variable A Variable object filled with a correctly transformed $clientSideValue.
      * @throws OutOfBoundsException If no variable with $variableName is described in the item.
+     * @throws OutOfRangeException If the $clientSideValue does not fit the target variable's baseType.
      * @throws InvalidArgumentException If $clientSideValue does not fit with the baseType of $variableName.
      */
     public function fill($variableName, $clientSideValue) {
@@ -136,7 +137,7 @@ class taoQtiCommon_helpers_VariableFiller {
                 $clientSideValue = implode(',', $clientSideValue);
             }
             
-            $msg = "An error occured while filling variable '${variableName}' with client-side value '${clientSideValue}'.";
+            $msg = "An error occured while filling variable '${variableName}' with client-side value '${clientSideValue}':" . $e->getMessage();
             throw new InvalidArgumentException($msg, 0, $e); 
         }
     }
@@ -148,47 +149,85 @@ class taoQtiCommon_helpers_VariableFiller {
      * @param mixed $value
      * @return mixed
      * @throws InvalidArgumentException If $baseType is unknown.
+     * @throws OutOfRangeException If $value cannot be transformed into $baseType datatype.
      */
     protected static function transform($baseType, $value) {
         
         switch ($baseType) {
             case BaseType::BOOLEAN:
-                return ($value === 'true') ? true : false;
+                if ($value === '') {
+                    return null;
+                }
+                else {
+                    return ($value === 'true') ? true : false;
+                }
             break;
             
             case BaseType::DIRECTED_PAIR:
-                common_Logger::d("Value '" . $value[0] . "," . $value[1] . "' transformed into directedPair.");
-                return new DirectedPair($value[0], $value[1]);
+                if (is_array($value) === false) {
+                    $msg = "Cannot transform a value into a QTI directedPair, it is not an array, '" . gettype($value) . "' given";
+                    throw new OutOfRangeException($msg);
+                }
+                else if (empty($value[0])) {
+                    $msg = "Cannot transform a value into a QTI directedPair, the first identifier was not given.";
+                    throw new OutOfRangeException($msg);
+                }
+                else if (empty($value[1])) {
+                    $msg = "Cannot transform a value into a QTI directedPair, the second identifier was not given.";
+                    throw new OutOfRangeException($msg);
+                }
+                else {
+                    return new DirectedPair($value[0], $value[1]);
+                }
             break;
             
             case BaseType::PAIR:
-                common_Logger::d("Value '" . $value[0] . "," . $value[1] . "' transformed into pair.");
-                return new Pair($value[0], $value[1]);
+                if (is_array($value) === false) {
+                    $msg = "Cannot transform a value into a QTI pair, it is not an array, '" . gettype($value) . "' given";    
+                    throw new OutOfRangeException($msg);
+                }
+                else if (empty($value[0])) {
+                    $msg = "Cannot transform a value into a QTI pair, the first identifier was not given.";
+                    throw new OutOfRangeException($msg);
+                }
+                else if (empty($value[1])) {
+                    $msg = "Cannot transform a value into a QTI pair, the second identifier was not given.";
+                    throw new OutOfRangeException($msg);
+                }
+                else {
+                    return new Pair($value[0], $value[1]);
+                }
             break;
             
             case BaseType::STRING:
-                common_Logger::d("Value '${value}' transformed into string.");
-                return $value;
-            break;
-            
             case BaseType::IDENTIFIER:
-                common_Logger::d("Value '${value}' transformed into identifier.");
-                return $value;
+                return ($value !== '') ? $value : null;
             break;
             
             case BaseType::INTEGER:
-                common_Logger::d("Value '${value}' transformed into integer.");
-                return intval($value);
+                return ($value !== '') ? intval($value) : null;
             break;
             
             case BaseType::FLOAT:
-                common_Logger::d("Value '${value}' transformed into float.");
-                return floatval($value);
+                return ($value !== '') ? floatval($value) : null;
             break;
             
             case BaseType::POINT:
-                common_Logger::d("Value '" . $value[0] . "," . $value[1] . "' transformed into point.");
-                return new Point(intval($value[0]), intval($value[1]));
+                if (is_array($value) === false) {
+                    $msg = "Cannot transform a value into a QTI point, it is not an array, '" . gettype($value) . "' given";
+                    throw new OutOfRangeException($msg);
+                }
+                else if (empty($value[0])) {
+                    $msg = "Cannot transform a value into a QTI point, X was not given.";
+                    throw new OutOfRangeException($msg);
+                }
+                else if (empty($value[1])) {
+                    $msg = "Cannot transform a value into a QTI point, Y was not given.";
+                    throw new OutOfRangeException($msg);
+                }
+                else {
+                    return new Point(intval($value[0]), intval($value[1]));
+                }
             break;
             
             default:
