@@ -20,6 +20,7 @@
  *
  */
 
+use qtism\data\IAssessmentItem;
 use qtism\common\datatypes\Point;
 use qtism\runtime\common\MultipleContainer;
 use qtism\runtime\common\OrderedContainer;
@@ -30,7 +31,6 @@ use qtism\common\enums\BaseType;
 use qtism\runtime\common\ResponseVariable;
 use qtism\runtime\common\OutcomeVariable;
 use qtism\runtime\common\Variable;
-use qtism\data\ExtendedAssessmentItemRef;
 
 /**
  * The VariableFiller provides a way to fill a QtiSm Runtime Variable with
@@ -55,7 +55,7 @@ class taoQtiCommon_helpers_VariableFiller {
      * 
      * @param ExtendedAssessmentItemRef $itemRef The item the variables you want to fill belong to.
      */
-    public function __construct(ExtendedAssessmentItemRef $itemRef) {
+    public function __construct(IAssessmentItem $itemRef) {
         $this->setItemRef($itemRef);
     }
     
@@ -73,7 +73,7 @@ class taoQtiCommon_helpers_VariableFiller {
      * 
      * @param ExtendedAssessmentItemRef $itemRef An ExtendedAssessmentItemRef object.
      */
-    protected function setItemRef(ExtendedAssessmentItemRef $itemRef) {
+    protected function setItemRef(IAssessmentItem $itemRef) {
         $this->itemRef = $itemRef;
     }
     
