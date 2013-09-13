@@ -128,4 +128,30 @@ class taoQtiCommon_helpers_ResultTransmitter {
             }
         }
     }
+    
+    /**
+     * Transmit a test-level QtiSm Runtime Variable to the target Result Server as a test result.
+     * 
+     * @param OutcomeVariable $variable An OutcomeVariable object to be transmitted to the target Result Server.
+     * @param string $transmissionId A unique identifier that identifies uniquely the visited test.
+     * @param string $testUri An optional URL that identifies uniquely the test the $variable comes from.
+     */
+    public function transmitTestVariable(OutcomeVariable $variable, $transmissionId, $testUri = '') {
+        $resultVariable = new taoResultServer_models_classes_OutcomeVariable();
+        $resultVariable->setIdentifier($variable->getIdentifier());
+        $resultVariable->setBaseType(BaseType::getNameByConstant($variable->getBaseType()));
+        $resultVariable->setCardinality(Cardinality::getNameByConstant($variable->getCardinality()));
+        
+        $value = $variable->getValue();
+        $resultVariable->setValue((gettype($value) === 'object') ? $value->__toString() : $value);
+        
+        try {
+            $this->getResultServer()->storeTestVariable($testUri, $resultVariable, $transmissionId);
+        }
+        catch (Exception $e) {
+            $msg = "An error occured while transmitting a Response Variable to the target result server.";
+            $code = taoQtiCommon_helpers_ResultTransmissionException::OUTCOME;
+            throw new taoQtiCommon_helpers_ResultTransmissionException($msg, $code);
+        }
+    }
 }
