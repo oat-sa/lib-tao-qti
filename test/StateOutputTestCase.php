@@ -97,12 +97,14 @@ class StateOutputTestCase extends UnitTestCase {
         $sO->addVariable(new ResponseVariable('RESP2', Cardinality::MULTIPLE, BaseType::FLOAT, new MultipleContainer(BaseType::FLOAT, array(-13.65, 1337.1))));
         $sO->addVariable(new OutcomeVariable('OUT1', Cardinality::ORDERED, BaseType::FLOAT, new OrderedContainer(BaseType::FLOAT)));
         $sO->addVariable(new OutcomeVariable('OUT2', Cardinality::MULTIPLE, BaseType::FLOAT, new MultipleContainer(BaseType::FLOAT, array(null, -466.3))));
+        $sO->addVariable(new OutcomeVariable('OUT3', Cardinality::ORDERED, BaseType::FLOAT, null));
     
         $expectedArray = array();
         $expectedArray['RESP1'] = array('0.0');
         $expectedArray['RESP2'] = array('-13.65', '1337.1');
         $expectedArray['OUT1'] = array();
         $expectedArray['OUT2'] = array('', '-466.3');
+        $expectedArray['OUT3'] = array();
     
         $this->assertEqual($expectedArray, $sO->getOutput());
     }

@@ -133,7 +133,7 @@ class taoQtiCommon_helpers_StateOutput {
         }
         else {
             $containerValue = $variable->getValue();
-            if ($containerValue->isNull() === true) {
+            if (is_null($containerValue) === true || $containerValue->isNull() === true) {
                 $output[$varName] = array();
                 return;
             }
