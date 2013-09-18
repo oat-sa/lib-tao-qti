@@ -23,7 +23,7 @@
 require_once dirname(__FILE__) . '/../../../tao/test/TaoTestRunner.php';
 
 //get the test into each extensions
-$tests = TaoTestRunner::getTests(array('taoQTICommon'));
+$tests = TaoTestRunner::getTests(array('taoQtiCommon'));
 
 //create the test sutie
 $testSuite = new TestSuite('TAO QTICommon unit tests');
@@ -43,9 +43,9 @@ error_reporting(0);
 require_once  PHPCOVERAGE_HOME. "/CoverageRecorder.php";
 require_once PHPCOVERAGE_HOME . "/reporter/HtmlCoverageReporter.php";
 //run the unit test suite
-$includePaths = array(ROOT_PATH.'taoQTICommon/models',ROOT_PATH.'taoQTICommon/helpers');
+$includePaths = array(ROOT_PATH.'taoQtiCommon/models',ROOT_PATH.'taoQtiCommon/helpers');
 $excludePaths = array();
-$covReporter = new HtmlCoverageReporter("Code Coverage Report taoQTICommon", "", PHPCOVERAGE_REPORTS."/taoQTICommon");
+$covReporter = new HtmlCoverageReporter("Code Coverage Report taoQtiCommon", "", PHPCOVERAGE_REPORTS."/taoQtiCommon");
 $cov = new CoverageRecorder($includePaths, $excludePaths, $covReporter);
 //run the unit test suite
 $cov->startInstrumentation();
@@ -54,5 +54,5 @@ $testSuite->run($reporter);
 error_reporting(0);
 $cov->stopInstrumentation();
 $cov->generateReport();
-$covReporter->printTextSummary(PHPCOVERAGE_REPORTS.'/taoQTICommon_coverage.txt');
+$covReporter->printTextSummary(PHPCOVERAGE_REPORTS.'/taoQtiCommon_coverage.txt');
 ?>
