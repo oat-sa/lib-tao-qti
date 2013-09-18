@@ -45,7 +45,7 @@ require_once PHPCOVERAGE_HOME . "/reporter/HtmlCoverageReporter.php";
 //run the unit test suite
 $includePaths = array(ROOT_PATH.'taoQTICommon/models',ROOT_PATH.'taoQTICommon/helpers');
 $excludePaths = array();
-$covReporter = new HtmlCoverageReporter("Code Coverage Report taoQTICommon", "", PHPCOVERAGE_REPORTS."/taoQTI");
+$covReporter = new HtmlCoverageReporter("Code Coverage Report taoQTICommon", "", PHPCOVERAGE_REPORTS."/taoQTICommon");
 $cov = new CoverageRecorder($includePaths, $excludePaths, $covReporter);
 //run the unit test suite
 $cov->startInstrumentation();
