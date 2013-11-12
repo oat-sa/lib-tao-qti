@@ -33,14 +33,5 @@
 class taoQtiCommon_models_classes_QtiResource
     extends taoQTI_models_classes_QTI_Resource
 {
-    private $type;
     
-    public function __construct($id, $type, $file) {
-        parent::__construct($id, $file);
-        $this->type = $type;
-    }
-    
-    public function getType() {
-        return $this->type;
-    }
 }
