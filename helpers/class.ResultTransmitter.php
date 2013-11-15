@@ -113,7 +113,7 @@ class taoQtiCommon_helpers_ResultTransmitter {
         
             // The fact that the response is correct must not be sent for built-in
             // response variables 'duration' and 'numAttempts'.
-            if (!in_array($identifier, array('duration', 'numAttempts'))) {
+            if (!in_array($identifier, array('duration', 'numAttempts', 'comment'))) {
                 $resultVariable->setCorrectResponse($variable->isCorrect());
             }
         
