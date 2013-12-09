@@ -32,7 +32,7 @@ use qtism\runtime\common\ResponseVariable;
  * 
  */
 
-require_once dirname(__FILE__) . '/../../tao/test/TaoTestRunner.php';
+require_once dirname(__FILE__) . '/../../tao/test/TaoPhpUnitTestRunner.php';
 include_once dirname(__FILE__) . '/../includes/raw_start.php';
 
 /**
@@ -41,7 +41,7 @@ include_once dirname(__FILE__) . '/../includes/raw_start.php';
  * @package taoQtiCommon
  * @subpackage test
  */
-class StateOutputTestCase extends UnitTestCase {
+class StateOutputTest extends TaoPhpUnitTestRunner {
 	
     public function testStateOutputIdentifier() {
         $sO = new taoQtiCommon_helpers_StateOutput();
@@ -56,7 +56,7 @@ class StateOutputTestCase extends UnitTestCase {
         $expectedArray['OUT1'] = array();
         $expectedArray['OUT2'] = array('', 'ChoiceC');
         
-        $this->assertEqual($expectedArray, $sO->getOutput());
+        $this->assertEquals($expectedArray, $sO->getOutput());
     }
     
     public function testStateOutputBoolean() {
@@ -72,7 +72,7 @@ class StateOutputTestCase extends UnitTestCase {
         $expectedArray['OUT1'] = array();
         $expectedArray['OUT2'] = array('true', '', 'false');
         
-        $this->assertEqual($expectedArray, $sO->getOutput());
+        $this->assertEquals($expectedArray, $sO->getOutput());
     }
     
     public function testStateOutputInteger() {
@@ -88,7 +88,7 @@ class StateOutputTestCase extends UnitTestCase {
         $expectedArray['OUT1'] = array();
         $expectedArray['OUT2'] = array('', '-466');
     
-        $this->assertEqual($expectedArray, $sO->getOutput());
+        $this->assertEquals($expectedArray, $sO->getOutput());
     }
     
     public function testStateOutputFloat() {
@@ -106,7 +106,7 @@ class StateOutputTestCase extends UnitTestCase {
         $expectedArray['OUT2'] = array('', '-466.3');
         $expectedArray['OUT3'] = array();
     
-        $this->assertEqual($expectedArray, $sO->getOutput());
+        $this->assertEquals($expectedArray, $sO->getOutput());
     }
     
     public function testStateOutputPoint() {
@@ -122,7 +122,7 @@ class StateOutputTestCase extends UnitTestCase {
         $expectedArray['OUT1'] = array();
         $expectedArray['OUT2'] = array(array('0', '0'), '', array('2', '3'));
     
-        $this->assertEqual($expectedArray, $sO->getOutput());
+        $this->assertEquals($expectedArray, $sO->getOutput());
     }
     
     public function testStateOutputString() {
@@ -140,7 +140,7 @@ class StateOutputTestCase extends UnitTestCase {
         $expectedArray['OUT1'] = array();
         $expectedArray['OUT2'] = array('', 'World');
     
-        $this->assertEqual($expectedArray, $sO->getOutput());
+        $this->assertEquals($expectedArray, $sO->getOutput());
     }
     
     public function testStateOutputPair() {
@@ -156,7 +156,7 @@ class StateOutputTestCase extends UnitTestCase {
         $expectedArray['OUT1'] = array();
         $expectedArray['OUT2'] = array(array('A', 'B'), '', array('E', 'F'));
 
-        $this->assertEqual($expectedArray, $sO->getOutput());
+        $this->assertEquals($expectedArray, $sO->getOutput());
     }
     
     public function testStateOutputDirectedPair() {
@@ -172,7 +172,7 @@ class StateOutputTestCase extends UnitTestCase {
         $expectedArray['OUT1'] = array();
         $expectedArray['OUT2'] = array(array('A', 'B'), '', array('E', 'F'));
     
-        $this->assertEqual($expectedArray, $sO->getOutput());
+        $this->assertEquals($expectedArray, $sO->getOutput());
     }
     
     public function testStateOutputDuration() {
@@ -190,7 +190,7 @@ class StateOutputTestCase extends UnitTestCase {
         $expectedArray['OUT1'] = array();
         $expectedArray['OUT2'] = array('', 'P3DT23S', '');
     
-        $this->assertEqual($expectedArray, $sO->getOutput());
+        $this->assertEquals($expectedArray, $sO->getOutput());
     }
     
     public function testStateOutputFile() {
@@ -208,7 +208,7 @@ class StateOutputTestCase extends UnitTestCase {
         $expectedArray['OUT1'] = array();
         $expectedArray['OUT2'] = array('', 'data');
     
-        $this->assertEqual($expectedArray, $sO->getOutput());
+        $this->assertEquals($expectedArray, $sO->getOutput());
     }
     
     public function testStateOutputUri() {
@@ -226,7 +226,7 @@ class StateOutputTestCase extends UnitTestCase {
         $expectedArray['OUT1'] = array();
         $expectedArray['OUT2'] = array('http://bit.ly', '');
     
-        $this->assertEqual($expectedArray, $sO->getOutput());
+        $this->assertEquals($expectedArray, $sO->getOutput());
     }
     
     public function testStateOutputIntOrIdentifier() {
@@ -244,6 +244,6 @@ class StateOutputTestCase extends UnitTestCase {
         $expectedArray['OUT1'] = array();
         $expectedArray['OUT2'] = array('ChoiceB', '-466', '');
     
-        $this->assertEqual($expectedArray, $sO->getOutput());
+        $this->assertEquals($expectedArray, $sO->getOutput());
     }
 }
