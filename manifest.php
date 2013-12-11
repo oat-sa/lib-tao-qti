@@ -23,7 +23,7 @@
  * @license GPLv2  http://www.opensource.org/licenses/gpl-2.0.php
  *
  */
-require_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'lib' . DIRECTORY_SEPARATOR . 'qtism' . DIRECTORY_SEPARATOR . 'qtism.php');
+require_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'lib' . DIRECTORY_SEPARATOR . 'qtism' . DIRECTORY_SEPARATOR . 'qtism' . DIRECTORY_SEPARATOR  . 'qtism.php');
 
 $extpath = dirname(__FILE__).DIRECTORY_SEPARATOR;
 $taopath = dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR.'tao'.DIRECTORY_SEPARATOR;
