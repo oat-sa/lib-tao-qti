@@ -22,6 +22,11 @@
 
 use qtism\data\IAssessmentItem;
 use qtism\common\datatypes\Point;
+use qtism\common\datatypes\String;
+use qtism\common\datatypes\Identifier;
+use qtism\common\datatypes\Float;
+use qtism\common\datatypes\Integer;
+use qtism\common\datatypes\Boolean;
 use qtism\runtime\common\MultipleContainer;
 use qtism\runtime\common\OrderedContainer;
 use qtism\common\enums\Cardinality;
@@ -46,14 +51,14 @@ class taoQtiCommon_helpers_VariableFiller {
     /**
      * The description of the item the variables belong to.
      * 
-     * @var ExtendedAssessmentItemRef
+     * @var IAssessmentItem
      */
     private $itemRef;
     
     /**
      * Create a new VariableFiller object.
      * 
-     * @param ExtendedAssessmentItemRef $itemRef The item the variables you want to fill belong to.
+     * @param IAssessmentItem $itemRef The item the variables you want to fill belong to.
      */
     public function __construct(IAssessmentItem $itemRef) {
         $this->setItemRef($itemRef);
@@ -62,7 +67,7 @@ class taoQtiCommon_helpers_VariableFiller {
     /**
      * Get the item reference the variables you want to fill belong to.
      * 
-     * @return ExtendedAssessmentItemRef An ExtendedAssessmentItemRef object.
+     * @return IAssessmentItem An ExtendedAssessmentItemRef object.
      */
     protected function getItemRef() {
         return $this->itemRef;
@@ -200,16 +205,18 @@ class taoQtiCommon_helpers_VariableFiller {
             break;
             
             case BaseType::STRING:
+                return new String($value);
+            break;
             case BaseType::IDENTIFIER:
-                return ($value !== '') ? $value : null;
+                return ($value !== '') ? new Identifier($value) : null;
             break;
             
             case BaseType::INTEGER:
-                return ($value !== '') ? intval($value) : null;
+                return ($value !== '') ? new Integer(intval($value)) : null;
             break;
             
             case BaseType::FLOAT:
-                return ($value !== '') ? floatval($value) : null;
+                return ($value !== '') ? new Float(floatval($value)) : null;
             break;
             
             case BaseType::POINT:
