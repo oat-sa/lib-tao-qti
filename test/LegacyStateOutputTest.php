@@ -1,10 +1,16 @@
 <?php
 
 use qtism\common\datatypes\Duration;
-
 use qtism\common\datatypes\Pair;
 use qtism\common\datatypes\DirectedPair;
 use qtism\common\datatypes\Point;
+use qtism\common\datatypes\Identifier;
+use qtism\common\datatypes\Boolean;
+use qtism\common\datatypes\Integer;
+use qtism\common\datatypes\Float;
+use qtism\common\datatypes\String;
+use qtism\common\datatypes\Uri;
+use qtism\common\datatypes\IntOrIdentifier;
 use qtism\runtime\common\OrderedContainer;
 use qtism\runtime\common\OutcomeVariable;
 use qtism\runtime\common\MultipleContainer;
@@ -27,7 +33,7 @@ use qtism\runtime\common\ResponseVariable;
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  * 
- * Copyright (c) 2013 (original work) Open Assessment Technologies SA (under the project TAO-PRODUCT);
+ * Copyright (c) 2013-2014 (original work) Open Assessment Technologies SA (under the project TAO-PRODUCT);
  *               
  * 
  */
@@ -41,14 +47,14 @@ include_once dirname(__FILE__) . '/../includes/raw_start.php';
  * @package taoQtiCommon
  * @subpackage test
  */
-class StateOutputTest extends TaoPhpUnitTestRunner {
+class LegacyStateOutputTest extends TaoPhpUnitTestRunner {
 	
     public function testStateOutputIdentifier() {
-        $sO = new taoQtiCommon_helpers_StateOutput();
-        $sO->addVariable(new ResponseVariable('RESP1', Cardinality::SINGLE, BaseType::IDENTIFIER, 'ChoiceA'));
-        $sO->addVariable(new ResponseVariable('RESP2', Cardinality::MULTIPLE, BaseType::IDENTIFIER, new MultipleContainer(BaseType::IDENTIFIER, array('ChoiceA', 'ChoiceB'))));
+        $sO = new taoQtiCommon_helpers_LegacyStateOutput();
+        $sO->addVariable(new ResponseVariable('RESP1', Cardinality::SINGLE, BaseType::IDENTIFIER, new Identifier('ChoiceA')));
+        $sO->addVariable(new ResponseVariable('RESP2', Cardinality::MULTIPLE, BaseType::IDENTIFIER, new MultipleContainer(BaseType::IDENTIFIER, array(new Identifier('ChoiceA'), new Identifier('ChoiceB')))));
         $sO->addVariable(new OutcomeVariable('OUT1', Cardinality::ORDERED, BaseType::IDENTIFIER, new OrderedContainer(BaseType::IDENTIFIER)));
-        $sO->addVariable(new OutcomeVariable('OUT2', Cardinality::MULTIPLE, BaseType::IDENTIFIER, new MultipleContainer(BaseType::IDENTIFIER, array(null, 'ChoiceC'))));
+        $sO->addVariable(new OutcomeVariable('OUT2', Cardinality::MULTIPLE, BaseType::IDENTIFIER, new MultipleContainer(BaseType::IDENTIFIER, array(null, new Identifier('ChoiceC')))));
 
         $expectedArray = array();
         $expectedArray['RESP1'] = array('ChoiceA');
@@ -60,11 +66,11 @@ class StateOutputTest extends TaoPhpUnitTestRunner {
     }
     
     public function testStateOutputBoolean() {
-        $sO = new taoQtiCommon_helpers_StateOutput();
-        $sO->addVariable(new ResponseVariable('RESP1', Cardinality::SINGLE, BaseType::BOOLEAN, true));
-        $sO->addVariable(new ResponseVariable('RESP2', Cardinality::MULTIPLE, BaseType::BOOLEAN, new MultipleContainer(BaseType::BOOLEAN, array(false, true))));
+        $sO = new taoQtiCommon_helpers_LegacyStateOutput();
+        $sO->addVariable(new ResponseVariable('RESP1', Cardinality::SINGLE, BaseType::BOOLEAN, new Boolean(true)));
+        $sO->addVariable(new ResponseVariable('RESP2', Cardinality::MULTIPLE, BaseType::BOOLEAN, new MultipleContainer(BaseType::BOOLEAN, array(new Boolean(false), new Boolean(true)))));
         $sO->addVariable(new OutcomeVariable('OUT1', Cardinality::ORDERED, BaseType::BOOLEAN, new OrderedContainer(BaseType::BOOLEAN)));
-        $sO->addVariable(new OutcomeVariable('OUT2', Cardinality::MULTIPLE, BaseType::BOOLEAN, new MultipleContainer(BaseType::BOOLEAN, array(true, null, false))));
+        $sO->addVariable(new OutcomeVariable('OUT2', Cardinality::MULTIPLE, BaseType::BOOLEAN, new MultipleContainer(BaseType::BOOLEAN, array(new Boolean(true), null, new Boolean(false)))));
         
         $expectedArray = array();
         $expectedArray['RESP1'] = array('true');
@@ -76,11 +82,11 @@ class StateOutputTest extends TaoPhpUnitTestRunner {
     }
     
     public function testStateOutputInteger() {
-        $sO = new taoQtiCommon_helpers_StateOutput();
-        $sO->addVariable(new ResponseVariable('RESP1', Cardinality::SINGLE, BaseType::INTEGER, 0));
-        $sO->addVariable(new ResponseVariable('RESP2', Cardinality::MULTIPLE, BaseType::INTEGER, new MultipleContainer(BaseType::INTEGER, array(-13, 1337))));
+        $sO = new taoQtiCommon_helpers_LegacyStateOutput();
+        $sO->addVariable(new ResponseVariable('RESP1', Cardinality::SINGLE, BaseType::INTEGER, new Integer(0)));
+        $sO->addVariable(new ResponseVariable('RESP2', Cardinality::MULTIPLE, BaseType::INTEGER, new MultipleContainer(BaseType::INTEGER, array(new Integer(-13), new Integer(1337)))));
         $sO->addVariable(new OutcomeVariable('OUT1', Cardinality::ORDERED, BaseType::INTEGER, new OrderedContainer(BaseType::INTEGER)));
-        $sO->addVariable(new OutcomeVariable('OUT2', Cardinality::MULTIPLE, BaseType::INTEGER, new MultipleContainer(BaseType::INTEGER, array(null, -466))));
+        $sO->addVariable(new OutcomeVariable('OUT2', Cardinality::MULTIPLE, BaseType::INTEGER, new MultipleContainer(BaseType::INTEGER, array(null, new Integer(-466)))));
     
         $expectedArray = array();
         $expectedArray['RESP1'] = array('0');
@@ -92,11 +98,11 @@ class StateOutputTest extends TaoPhpUnitTestRunner {
     }
     
     public function testStateOutputFloat() {
-        $sO = new taoQtiCommon_helpers_StateOutput();
-        $sO->addVariable(new ResponseVariable('RESP1', Cardinality::SINGLE, BaseType::FLOAT, 0.0));
-        $sO->addVariable(new ResponseVariable('RESP2', Cardinality::MULTIPLE, BaseType::FLOAT, new MultipleContainer(BaseType::FLOAT, array(-13.65, 1337.1))));
+        $sO = new taoQtiCommon_helpers_LegacyStateOutput();
+        $sO->addVariable(new ResponseVariable('RESP1', Cardinality::SINGLE, BaseType::FLOAT, new Float(0.0)));
+        $sO->addVariable(new ResponseVariable('RESP2', Cardinality::MULTIPLE, BaseType::FLOAT, new MultipleContainer(BaseType::FLOAT, array(new Float(-13.65), new Float(1337.1)))));
         $sO->addVariable(new OutcomeVariable('OUT1', Cardinality::ORDERED, BaseType::FLOAT, new OrderedContainer(BaseType::FLOAT)));
-        $sO->addVariable(new OutcomeVariable('OUT2', Cardinality::MULTIPLE, BaseType::FLOAT, new MultipleContainer(BaseType::FLOAT, array(null, -466.3))));
+        $sO->addVariable(new OutcomeVariable('OUT2', Cardinality::MULTIPLE, BaseType::FLOAT, new MultipleContainer(BaseType::FLOAT, array(null, new Float(-466.3)))));
         $sO->addVariable(new OutcomeVariable('OUT3', Cardinality::ORDERED, BaseType::FLOAT, null));
     
         $expectedArray = array();
@@ -110,7 +116,7 @@ class StateOutputTest extends TaoPhpUnitTestRunner {
     }
     
     public function testStateOutputPoint() {
-        $sO = new taoQtiCommon_helpers_StateOutput();
+        $sO = new taoQtiCommon_helpers_LegacyStateOutput();
         $sO->addVariable(new ResponseVariable('RESP1', Cardinality::SINGLE, BaseType::POINT, new Point(0, 0)));
         $sO->addVariable(new ResponseVariable('RESP2', Cardinality::MULTIPLE, BaseType::POINT, new MultipleContainer(BaseType::POINT, array(new Point(-3, 5), new Point(13, 37)))));
         $sO->addVariable(new OutcomeVariable('OUT1', Cardinality::ORDERED, BaseType::POINT, new OrderedContainer(BaseType::POINT)));
@@ -126,12 +132,12 @@ class StateOutputTest extends TaoPhpUnitTestRunner {
     }
     
     public function testStateOutputString() {
-        $sO = new taoQtiCommon_helpers_StateOutput();
-        $sO->addVariable(new ResponseVariable('RESP1', Cardinality::SINGLE, BaseType::STRING, 'String!'));
+        $sO = new taoQtiCommon_helpers_LegacyStateOutput();
+        $sO->addVariable(new ResponseVariable('RESP1', Cardinality::SINGLE, BaseType::STRING, new String('String!')));
         $sO->addVariable(new ResponseVariable('RESP2', Cardinality::SINGLE, BaseType::STRING, null));
-        $sO->addVariable(new ResponseVariable('RESP3', Cardinality::MULTIPLE, BaseType::STRING, new MultipleContainer(BaseType::STRING, array('', 'Hello'))));
+        $sO->addVariable(new ResponseVariable('RESP3', Cardinality::MULTIPLE, BaseType::STRING, new MultipleContainer(BaseType::STRING, array(new String(''), new String('Hello')))));
         $sO->addVariable(new OutcomeVariable('OUT1', Cardinality::ORDERED, BaseType::STRING, new OrderedContainer(BaseType::STRING)));
-        $sO->addVariable(new OutcomeVariable('OUT2', Cardinality::MULTIPLE, BaseType::STRING, new MultipleContainer(BaseType::STRING, array(null, 'World'))));
+        $sO->addVariable(new OutcomeVariable('OUT2', Cardinality::MULTIPLE, BaseType::STRING, new MultipleContainer(BaseType::STRING, array(null, new String('World')))));
     
         $expectedArray = array();
         $expectedArray['RESP1'] = array('String!');
@@ -144,7 +150,7 @@ class StateOutputTest extends TaoPhpUnitTestRunner {
     }
     
     public function testStateOutputPair() {
-        $sO = new taoQtiCommon_helpers_StateOutput();
+        $sO = new taoQtiCommon_helpers_LegacyStateOutput();
         $sO->addVariable(new ResponseVariable('RESP1', Cardinality::SINGLE, BaseType::PAIR, new Pair('A', 'B')));
         $sO->addVariable(new ResponseVariable('RESP2', Cardinality::MULTIPLE, BaseType::PAIR, new MultipleContainer(BaseType::PAIR, array(new Pair('A', 'B'), new Pair('C', 'D')))));
         $sO->addVariable(new OutcomeVariable('OUT1', Cardinality::ORDERED, BaseType::PAIR, new OrderedContainer(BaseType::PAIR)));
@@ -160,7 +166,7 @@ class StateOutputTest extends TaoPhpUnitTestRunner {
     }
     
     public function testStateOutputDirectedPair() {
-        $sO = new taoQtiCommon_helpers_StateOutput();
+        $sO = new taoQtiCommon_helpers_LegacyStateOutput();
         $sO->addVariable(new ResponseVariable('RESP1', Cardinality::SINGLE, BaseType::DIRECTED_PAIR, new DirectedPair('A', 'B')));
         $sO->addVariable(new ResponseVariable('RESP2', Cardinality::MULTIPLE, BaseType::DIRECTED_PAIR, new MultipleContainer(BaseType::DIRECTED_PAIR, array(new DirectedPair('A', 'B'), new DirectedPair('C', 'D')))));
         $sO->addVariable(new OutcomeVariable('OUT1', Cardinality::ORDERED, BaseType::DIRECTED_PAIR, new OrderedContainer(BaseType::DIRECTED_PAIR)));
@@ -176,7 +182,7 @@ class StateOutputTest extends TaoPhpUnitTestRunner {
     }
     
     public function testStateOutputDuration() {
-        $sO = new taoQtiCommon_helpers_StateOutput();
+        $sO = new taoQtiCommon_helpers_LegacyStateOutput();
         $sO->addVariable(new ResponseVariable('RESP1', Cardinality::SINGLE, BaseType::DURATION, new Duration('P3DT24M')));
         $sO->addVariable(new ResponseVariable('RESP2', Cardinality::SINGLE, BaseType::DURATION, null));
         $sO->addVariable(new ResponseVariable('RESP3', Cardinality::MULTIPLE, BaseType::DURATION, new MultipleContainer(BaseType::DURATION, array(new Duration('PT0S'), new Duration('PT1M')))));
@@ -193,31 +199,13 @@ class StateOutputTest extends TaoPhpUnitTestRunner {
         $this->assertEquals($expectedArray, $sO->getOutput());
     }
     
-    public function testStateOutputFile() {
-        $sO = new taoQtiCommon_helpers_StateOutput();
-        $sO->addVariable(new ResponseVariable('RESP1', Cardinality::SINGLE, BaseType::FILE, 'File!'));
-        $sO->addVariable(new ResponseVariable('RESP2', Cardinality::SINGLE, BaseType::FILE, null));
-        $sO->addVariable(new ResponseVariable('RESP3', Cardinality::MULTIPLE, BaseType::FILE, new MultipleContainer(BaseType::FILE, array('Ouh!', 'FileYeah!'))));
-        $sO->addVariable(new OutcomeVariable('OUT1', Cardinality::ORDERED, BaseType::FILE, new OrderedContainer(BaseType::FILE)));
-        $sO->addVariable(new OutcomeVariable('OUT2', Cardinality::MULTIPLE, BaseType::FILE, new MultipleContainer(BaseType::FILE, array(null, 'data'))));
-    
-        $expectedArray = array();
-        $expectedArray['RESP1'] = array('File!');
-        $expectedArray['RESP2'] = array('');
-        $expectedArray['RESP3'] = array('Ouh!', 'FileYeah!');
-        $expectedArray['OUT1'] = array();
-        $expectedArray['OUT2'] = array('', 'data');
-    
-        $this->assertEquals($expectedArray, $sO->getOutput());
-    }
-    
     public function testStateOutputUri() {
-        $sO = new taoQtiCommon_helpers_StateOutput();
-        $sO->addVariable(new ResponseVariable('RESP1', Cardinality::SINGLE, BaseType::URI, 'http://bit.ly'));
+        $sO = new taoQtiCommon_helpers_LegacyStateOutput();
+        $sO->addVariable(new ResponseVariable('RESP1', Cardinality::SINGLE, BaseType::URI, new Uri('http://bit.ly')));
         $sO->addVariable(new ResponseVariable('RESP2', Cardinality::SINGLE, BaseType::URI, null));
-        $sO->addVariable(new ResponseVariable('RESP3', Cardinality::MULTIPLE, BaseType::URI, new MultipleContainer(BaseType::URI, array('http://bit.lu', 'https://bit.ly'))));
+        $sO->addVariable(new ResponseVariable('RESP3', Cardinality::MULTIPLE, BaseType::URI, new MultipleContainer(BaseType::URI, array(new Uri('http://bit.lu'), new Uri('https://bit.ly')))));
         $sO->addVariable(new OutcomeVariable('OUT1', Cardinality::ORDERED, BaseType::URI, new OrderedContainer(BaseType::URI)));
-        $sO->addVariable(new OutcomeVariable('OUT2', Cardinality::MULTIPLE, BaseType::URI, new MultipleContainer(BaseType::URI, array('http://bit.ly', null))));
+        $sO->addVariable(new OutcomeVariable('OUT2', Cardinality::MULTIPLE, BaseType::URI, new MultipleContainer(BaseType::URI, array(new Uri('http://bit.ly'), null))));
     
         $expectedArray = array();
         $expectedArray['RESP1'] = array('http://bit.ly');
@@ -230,12 +218,12 @@ class StateOutputTest extends TaoPhpUnitTestRunner {
     }
     
     public function testStateOutputIntOrIdentifier() {
-        $sO = new taoQtiCommon_helpers_StateOutput();
-        $sO->addVariable(new ResponseVariable('RESP1', Cardinality::SINGLE, BaseType::INT_OR_IDENTIFIER, 0));
+        $sO = new taoQtiCommon_helpers_LegacyStateOutput();
+        $sO->addVariable(new ResponseVariable('RESP1', Cardinality::SINGLE, BaseType::INT_OR_IDENTIFIER, new IntOrIdentifier(0)));
         $sO->addVariable(new ResponseVariable('RESP2', Cardinality::SINGLE, BaseType::INT_OR_IDENTIFIER, null));
-        $sO->addVariable(new ResponseVariable('RESP3', Cardinality::MULTIPLE, BaseType::INT_OR_IDENTIFIER, new MultipleContainer(BaseType::INT_OR_IDENTIFIER, array('ChoiceA', 1337))));
+        $sO->addVariable(new ResponseVariable('RESP3', Cardinality::MULTIPLE, BaseType::INT_OR_IDENTIFIER, new MultipleContainer(BaseType::INT_OR_IDENTIFIER, array(new IntOrIdentifier('ChoiceA'), new IntOrIdentifier(1337)))));
         $sO->addVariable(new OutcomeVariable('OUT1', Cardinality::ORDERED, BaseType::INT_OR_IDENTIFIER, new OrderedContainer(BaseType::INT_OR_IDENTIFIER)));
-        $sO->addVariable(new OutcomeVariable('OUT2', Cardinality::MULTIPLE, BaseType::INT_OR_IDENTIFIER, new MultipleContainer(BaseType::INT_OR_IDENTIFIER, array('ChoiceB', -466, null))));
+        $sO->addVariable(new OutcomeVariable('OUT2', Cardinality::MULTIPLE, BaseType::INT_OR_IDENTIFIER, new MultipleContainer(BaseType::INT_OR_IDENTIFIER, array(new IntOrIdentifier('ChoiceB'), new IntOrIdentifier(-466), null))));
     
         $expectedArray = array();
         $expectedArray['RESP1'] = array('0');

@@ -15,7 +15,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  *
- * Copyright (c) 2013 (original work) Open Assessment Technologies SA (under the project TAO-PRODUCT);
+ * Copyright (c) 2013-2014 (original work) Open Assessment Technologies SA (under the project TAO-PRODUCT);
  *
  *
  */
@@ -37,14 +37,8 @@ use qtism\common\datatypes\Point;
  * @author Jérôme Bogaerts <jerome@taotesting.com>
  *
  */
-class taoQtiCommon_helpers_StateOutput {
+class taoQtiCommon_helpers_LegacyStateOutput extends taoQtiCommon_helpers_AbstractStateOutput {
     
-    /**
-     * The output associative array output.
-     * 
-     * @var array
-     */
-    private $output;
     
     /**
      * Create a new tao_helpers_StateOutput object.
@@ -52,15 +46,6 @@ class taoQtiCommon_helpers_StateOutput {
      */
     public function __construct() {
         $this->setOutput(array());
-    }
-    
-    /**
-     * Set the output array.
-     * 
-     * @param array $output An array.
-     */
-    protected function setOutput(array $output) {
-        $this->output = $output;
     }
     
     /**
@@ -82,7 +67,7 @@ class taoQtiCommon_helpers_StateOutput {
      * // - OutcomeVariable => 'SCORE6', Cardinality::MULTIPLE, BaseType:PAIR, value: [new Pair('A', 'B'), new Pair('C', 'D')]
      * // - OutcomeVariable => 'SCORE7', Cardinality::MULTIPLE, BaseType:POINT, value: [new Point(0, 0), new Point(-3, 4)]
      * // - OutcomeVariable => 'SCORE8', Cardinality::RECORD, value: <'val1': 25.3, 'val2': null, 'val3': new Duration('PT1S')>
-     * $stateOutput = new taoQtiCommon_helpers_StateOutput();
+     * $stateOutput = new taoQtiCommon_helpers_LegacyStateOutput();
      * // ...
      * // $stateOutput->addVariable() ...
      * // $stateOutput->addVariable() ...
@@ -107,7 +92,7 @@ class taoQtiCommon_helpers_StateOutput {
      * @return array An array of QTI Variables and their values formatted as explained supra.
      */
     public function &getOutput() {
-        return $this->output;
+        return parent::getOutput();
     }
     
     /**
