@@ -71,7 +71,7 @@ abstract class taoQtiCommon_helpers_AbstractVariableFiller {
      * Fill the variable $variableName with a correctly transformed $clientSideValue.
      * 
      * @param string $variableName The variable identifier you want to fill.
-     * @param string $clientSideValue The value received from the client-side representing the value of the variable with identifier $variableName.
+     * @param mixed $clientSideValue The value received from the client-side representing the value of the variable with identifier $variableName.
      * @return Variable A Variable object filled with a correctly transformed $clientSideValue.
      * @throws OutOfBoundsException If no variable with $variableName is described in the item.
      * @throws OutOfRangeException If the $clientSideValue does not fit the target variable's baseType.
