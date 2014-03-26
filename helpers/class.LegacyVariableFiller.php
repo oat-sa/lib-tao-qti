@@ -46,40 +46,15 @@ use qtism\runtime\common\Variable;
  * @author Jérôme Bogaerts <jerome@taotesting.com>
  *
  */
-class taoQtiCommon_helpers_VariableFiller {
+class taoQtiCommon_helpers_LegacyVariableFiller extends taoQtiCommon_helpers_AbstractVariableFiller {
     
     /**
-     * The description of the item the variables belong to.
-     * 
-     * @var IAssessmentItem
-     */
-    private $itemRef;
-    
-    /**
-     * Create a new VariableFiller object.
+     * Create a new LegacyVariableFiller object.
      * 
      * @param IAssessmentItem $itemRef The item the variables you want to fill belong to.
      */
     public function __construct(IAssessmentItem $itemRef) {
-        $this->setItemRef($itemRef);
-    }
-    
-    /**
-     * Get the item reference the variables you want to fill belong to.
-     * 
-     * @return IAssessmentItem An ExtendedAssessmentItemRef object.
-     */
-    protected function getItemRef() {
-        return $this->itemRef;
-    }
-    
-    /**
-     * Set the item reference the variables you want to fill belong to.
-     * 
-     * @param ExtendedAssessmentItemRef $itemRef An ExtendedAssessmentItemRef object.
-     */
-    protected function setItemRef(IAssessmentItem $itemRef) {
-        $this->itemRef = $itemRef;
+        parent::__construct($itemRef);
     }
     
     /**
@@ -91,7 +66,6 @@ class taoQtiCommon_helpers_VariableFiller {
      * @return Variable A Variable object filled with a correctly transformed $clientSideValue.
      * @throws OutOfBoundsException If no variable with $variableName is described in the item.
      * @throws OutOfRangeException If the $clientSideValue does not fit the target variable's baseType.
-     * @throws InvalidArgumentException If $clientSideValue does not fit with the baseType of $variableName.
      */
     public function fill($variableName, $clientSideValue) {
         $variable = null;
