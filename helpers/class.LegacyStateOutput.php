@@ -45,7 +45,7 @@ class taoQtiCommon_helpers_LegacyStateOutput extends taoQtiCommon_helpers_Abstra
      * 
      */
     public function __construct() {
-        $this->setOutput(array());
+        parent::__construct();
     }
     
     /**
