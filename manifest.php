@@ -42,8 +42,6 @@ return array(
         )
     ),
 	'constants' => array(
-		# actions directory
-		"DIR_ACTIONS"			=> $extpath."actions".DIRECTORY_SEPARATOR,
 	
 		# views directory
 		"DIR_VIEWS"				=> $extpath."views".DIRECTORY_SEPARATOR,
@@ -66,4 +64,3 @@ return array(
 		'TAO_TPL_PATH'			=> $taopath	.'views'.DIRECTORY_SEPARATOR.'templates'.DIRECTORY_SEPARATOR,
 	)
 );
-?>
