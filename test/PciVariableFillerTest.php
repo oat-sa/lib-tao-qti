@@ -64,27 +64,7 @@ class PciVariableFillerTest extends TaoPhpUnitTestRunner {
      * @param array $data Client-side data.
      * @param Variable $expectedVariable
      */
-    public function testFillVariable(IAssessmentItem $itemRef, array $data, Variable $expectedVariable) {
-        $filler = new taoQtiCommon_helpers_PciVariableFiller($itemRef);
-        $variable = $filler->fill($expectedVariable->getIdentifier(), $data);
-        
-        $this->assertEquals($expectedVariable->getIdentifier(), $variable->getIdentifier());
-        $this->assertEquals($expectedVariable->getBaseType(), $variable->getBaseType());
-        $this->assertEquals($expectedVariable->getCardinality(), $variable->getCardinality());
-        $this->assertEquals(get_class($expectedVariable), get_class($variable));
-        
-        if ($expectedVariable->getValue() === null) {
-            $this->assertSame($expectedVariable->getValue(), $variable->getValue());
-        }
-        else {
-            $this->assertTrue($expectedVariable->getValue()->equals($variable->getValue()));
-        }
-    }
-    
-    public function fillVariableProvider() {
-        
-        $returnValue = array();
-        
+    public function testFillVariable(array $data, Variable $expectedVariable) {
         // Non-time dependent basic item in 'Yoda English'.
         $itemRef = new AssessmentItem('Q01', 'Question 01', false, 'en-YO');
         
@@ -115,85 +95,105 @@ class PciVariableFillerTest extends TaoPhpUnitTestRunner {
         $itemRef->setOutcomeDeclarations($outcomeDeclarations);
         $itemRef->setResponseDeclarations($responseDeclarations);
         
+        $filler = new taoQtiCommon_helpers_PciVariableFiller($itemRef);
+        $variable = $filler->fill($expectedVariable->getIdentifier(), $data);
+        
+        $this->assertEquals($expectedVariable->getIdentifier(), $variable->getIdentifier());
+        $this->assertEquals($expectedVariable->getBaseType(), $variable->getBaseType());
+        $this->assertEquals($expectedVariable->getCardinality(), $variable->getCardinality());
+        $this->assertEquals(get_class($expectedVariable), get_class($variable));
+        
+        if ($expectedVariable->getValue() === null) {
+            $this->assertSame($expectedVariable->getValue(), $variable->getValue());
+        }
+        else {
+            $this->assertTrue($expectedVariable->getValue()->equals($variable->getValue()));
+        }
+    }
+    
+    public function fillVariableProvider() {
+        
+        $returnValue = array();
+        
         $json = array('base' => array('float' => 13.37));
         $expectedVariable = new OutcomeVariable('OUTCOME1', Cardinality::SINGLE, BaseType::FLOAT, new Float(13.37));
-        $returnValue[] = array($itemRef, $json, $expectedVariable);
+        $returnValue[] = array($json, $expectedVariable);
         
         $json = array('base' => array('integer' => 10));
         $expectedVariable = new OutcomeVariable('OUTCOME2', Cardinality::SINGLE, BaseType::INTEGER, new Integer(10));
-        $returnValue[] = array($itemRef, $json, $expectedVariable);
+        $returnValue[] = array($json, $expectedVariable);
         
         $json = array('base' => array('boolean' => true));
         $expectedVariable = new OutcomeVariable('OUTCOME3', Cardinality::SINGLE, BaseType::BOOLEAN, new Boolean(true));
-        $returnValue[] = array($itemRef, $json, $expectedVariable);
+        $returnValue[] = array($json, $expectedVariable);
         
         $json = array('base' => array('string' => 'String!'));
         $expectedVariable = new OutcomeVariable('OUTCOME4', Cardinality::SINGLE, BaseType::STRING, new String('String!'));
-        $returnValue[] = array($itemRef, $json, $expectedVariable);
+        $returnValue[] = array($json, $expectedVariable);
         
         $json = array('base' => array('point' => array(10, 10)));
         $expectedVariable = new OutcomeVariable('OUTCOME5', Cardinality::SINGLE, BaseType::POINT, new Point(10, 10));
-        $returnValue[] = array($itemRef, $json, $expectedVariable);
+        $returnValue[] = array($json, $expectedVariable);
         
         $json = array('base' => array('pair' => array('A', 'B')));
         $expectedVariable = new OutcomeVariable('OUTCOME6', Cardinality::SINGLE, BaseType::PAIR, new Pair('A', 'B'));
-        $returnValue[] = array($itemRef, $json, $expectedVariable);
+        $returnValue[] = array($json, $expectedVariable);
         
         $json = array('base' => array('directedPair' => array('A', 'B')));
         $expectedVariable = new OutcomeVariable('OUTCOME7', Cardinality::SINGLE, BaseType::DIRECTED_PAIR, new DirectedPair('A', 'B'));
-        $returnValue[] = array($itemRef, $json, $expectedVariable);
+        $returnValue[] = array($json, $expectedVariable);
         
         $json = array('base' => array('duration' => 'PT1S'));
         $expectedVariable = new OutcomeVariable('OUTCOME8', Cardinality::SINGLE, BaseType::DURATION, new Duration('PT1S'));
-        $returnValue[] = array($itemRef, $json, $expectedVariable);
+        $returnValue[] = array($json, $expectedVariable);
         
         $json = array('base' => array('uri' => 'http://www.taotesting.com'));
         $expectedVariable = new OutcomeVariable('OUTCOME9', Cardinality::SINGLE, BaseType::URI, new Uri('http://www.taotesting.com'));
-        $returnValue[] = array($itemRef, $json, $expectedVariable);
+        $returnValue[] = array($json, $expectedVariable);
         
         $json = array('base' => array('identifier' => 'ChoiceB'));
         $expectedVariable = new OutcomeVariable('OUTCOME10', Cardinality::SINGLE, BaseType::IDENTIFIER, new Identifier('ChoiceB'));
-        $returnValue[] = array($itemRef, $json, $expectedVariable);
+        $returnValue[] = array($json, $expectedVariable);
         
         $json = array('base' => array('intOrIdentifier' => 255));
         $expectedVariable = new OutcomeVariable('OUTCOME11', Cardinality::SINGLE, BaseType::INT_OR_IDENTIFIER, new IntOrIdentifier(255));
-        $returnValue[] = array($itemRef, $json, $expectedVariable);
+        $returnValue[] = array($json, $expectedVariable);
         
         $json = array('base' => null);
         $expectedVariable = new OutcomeVariable('OUTCOME12', Cardinality::SINGLE, BaseType::INTEGER, null);
-        $returnValue[] = array($itemRef, $json, $expectedVariable);
+        $returnValue[] = array($json, $expectedVariable);
         
         $json = array('base' => array('identifier' => 'ChoiceA'));
         $expectedVariable = new ResponseVariable('RESPONSE1', Cardinality::SINGLE, BaseType::IDENTIFIER, new Identifier('ChoiceA'));
-        $returnValue[] = array($itemRef, $json, $expectedVariable);
+        $returnValue[] = array($json, $expectedVariable);
         
         $json = array('list' => array('identifier' => array('ChoiceA', 'ChoiceC')));
         $expectedVariable = new ResponseVariable('RESPONSE2', Cardinality::MULTIPLE, BaseType::IDENTIFIER, new MultipleContainer(BaseType::IDENTIFIER, array(new Identifier('ChoiceA'), new Identifier('ChoiceC'))));
-        $returnValue[] = array($itemRef, $json, $expectedVariable);
+        $returnValue[] = array($json, $expectedVariable);
         
         $json = array('list' => array('directedPair' => array(array('A', 'B'), array('C', 'D'))));
         $expectedVariable = new ResponseVariable('RESPONSE3', Cardinality::ORDERED, BaseType::DIRECTED_PAIR, new OrderedContainer(BaseType::DIRECTED_PAIR, array(new DirectedPair('A', 'B'), new DirectedPair('C', 'D'))));
-        $returnValue[] = array($itemRef, $json, $expectedVariable);
+        $returnValue[] = array($json, $expectedVariable);
         
         $json = array('record' => array());
         $expectedVariable = new ResponseVariable('RESPONSE4', Cardinality::RECORD, -1, new RecordContainer());
-        $returnValue[] = array($itemRef, $json, $expectedVariable);
+        $returnValue[] = array($json, $expectedVariable);
         
         $json = array('record' => array(array('name' => 'A', 'base' => array('identifier' => 'ChoiceA')), array('name' => 'B', 'base' => array('identifier' => 'ChoiceB'))));
         $expectedVariable = new ResponseVariable('RESPONSE5', Cardinality::RECORD, -1, new RecordContainer(array('A' => new Identifier('ChoiceA'), 'B' => new Identifier('ChoiceB'))));
-        $returnValue[] = array($itemRef, $json, $expectedVariable);
+        $returnValue[] = array($json, $expectedVariable);
         
         $json = array('record' => array(array('name' => 'A', 'base' => null)));
         $expectedVariable = new ResponseVariable('RESPONSE6', Cardinality::RECORD, -1, new RecordContainer(array('A' => null)));
-        $returnValue[] = array($itemRef, $json, $expectedVariable);
+        $returnValue[] = array($json, $expectedVariable);
         
         $json = array('record' => array(array('name' => 'A', 'base' => array('boolean' => true)), array('name' => 'B', 'base' => null), array('name' => 'C', 'base' => array('boolean' => false))));
         $expectedVariable = new ResponseVariable('RESPONSE7', Cardinality::RECORD, -1, new RecordContainer(array('A' => new Boolean(true), 'B' => null, 'C' => new Boolean(false))));
-        $returnValue[] = array($itemRef, $json, $expectedVariable);
+        $returnValue[] = array($json, $expectedVariable);
         
         $json = array('list' => array('boolean' => array(true, null, false)));
         $expectedVariable = new ResponseVariable('RESPONSE8', Cardinality::MULTIPLE, BaseType::BOOLEAN, new MultipleContainer(BaseType::BOOLEAN, array(new Boolean(true), null, new Boolean(false))));
-        $returnValue[] = array($itemRef, $json, $expectedVariable);
+        $returnValue[] = array($json, $expectedVariable);
         
         return $returnValue;
     }
