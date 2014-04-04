@@ -45,7 +45,7 @@ include_once dirname(__FILE__) . '/../includes/raw_start.php';
  *
  * @author Jérôme Bogaerts <jerome@taotesting.com>
  * @package taoQtiCommon
- * @subpackage test
+ 
  */
 class LegacyStateOutputTest extends TaoPhpUnitTestRunner {
 	

@@ -52,7 +52,7 @@ use qtism\common\datatypes\IntOrIdentifier;
  *
  * @author Jérôme Bogaerts <jerome@taotesting.com>
  * @package taoQtiCommon
- * @subpackage test
+ 
  */
 class PciVariableFillerTest extends TaoPhpUnitTestRunner {
 	
