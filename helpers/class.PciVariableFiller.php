@@ -74,7 +74,7 @@ class taoQtiCommon_helpers_PciVariableFiller extends taoQtiCommon_helpers_Abstra
         // Set the data into the runtime variable thanks to the PCI JSON Unmarshaller
         // from QTISM.
         try {
-            $unmarshaller = new PciJsonUnmarshaller(new FileSystemFileManager());
+            $unmarshaller = new PciJsonUnmarshaller(taoQtiCommon_helpers_Utils::getFileDatatypeManager());
             $value = $unmarshaller->unmarshall($clientSideValue);
             
             // Dev's note:
