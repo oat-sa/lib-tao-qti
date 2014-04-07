@@ -19,12 +19,13 @@
  */
 
 use qtism\common\datatypes\files\FileSystemFileManager;
+use qtism\common\datatypes\File;
 
 /**
  * A class aiming at providing utility methods for the taoQtiCommon
  * extension.
  * 
- * @author Jérîome Bogaerts <jerome@taotesting.com>
+ * @author Jérôme Bogaerts <jerome@taotesting.com>
  *
  */
 class taoQtiCommon_helpers_Utils {
@@ -71,5 +72,37 @@ class taoQtiCommon_helpers_Utils {
      */
     static public function getFileDatatypeManager() {
         return new FileSystemFileManager();
+    }
+    
+    /**
+     * Marshall a QTI File datatype into a binary string. The resulting binary string constitution
+     * is the following:
+     * 
+     * * The length of the file name, unsigned short.
+     * * The file name, string.
+     * * The length of the mime type, unsigned short.
+     * * The mime type, string.
+     * * The binary content of the file, string.
+     * 
+     * @param File $file
+     * @return string
+     */
+    static public function qtiFileToString(File $file) {
+        $string = '';
+        $filename = $file->getFilename();
+        $mimetype = $file->getMimeType();
+        $filenameLen = strlen($filename);
+        $mimetypeLen = strlen($mimetype);
+        
+        $string .= pack('S', $filenameLen);
+        $string .= $filename;
+        
+        $string .= pack('S', $mimetypeLen);
+        $string .= $mimetype;
+        
+        // Avoid invalid data for serialize
+        // (This could make me cry...)
+        $string .= $file->getData();
+        return $string;
     }
 }

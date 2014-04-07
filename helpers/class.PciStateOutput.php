@@ -19,7 +19,6 @@
  */
 
 use qtism\runtime\common\Variable;
-use qtism\runtime\pci\json\Marshaller;
 
 /**
  * Implementation of AbstractStateOutput for IMS PCI JSON Representation based output.
@@ -46,7 +45,7 @@ class taoQtiCommon_helpers_PciStateOutput extends taoQtiCommon_helpers_AbstractS
     public function addVariable(Variable $variable) {
         $output = &$this->getOutput();
         $varName = $variable->getIdentifier();
-        $marshaller = new Marshaller();
-        $output[$varName] = $marshaller->marshall($variable->getValue(), Marshaller::MARSHALL_ARRAY);
+        $marshaller = new taoQtiCommon_helpers_PciJsonMarshaller();
+        $output[$varName] = $marshaller->marshall($variable->getValue(), taoQtiCommon_helpers_PciJsonMarshaller::MARSHALL_ARRAY);
     }
 }

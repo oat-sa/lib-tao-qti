@@ -21,6 +21,7 @@
 
 use qtism\common\enums\BaseType;
 use qtism\common\enums\Cardinality;
+use qtism\common\datatypes\File;
 use qtism\runtime\common\Variable;
 use qtism\runtime\common\OutcomeVariable;
 use qtism\runtime\common\ResponseVariable;
@@ -89,7 +90,7 @@ class taoQtiCommon_helpers_ResultTransmitter {
             $resultVariable->setIdentifier($identifier);
             $resultVariable->setBaseType(BaseType::getNameByConstant($variable->getBaseType()));
             $resultVariable->setCardinality(Cardinality::getNameByConstant($variable->getCardinality()));
-            $resultVariable->setValue((gettype($value) === 'object') ? $value->__toString() : $value);
+            $resultVariable->setValue(self::transformValue($value));
         
             common_Logger::d("Sending  Outcome Variable '${identifier}' to result server.");
             try {
@@ -109,7 +110,7 @@ class taoQtiCommon_helpers_ResultTransmitter {
             $resultVariable->setIdentifier($identifier);
             $resultVariable->setBaseType(BaseType::getNameByConstant($variable->getBaseType()));
             $resultVariable->setCardinality(Cardinality::getNameByConstant($variable->getCardinality()));
-            $resultVariable->setCandidateResponse((gettype($value) === 'object') ? $value->__toString() : $value);
+            $resultVariable->setCandidateResponse(self::transformValue($value));
         
             // The fact that the response is correct must not be sent for built-in
             // response variables 'duration' and 'numAttempts'.
@@ -143,7 +144,7 @@ class taoQtiCommon_helpers_ResultTransmitter {
         $resultVariable->setCardinality(Cardinality::getNameByConstant($variable->getCardinality()));
         
         $value = $variable->getValue();
-        $resultVariable->setValue((gettype($value) === 'object') ? $value->__toString() : $value);
+        $resultVariable->setValue(self::transformValue($value));
         
         try {
             $this->getResultServer()->storeTestVariable($testUri, $resultVariable, $transmissionId);
@@ -152,6 +153,28 @@ class taoQtiCommon_helpers_ResultTransmitter {
             $msg = "An error occured while transmitting a Response Variable to the target result server.";
             $code = taoQtiCommon_helpers_ResultTransmissionException::OUTCOME;
             throw new taoQtiCommon_helpers_ResultTransmissionException($msg, $code);
+        }
+    }
+    
+    /**
+     * Transform a QTI Datatype value to a value compliant
+     * with result server.
+     * 
+     * @param mixed $value
+     * @return string
+     */
+    private static function transformValue($value) {
+        if (gettype($value) === 'object') {
+            
+            if ($value instanceof File) {
+                return taoQtiCommon_helpers_Utils::qtiFileToString($value);
+            }
+            else {
+                return $value->__toString();
+            }
+        }
+        else {
+            return $value;
         }
     }
 }
