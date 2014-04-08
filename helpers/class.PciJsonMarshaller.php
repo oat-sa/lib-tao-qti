@@ -37,9 +37,19 @@ use qtism\common\datatypes\File;
  */
 class taoQtiCommon_helpers_PciJsonMarshaller extends Marshaller {
     
+    /**
+     * An arbitrary QTI File Datatype MIME type.
+     * 
+     * @var integer
+     */
     const FILE_PLACEHOLDER_MIMETYPE = 'qti+application/octet-stream';
     
-    const FILE_PLACEHOLDER_DATA = 'placeholder_data';
+    /**
+     * An arbitrary QTI File Content placeholder.
+     * 
+     * @var integer
+     */
+    const FILE_PLACEHOLDER_DATA = 'qti_file_datatype_placeholder_data';
     
     /**
      * Create a new PciJsonMarshaller object.
