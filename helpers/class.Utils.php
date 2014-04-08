@@ -20,6 +20,9 @@
 
 use qtism\common\datatypes\files\FileSystemFileManager;
 use qtism\common\datatypes\File;
+use qtism\common\enums\BaseType;
+use qtism\common\enums\Cardinality;
+use qtism\runtime\common\Variable;
 
 /**
  * A class aiming at providing utility methods for the taoQtiCommon
@@ -104,5 +107,46 @@ class taoQtiCommon_helpers_Utils {
         // (This could make me cry...)
         $string .= $file->getData();
         return $string;
+    }
+    
+    /**
+     * Whether or not a given QTI Variable contains the QTI Placeholder File.
+     * 
+     * @param Variable $variable
+     * @return boolean
+     */
+    static public function isQtiFilePlaceHolder(Variable $variable) {
+        
+        $correctBaseType = $variable->getBaseType() === BaseType::FILE;
+        $correctCardinality = $variable->getCardinality() === Cardinality::SINGLE;
+        
+        if ($correctBaseType === true && $correctCardinality === true) {
+            
+            $value = $variable->getValue();
+            $notNull = $value !== null;
+            $mime = taoQtiCommon_helpers_PciJsonMarshaller::FILE_PLACEHOLDER_MIMETYPE;
+            
+            if ($notNull === true && $value->getMimeType() === $mime) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    /**
+     * Whether or not a given QTI Variable contains a QTI File value.
+     * 
+     * @param Variable $variable
+     * @param boolean $considerNull Whether or not to consider File variables containing NULL variables.
+     * @return boolean
+     */
+    static public function isQtiFile(Variable $variable, $considerNull = true) {
+        
+        $correctBaseType = $variable->getBaseType() === BaseType::FILE;
+        $correctCardinality = $variable->getCardinality() === Cardinality::SINGLE;
+        $nullConsideration = ($considerNull === true) ? true : $variable->getValue() !== null;
+        
+        return $correctBaseType === true && $correctCardinality === true && $nullConsideration === true;
     }
 }
