@@ -64,6 +64,6 @@ class PciJsonMarshallerTest extends TaoPhpUnitTestRunner {
         $marshaller = new taoQtiCommon_helpers_PciJsonMarshaller();
         $json = $marshaller->marshall($file);
         
-        $this->assertEquals(array('base' => array('file' => array('mime' => 'qti+application/octet-stream', 'data' => base64_encode('placeholder_data')))), json_decode($json, true));
+        $this->assertEquals(array('base' => array('file' => array('mime' => taoQtiCommon_helpers_PciJsonMarshaller::FILE_PLACEHOLDER_MIMETYPE, 'data' => base64_encode(taoQtiCommon_helpers_PciJsonMarshaller::FILE_PLACEHOLDER_DATA)))), json_decode($json, true));
     }
 }
