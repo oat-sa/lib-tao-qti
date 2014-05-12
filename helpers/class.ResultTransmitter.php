@@ -73,71 +73,73 @@ class taoQtiCommon_helpers_ResultTransmitter {
     /**
      * Transmit a QtiSm Runtime Variable to the target Result Server as an Item Result.
      * 
-     * @param Variable $variable A QtiSm Runtime Variable.
+     * @param mixed $variables QtiSm Runtime Variable(s).
      * @param string $transmissionId A unique identifier that identifies uniquely the visited item.
      * @param string $itemUri An optional URI that identifies uniquely the item the $variable comes from.
      * @param string $testUri An optional URL that identifies uniquely the test the $variable comes from.
      * @throws taoQtiCommon_helpers_ResultTransmissionException If an error occurs while transmitting the Variable to the target Result Server.
      */
-    public function transmitItemVariable(Variable $variable, $transmissionId, $itemUri = '', $testUri = '') {
+    public function transmitItemVariable($variables, $transmissionId, $itemUri = '', $testUri = '') {
         
-        $identifier = $variable->getIdentifier();
+        $itemVariableSet = array();
         
-        if ($variable instanceof OutcomeVariable) {
-            $value = $variable->getValue();
-        
-            $resultVariable = new taoResultServer_models_classes_OutcomeVariable();
-            $resultVariable->setIdentifier($identifier);
-            $resultVariable->setBaseType(BaseType::getNameByConstant($variable->getBaseType()));
-            $resultVariable->setCardinality(Cardinality::getNameByConstant($variable->getCardinality()));
-            $resultVariable->setValue(self::transformValue($value));
-        
-            common_Logger::d("Sending  Outcome Variable '${identifier}' to result server.");
-            try {
-                $this->getResultServer()->storeItemVariable($testUri, $itemUri, $resultVariable, $transmissionId);
-            }
-            catch (Exception $e) {
-                $msg = "An error occured while transmitting an Outcome Variable to the target result server.";
-                $code = taoQtiCommon_helpers_ResultTransmissionException::OUTCOME;
-                throw new taoQtiCommon_helpers_ResultTransmissionException($msg, $code);
-            }
+        if (is_array($variables) === false) {
+            $variables = array($variables);
         }
-        else if ($variable instanceof ResponseVariable) {
-            // ResponseVariable.
-            $value = $variable->getValue();
         
-            $resultVariable = new taoResultServer_models_classes_ResponseVariable();
-            $resultVariable->setIdentifier($identifier);
-            $resultVariable->setBaseType(BaseType::getNameByConstant($variable->getBaseType()));
-            $resultVariable->setCardinality(Cardinality::getNameByConstant($variable->getCardinality()));
-            $resultVariable->setCandidateResponse(self::transformValue($value));
+        foreach ($variables as $variable) {
+            $identifier = $variable->getIdentifier();
+            
+            if ($variable instanceof OutcomeVariable) {
+                $value = $variable->getValue();
+            
+                $resultVariable = new taoResultServer_models_classes_OutcomeVariable();
+                $resultVariable->setIdentifier($identifier);
+                $resultVariable->setBaseType(BaseType::getNameByConstant($variable->getBaseType()));
+                $resultVariable->setCardinality(Cardinality::getNameByConstant($variable->getCardinality()));
+                $resultVariable->setValue(self::transformValue($value));
+                
+                $itemVariableSet[] = $resultVariable;
+            }
+            else if ($variable instanceof ResponseVariable) {
+                // ResponseVariable.
+                $value = $variable->getValue();
+            
+                $resultVariable = new taoResultServer_models_classes_ResponseVariable();
+                $resultVariable->setIdentifier($identifier);
+                $resultVariable->setBaseType(BaseType::getNameByConstant($variable->getBaseType()));
+                $resultVariable->setCardinality(Cardinality::getNameByConstant($variable->getCardinality()));
+                $resultVariable->setCandidateResponse(self::transformValue($value));
+            
+                // The fact that the response is correct must not be sent for built-in
+                // response variables 'duration' and 'numAttempts'.
+                if (!in_array($identifier, array('duration', 'numAttempts', 'comment'))) {
+                    $resultVariable->setCorrectResponse($variable->isCorrect());
+                }
+            
+                $itemVariableSet[] = $resultVariable;
+            }    
+        }
         
-            // The fact that the response is correct must not be sent for built-in
-            // response variables 'duration' and 'numAttempts'.
-            if (!in_array($identifier, array('duration', 'numAttempts', 'comment'))) {
-                $resultVariable->setCorrectResponse($variable->isCorrect());
-            }
-        
-            common_Logger::d("Sending Response Variable '${identifier}' to result server.");
-            try {
-                $this->getResultServer()->storeItemVariable($testUri, $itemUri, $resultVariable, $transmissionId);
-            }
-            catch (Exception $e) {
-                $msg = "An error occured while transmitting a Response Variable to the target result server.";
-                $code = taoQtiCommon_helpers_ResultTransmissionException::RESPONSE;
-                throw new taoQtiCommon_helpers_ResultTransmissionException($msg, $code);
-            }
+        try {
+            common_Logger::d("Sending Variables to result server.");
+            $this->getResultServer()->storeItemVariableSet($testUri, $itemUri, $itemVariableSet, $transmissionId);
+        }
+        catch (Exception $e) {
+            $msg = "An error occured while transmitting an Outcome Variable to the target result server.";
+            $code = taoQtiCommon_helpers_ResultTransmissionException::OUTCOME;
+            throw new taoQtiCommon_helpers_ResultTransmissionException($msg, $code);
         }
     }
     
     /**
      * Transmit a test-level QtiSm Runtime Variable to the target Result Server as a test result.
      * 
-     * @param OutcomeVariable $variable An OutcomeVariable object to be transmitted to the target Result Server.
+     * @param mixed $variable An OutcomeVariable object to be transmitted to the target Result Server.
      * @param string $transmissionId A unique identifier that identifies uniquely the visited test.
      * @param string $testUri An optional URL that identifies uniquely the test the $variable comes from.
      */
-    public function transmitTestVariable(OutcomeVariable $variable, $transmissionId, $testUri = '') {
+    public function transmitTestVariable($variable, $transmissionId, $testUri = '') {
         $resultVariable = new taoResultServer_models_classes_OutcomeVariable();
         $resultVariable->setIdentifier($variable->getIdentifier());
         $resultVariable->setBaseType(BaseType::getNameByConstant($variable->getBaseType()));
