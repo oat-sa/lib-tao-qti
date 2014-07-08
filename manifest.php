@@ -31,10 +31,10 @@ return array(
     'label' => 'QTI library',
 	'description' => 'TAO QTI common libraries',
     'license' => 'GPL-2.0',
-    'version' => '2.5',
+    'version' => '2.6',
 	'author' => 'Open Assessment Technologies',
 	'requires' => array(
-		'tao' => '*'
+		'tao' => '2.6'
 	),
 	'models' => array(
 		'http://www.tao.lu/Ontologies/TAOTest.rdf'
