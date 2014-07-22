@@ -19,8 +19,6 @@
  * 
  */
 
-require_once dirname(__FILE__) . '/../../tao/test/TaoPhpUnitTestRunner.php';
-include_once dirname(__FILE__) . '/../includes/raw_start.php';
 
 use qtism\runtime\common\Variable;
 use qtism\runtime\common\ResponseVariable;
@@ -54,7 +52,7 @@ use qtism\common\datatypes\IntOrIdentifier;
  * @package taoQtiCommon
  
  */
-class PciVariableFillerTest extends TaoPhpUnitTestRunner {
+class PciVariableFillerTest extends PHPUnit_Framework_TestCase {
 	
     /**
      * @dataProvider fillVariableProvider

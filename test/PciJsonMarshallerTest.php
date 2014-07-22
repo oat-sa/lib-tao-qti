@@ -22,8 +22,6 @@ use qtism\common\datatypes\File;
  * 
  */
 
-require_once dirname(__FILE__) . '/../../tao/test/TaoPhpUnitTestRunner.php';
-include_once dirname(__FILE__) . '/../includes/raw_start.php';
 
 /**
  *
@@ -31,7 +29,7 @@ include_once dirname(__FILE__) . '/../includes/raw_start.php';
  * @package taoQtiCommon
  * @subpackage test
  */
-class PciJsonMarshallerTest extends TaoPhpUnitTestRunner {
+class PciJsonMarshallerTest extends PHPUnit_Framework_TestCase {
 	
     private $file;
     

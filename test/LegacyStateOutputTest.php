@@ -38,16 +38,14 @@ use qtism\runtime\common\ResponseVariable;
  * 
  */
 
-require_once dirname(__FILE__) . '/../../tao/test/TaoPhpUnitTestRunner.php';
-include_once dirname(__FILE__) . '/../includes/raw_start.php';
-
+ 
 /**
  *
  * @author Jérôme Bogaerts <jerome@taotesting.com>
  * @package taoQtiCommon
  
  */
-class LegacyStateOutputTest extends TaoPhpUnitTestRunner {
+class LegacyStateOutputTest extends  PHPUnit_Framework_TestCase{
 	
     public function testStateOutputIdentifier() {
         $sO = new taoQtiCommon_helpers_LegacyStateOutput();
