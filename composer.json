@@ -26,7 +26,7 @@
 	],
 	"require" : {
 		"php" : ">=5.3.10",
-		"qtism/qtism":"dev-legacy"
+		"qtism/qtism":"~0.9"
 	},
 	"require-dev": {
 
