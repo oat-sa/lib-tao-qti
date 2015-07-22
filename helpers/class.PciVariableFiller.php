@@ -29,27 +29,25 @@ use qtism\runtime\pci\json\UnmarshallingException as PciJsonUnmarshallingExcepti
 use qtism\runtime\common\ResponseVariable;
 use qtism\runtime\common\OutcomeVariable;
 use qtism\runtime\common\OrderedContainer;
-use \OutOfBoundsException;
-use \OutOfRangeException;
 
 /**
  * The PciVariableFiller aims at providing the necessary tools to client-code that enables
  * to fill variables of a given item with values coming in a PCI JSON representation.
- * 
+ *
  * @author Jérôme Bogaerts <jerome@taotesting.com>
  *
  */
 class taoQtiCommon_helpers_PciVariableFiller extends taoQtiCommon_helpers_AbstractVariableFiller {
-    
+
     /**
      * Create a new PciVariableFiller object.
-     * 
+     *
      * @param IAssessmentItem $itemRef The item the variables to deal with belong to.
      */
     public function __construct(IAssessmentItem $itemRef) {
         parent::__construct($itemRef);
     }
-    
+
     /**
      * Fill the variable $variableName with a correctly transformed $clientSideValue.
      *
@@ -61,56 +59,56 @@ class taoQtiCommon_helpers_PciVariableFiller extends taoQtiCommon_helpers_Abstra
      */
     public function fill($variableName, $clientSideValue) {
         $variableDeclaration = $this->findVariableDeclaration($variableName);
-        
+
         if ($variableDeclaration === false) {
             $itemId = $this->getItemRef()->getIdentifier();
             $msg = "Variable declaration with identifier '${variableName}' not found in item '${itemId}'.";
-            throw new OutOfBoundsException($msg);
+            throw new \OutOfBoundsException($msg);
         }
-        
+
         // Create Runtime Variable from Data Model.
         $runtimeVar = ($variableDeclaration instanceof ResponseDeclaration) ? ResponseVariable::createFromDataModel($variableDeclaration) : OutcomeVariable::createFromDataModel($variableDeclaration);
-        
+
         // Set the data into the runtime variable thanks to the PCI JSON Unmarshaller
         // from QTISM.
         try {
             $unmarshaller = new PciJsonUnmarshaller(taoQtiCommon_helpers_Utils::getFileDatatypeManager());
             $value = $unmarshaller->unmarshall($clientSideValue);
-            
+
             // Dev's note:
             // The PCI JSON Representation format does make the difference between multiple and ordered containers.
             // We then have to juggle a bit if the target variable has ordered cardinality.
             if ($value !== null && $value->getCardinality() === Cardinality::MULTIPLE && $variableDeclaration->getCardinality() === Cardinality::ORDERED) {
                 $value = new OrderedContainer($value->getBaseType(), $value->getArrayCopy());
             }
-            
+
             $runtimeVar->setValue($value);
         }
         catch (PciJsonUnmarshallingException $e) {
             $strClientSideValue = mb_substr(var_export($clientSideValue, true), 0, 50, TAO_DEFAULT_ENCODING);
             $msg = "Unable to put value '${strClientSideValue}' into variable '${variableName}'.";
-            throw new OutOfRangeException($msg, 0, $e);
+            throw new \OutOfRangeException($msg, 0, $e);
         }
-        
+
         return $runtimeVar;
     }
-    
+
     /**
      * Get the OutcomeDeclaration/ResponseDeclaration with identifier $variableIdentifier from
      * the item.
-     * 
+     *
      * @param string $variableIdentifier A QTI identifier.
-     * @return qtism\data\state\VariableDeclaration|boolean The variable with identifier $variableIdentifier or false if it could not be found.
+     * @return \qtism\data\state\VariableDeclaration|boolean The variable with identifier $variableIdentifier or false if it could not be found.
      */
     protected function findVariableDeclaration($variableIdentifier) {
         $responseDeclarations = $this->getItemRef()->getResponseDeclarations();
-        
+
         if (isset($responseDeclarations[$variableIdentifier]) === true) {
             return $responseDeclarations[$variableIdentifier];
         }
         else {
             $outcomeDeclarations = $this->getItemRef()->getOutcomeDeclarations();
-            
+
             if (isset($outcomeDeclarations[$variableIdentifier]) === true) {
                 return $outcomeDeclarations[$variableIdentifier];
             }

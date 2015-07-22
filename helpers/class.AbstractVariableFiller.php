@@ -19,57 +19,55 @@
  */
 
 use qtism\data\IAssessmentItem;
-use \OutOfBoundsException;
-use \OutOfRangeException;
 
 /**
  * The VariableFiller provides a way to fill a QtiSm Runtime Variable with
  * a value coming from the client side. These values are always transmitted as
- * plain strings. However, we need a way to transform these string values as 
+ * plain strings. However, we need a way to transform these string values as
  * QtiSm compliant variable values. This is the goal of this class.
- * 
+ *
  * @author Jérôme Bogaerts <jerome@taotesting.com>
  *
  */
 abstract class taoQtiCommon_helpers_AbstractVariableFiller {
-    
+
     /**
      * The description of the item the variables belong to.
-     * 
+     *
      * @var IAssessmentItem
      */
     private $itemRef;
-    
+
     /**
      * Create a new VariableFiller object.
-     * 
+     *
      * @param IAssessmentItem $itemRef The item the variables you want to fill belong to.
      */
     public function __construct(IAssessmentItem $itemRef) {
         $this->setItemRef($itemRef);
     }
-    
+
     /**
      * Get the item reference the variables you want to fill belong to.
-     * 
+     *
      * @return IAssessmentItem An ExtendedAssessmentItemRef object.
      */
     protected function getItemRef() {
         return $this->itemRef;
     }
-    
+
     /**
      * Set the item reference the variables you want to fill belong to.
-     * 
-     * @param ExtendedAssessmentItemRef $itemRef An ExtendedAssessmentItemRef object.
+     *
+     * @param IAssessmentItem $itemRef An IAssessmentItem object.
      */
     protected function setItemRef(IAssessmentItem $itemRef) {
         $this->itemRef = $itemRef;
     }
-    
+
     /**
      * Fill the variable $variableName with a correctly transformed $clientSideValue.
-     * 
+     *
      * @param string $variableName The variable identifier you want to fill.
      * @param mixed $clientSideValue The value received from the client-side representing the value of the variable with identifier $variableName.
      * @return Variable A Variable object filled with a correctly transformed $clientSideValue.
