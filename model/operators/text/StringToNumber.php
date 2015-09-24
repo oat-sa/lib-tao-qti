@@ -17,7 +17,7 @@ class StringToNumber extends CustomOperatorProcessor
             $operand = $operands[0];
             
             if ($operand !== null && $operand instanceof String) {
-                $str = str_replace(array(','), '', $operand->getValue());
+                $str = str_replace(array(',', '.'), '', $operand->getValue());
                 $float = @floatval($str);
                 
                 $returnValue = new Float($float);
