@@ -32,6 +32,9 @@
 
 	},
 	"autoload": {
-		"classmap": ["helpers/"]
+		"classmap": ["helpers/"],
+        "psr-4": {
+            "qti\\customOperators\\": "model/operators/"
+        }
 	}
 }
