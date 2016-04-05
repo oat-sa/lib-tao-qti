@@ -221,7 +221,7 @@ class CountPointsThatSatisfyEquationTest extends PHPUnit_Framework_TestCase {
                     $equation
                 )
             ),
-            '<customOperator class="qti.customOperators.math.graph.CountPointsThatSatisfyEquation"><multiple><baseValue baseType="point">0 0</baseValue><baseValue baseType="integer">3</baseValue></customOperator>'
+            '<customOperator class="qti.customOperators.math.graph.CountPointsThatSatisfyEquation"><multiple><baseValue baseType="point">0 0</baseValue></multiple><baseValue baseType="integer">3</baseValue></customOperator>'
         );
         
         // --- Build Runtime Operands for PHP Runtime Model.
@@ -301,7 +301,7 @@ class CountPointsThatSatisfyEquationTest extends PHPUnit_Framework_TestCase {
                     $equation
                 )
             ),
-            '<customOperator class="qti.customOperators.math.graph.CountPointsThatSatisfyEquation"><multiple><baseValue baseType="point">0 0</baseValue><baseValue baseType="string">x = y</baseValue></customOperator>'
+            '<customOperator class="qti.customOperators.math.graph.CountPointsThatSatisfyEquation"><multiple><baseValue baseType="point">0 0</baseValue></multiple><baseValue baseType="string">x = y</baseValue></customOperator>'
         );
         
         // --- Build Runtime Operands for PHP Runtime Model.
