@@ -5,6 +5,7 @@ namespace qti\customOperators\math\graph;
 use qtism\common\enums\BaseType;
 use qtism\common\datatypes\Integer as QtismInteger;
 use qtism\common\datatypes\String as QtismString;
+use qtism\common\datatypes\Point;
 use qtism\runtime\common\MultipleContainer;
 use qtism\runtime\common\OrderedContainer;
 use qtism\runtime\expressions\operators\CustomOperatorProcessor;
@@ -20,14 +21,26 @@ class CountPointsThatSatisfyEquation extends CustomOperatorProcessor
             $points = $operands[0];
             $equation = $operands[1];
             
-            if (($points instanceof MultipleContainer || $points instanceof OrderedContainer) && $points->getBaseType() === BaseType::POINT && $equation instanceof QtismString) {
+            if (($points instanceof MultipleContainer || $points instanceof OrderedContainer) && ($points->getBaseType() === BaseType::POINT || $points->getBaseType() === BaseType::STRING) && $equation instanceof QtismString) {
                 // Check every Point X,Y against the equation...
                 $math = new \oat\beeme\Parser();
                 
                 try {
                     foreach ($points as $point) {
-                        $x = floatval($point->getX());
-                        $y = floatval($point->getY());
+                        
+                        if ($point instanceof Point) {
+                            $x = floatval($point->getX());
+                            $y = floatval($point->getY());
+                        } else {
+                            $strs = explode("\x20", $point->getValue());
+                            if (count($strs) !== 2) {
+                                // Parsing error, the NULL value is returned.
+                                return null;
+                            } else {
+                                $x = floatval($strs[0]);
+                                $y = floatval($strs[1]);
+                            }
+                        }
                         
                         $result = $math->evaluate(
                             $equation->getValue(),

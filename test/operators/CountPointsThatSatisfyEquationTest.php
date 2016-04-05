@@ -94,6 +94,60 @@ class CountPointsThatSatisfyEquationTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals(8, $result->getValue());
     }
     
+    public function testSimpleOneWithStrings() {
+        
+        // --- Build Custom Operator PHP Expression Model.
+        $points = new Multiple(
+            new ExpressionCollection(
+                array(
+                    new BaseValue(BaseType::STRING, '0 0'),
+                    new BaseValue(BaseType::STRING, '1 1'),
+                    new BaseValue(BaseType::STRING, '2 4'),
+                    new BaseValue(BaseType::STRING, '3 9'),
+                    new BaseValue(BaseType::STRING, '4 16'),
+                    new BaseValue(BaseType::STRING, '5 25'),
+                    new BaseValue(BaseType::STRING, '6 36'),
+                    new BaseValue(BaseType::STRING, '7 49'),
+                )
+            )
+        );
+        $equation = new BaseValue(BaseType::STRING, 'x ^ 2');
+        
+        $customOperator = new CustomOperator(
+            new ExpressionCollection(
+                array(
+                    $points,
+                    $equation
+                )
+            ),
+            '<customOperator class="qti.customOperators.math.graph.CountPointsThatSatisfyEquation"><multiple><baseValue baseType="string">0 0</baseValue><baseValue baseType="string">1 1</baseValue><baseValue baseType="string">2 4</baseValue><baseValue baseType="string">3 9</baseValue><baseValue baseType="string">4 16</baseValue><baseValue baseType="string">5 25</baseValue><baseValue baseType="string">6 36</baseValue><baseValue baseType="string">7 49</baseValue></multiple><baseValue baseType="string">y = x ^ 2</baseValue></customOperator>'
+        );
+        
+        // --- Build Runtime Operands for PHP Runtime Model.
+        $operands = new OperandsCollection(
+            array(
+                new MultipleContainer(
+                    BaseType::STRING,
+                    array(
+                        new String('0 0'),
+                        new String('1 1'),
+                        new String('2 4'),
+                        new String('3 9'),
+                        new String('4 16'),
+                        new String('5 25'),
+                        new String('6 36'),
+                        new String('7 49')
+                    )
+                ),
+                new String('y = x ^ 2')
+            )
+        );
+        $operator = new CountPointsThatSatisfyEquation($customOperator, $operands);
+        $result = $operator->process();
+        
+        $this->assertEquals(8, $result->getValue());
+    }
+    
     public function testSimpleTwo() {
         
         // --- Build Custom Operator PHP Expression Model.
