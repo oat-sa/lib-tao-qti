@@ -46,6 +46,27 @@ class taoQtiCommon_helpers_PciVariableFiller extends taoQtiCommon_helpers_Abstra
      */
     public function __construct(IAssessmentItem $itemRef) {
         parent::__construct($itemRef);
+        $this->fileManager = taoQtiCommon_helpers_Utils::getFileDatatypeManager();
+    }
+
+    /**
+     * Set the file manager
+     * @param FileManager $fileManager
+     * @return $this
+     */
+    public function setFileManager(FileManager $fileManager)
+    {
+        $this->fileManager = $fileManager;
+        return $this;
+    }
+
+    /**
+     * Return file manager
+     * @return FileManager
+     */
+    public function getFileManager()
+    {
+        return $this->fileManager;
     }
 
     /**
@@ -72,7 +93,7 @@ class taoQtiCommon_helpers_PciVariableFiller extends taoQtiCommon_helpers_Abstra
         // Set the data into the runtime variable thanks to the PCI JSON Unmarshaller
         // from QTISM.
         try {
-            $unmarshaller = new PciJsonUnmarshaller(taoQtiCommon_helpers_Utils::getFileDatatypeManager());
+            $unmarshaller = new PciJsonUnmarshaller($this->getFileManager());
             $value = $unmarshaller->unmarshall($clientSideValue);
 
             // Dev's note:
