@@ -20,12 +20,13 @@
 
 use qtism\common\enums\BaseType;
 use qtism\common\enums\Cardinality;
-use qtism\common\datatypes\files\FileSystemFileManager;
+use \qtism\common\datatypes\files\FileManager;
 use qtism\data\IAssessmentItem;
 use qtism\data\state\ResponseDeclaration;
 use qtism\data\state\OutcomeDeclaration;
 use qtism\runtime\pci\json\Unmarshaller as PciJsonUnmarshaller;
 use qtism\runtime\pci\json\UnmarshallingException as PciJsonUnmarshallingException;
+use qtism\runtime\common\Variable;
 use qtism\runtime\common\ResponseVariable;
 use qtism\runtime\common\OutcomeVariable;
 use qtism\runtime\common\OrderedContainer;
@@ -37,7 +38,13 @@ use qtism\runtime\common\OrderedContainer;
  * @author Jérôme Bogaerts <jerome@taotesting.com>
  *
  */
-class taoQtiCommon_helpers_PciVariableFiller extends taoQtiCommon_helpers_AbstractVariableFiller {
+class taoQtiCommon_helpers_PciVariableFiller extends taoQtiCommon_helpers_AbstractVariableFiller
+{
+
+    /**
+     * @var FileManager
+     */
+    protected $fileManager;
 
     /**
      * Create a new PciVariableFiller object.
