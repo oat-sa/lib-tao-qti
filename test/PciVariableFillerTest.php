@@ -38,7 +38,7 @@ use qtism\common\datatypes\Float;
 use qtism\common\datatypes\Identifier;
 use qtism\common\datatypes\Integer;
 use qtism\common\datatypes\Boolean;
-use qtism\common\datatypes\String;
+use qtism\common\datatypes\QtiString;
 use qtism\common\datatypes\Point;
 use qtism\common\datatypes\Pair;
 use qtism\common\datatypes\DirectedPair;
@@ -126,7 +126,7 @@ class PciVariableFillerTest extends PHPUnit_Framework_TestCase {
         $returnValue[] = array($json, $expectedVariable);
         
         $json = array('base' => array('string' => 'String!'));
-        $expectedVariable = new OutcomeVariable('OUTCOME4', Cardinality::SINGLE, BaseType::STRING, new String('String!'));
+        $expectedVariable = new OutcomeVariable('OUTCOME4', Cardinality::SINGLE, BaseType::STRING, new QtiString('String!'));
         $returnValue[] = array($json, $expectedVariable);
         
         $json = array('base' => array('point' => array(10, 10)));

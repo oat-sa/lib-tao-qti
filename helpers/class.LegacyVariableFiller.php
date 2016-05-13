@@ -20,7 +20,7 @@
 
 use qtism\data\IAssessmentItem;
 use qtism\common\datatypes\Point;
-use qtism\common\datatypes\String;
+use qtism\common\datatypes\QtiString;
 use qtism\common\datatypes\Identifier;
 use qtism\common\datatypes\Float;
 use qtism\common\datatypes\Integer;
@@ -177,7 +177,7 @@ class taoQtiCommon_helpers_LegacyVariableFiller extends taoQtiCommon_helpers_Abs
             break;
             
             case BaseType::STRING:
-                return new String($value);
+                return new QtiString($value);
             break;
             case BaseType::IDENTIFIER:
                 return ($value !== '') ? new Identifier($value) : null;

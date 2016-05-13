@@ -2,7 +2,7 @@
 
 use qtism\common\enums\BaseType;
 use qtism\common\datatypes\Point;
-use qtism\common\datatypes\String;
+use qtism\common\datatypes\QtiString;
 use qtism\common\datatypes\Integer;
 use qtism\common\datatypes\Identifier;
 use qtism\data\expressions\BaseValue;
@@ -85,7 +85,7 @@ class CountPointsThatSatisfyEquationTest extends PHPUnit_Framework_TestCase {
                         new Point(7, 49)
                     )
                 ),
-                new String('y = x ^ 2')
+                new QtiString('y = x ^ 2')
             )
         );
         $operator = new CountPointsThatSatisfyEquation($customOperator, $operands);
@@ -129,17 +129,17 @@ class CountPointsThatSatisfyEquationTest extends PHPUnit_Framework_TestCase {
                 new MultipleContainer(
                     BaseType::STRING,
                     array(
-                        new String('0 0'),
-                        new String('1 1'),
-                        new String('2 4'),
-                        new String('3 9'),
-                        new String('4 16'),
-                        new String('5 25'),
-                        new String('6 36'),
-                        new String('7 49')
+                        new QtiString('0 0'),
+                        new QtiString('1 1'),
+                        new QtiString('2 4'),
+                        new QtiString('3 9'),
+                        new QtiString('4 16'),
+                        new QtiString('5 25'),
+                        new QtiString('6 36'),
+                        new QtiString('7 49')
                     )
                 ),
-                new String('y = x ^ 2')
+                new QtiString('y = x ^ 2')
             )
         );
         $operator = new CountPointsThatSatisfyEquation($customOperator, $operands);
@@ -193,7 +193,7 @@ class CountPointsThatSatisfyEquationTest extends PHPUnit_Framework_TestCase {
                         new Point(-5, 49)
                     )
                 ),
-                new String('y = x ^ 2')
+                new QtiString('y = x ^ 2')
             )
         );
         $operator = new CountPointsThatSatisfyEquation($customOperator, $operands);
@@ -247,7 +247,7 @@ class CountPointsThatSatisfyEquationTest extends PHPUnit_Framework_TestCase {
                         new Point(-5, 49)
                     )
                 ),
-                new String('y = x ^^^^^^ 4 \ vli 2')
+                new QtiString('y = x ^^^^^^ 4 \ vli 2')
             )
         );
         $operator = new CountPointsThatSatisfyEquation($customOperator, $operands);
@@ -367,7 +367,7 @@ class CountPointsThatSatisfyEquationTest extends PHPUnit_Framework_TestCase {
                         new Identifier('0 0')
                     )
                 ),
-                new String('x = y')
+                new QtiString('x = y')
             )
         );
         $operator = new CountPointsThatSatisfyEquation($customOperator, $operands);

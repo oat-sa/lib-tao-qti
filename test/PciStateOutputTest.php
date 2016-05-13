@@ -11,7 +11,7 @@ use qtism\common\datatypes\Boolean;
 use qtism\common\datatypes\Integer;
 use qtism\common\datatypes\Float;
 use qtism\common\datatypes\Point;
-use qtism\common\datatypes\String;
+use qtism\common\datatypes\QtiString;
 use qtism\common\datatypes\Pair;
 use qtism\common\datatypes\DirectedPair;
 use qtism\common\datatypes\Duration;
@@ -133,11 +133,11 @@ class PciStateOutputTest extends PHPUnit_Framework_TestCase {
     
     public function testStateOutputString() {
         $sO = new taoQtiCommon_helpers_PciStateOutput();
-        $sO->addVariable(new ResponseVariable('RESP1', Cardinality::SINGLE, BaseType::STRING, new String('String!')));
+        $sO->addVariable(new ResponseVariable('RESP1', Cardinality::SINGLE, BaseType::STRING, new QtiString('String!')));
         $sO->addVariable(new ResponseVariable('RESP2', Cardinality::SINGLE, BaseType::STRING, null));
-        $sO->addVariable(new ResponseVariable('RESP3', Cardinality::MULTIPLE, BaseType::STRING, new MultipleContainer(BaseType::STRING, array(new String(''), new String('Hello')))));
+        $sO->addVariable(new ResponseVariable('RESP3', Cardinality::MULTIPLE, BaseType::STRING, new MultipleContainer(BaseType::STRING, array(new QtiString(''), new QtiString('Hello')))));
         $sO->addVariable(new OutcomeVariable('OUT1', Cardinality::ORDERED, BaseType::STRING, new OrderedContainer(BaseType::STRING)));
-        $sO->addVariable(new OutcomeVariable('OUT2', Cardinality::MULTIPLE, BaseType::STRING, new MultipleContainer(BaseType::STRING, array(null, new String('World')))));
+        $sO->addVariable(new OutcomeVariable('OUT2', Cardinality::MULTIPLE, BaseType::STRING, new MultipleContainer(BaseType::STRING, array(null, new QtiString('World')))));
     
         $expectedArray = array();
         $expectedArray['RESP1'] = array('base' => array('string' => 'String!'));
