@@ -1,6 +1,6 @@
 <?php
 
-use qtism\common\datatypes\File;
+use qtism\common\datatypes\QtiFile;
 
 /*  
  * This program is free software; you can redistribute it and/or
@@ -53,7 +53,7 @@ class PciJsonMarshallerTest extends PHPUnit_Framework_TestCase {
         return $this->file;
     }
     
-    protected function setFile(File $file) {
+    protected function setFile(QtiFile $file) {
         $this->file = $file;
     }
     
