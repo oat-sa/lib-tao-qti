@@ -3,7 +3,7 @@
 use qtism\common\enums\BaseType;
 use qtism\common\datatypes\Point;
 use qtism\common\datatypes\QtiString;
-use qtism\common\datatypes\Integer;
+use qtism\common\datatypes\QtiInteger;
 use qtism\common\datatypes\QtiIdentifier;
 use qtism\data\expressions\BaseValue;
 use qtism\data\expressions\NullValue;
@@ -287,7 +287,7 @@ class CountPointsThatSatisfyEquationTest extends PHPUnit_Framework_TestCase {
                         new Point(0, 0)
                     )
                 ),
-                new Integer(3)
+                new QtiInteger(3)
             )
         );
         $operator = new CountPointsThatSatisfyEquation($customOperator, $operands);

@@ -3,7 +3,7 @@
 namespace qti\customOperators\math\graph;
 
 use qtism\common\enums\BaseType;
-use qtism\common\datatypes\Integer as QtismInteger;
+use qtism\common\datatypes\QtiInteger as QtismInteger;
 use qtism\common\datatypes\QtiString as QtismString;
 use qtism\common\datatypes\Point;
 use qtism\runtime\common\MultipleContainer;
