@@ -29,7 +29,7 @@ use qtism\runtime\common\MultipleContainer;
 use qtism\runtime\common\OrderedContainer;
 use qtism\common\enums\Cardinality;
 use qtism\common\datatypes\Pair;
-use qtism\common\datatypes\DirectedPair;
+use qtism\common\datatypes\QtiDirectedPair;
 use qtism\common\enums\BaseType;
 use qtism\runtime\common\ResponseVariable;
 use qtism\runtime\common\OutcomeVariable;
@@ -154,7 +154,7 @@ class taoQtiCommon_helpers_LegacyVariableFiller extends taoQtiCommon_helpers_Abs
                     throw new OutOfRangeException($msg);
                 }
                 else {
-                    return new DirectedPair($value[0], $value[1]);
+                    return new QtiDirectedPair($value[0], $value[1]);
                 }
             break;
             

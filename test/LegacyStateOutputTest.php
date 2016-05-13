@@ -2,7 +2,7 @@
 
 use qtism\common\datatypes\Duration;
 use qtism\common\datatypes\Pair;
-use qtism\common\datatypes\DirectedPair;
+use qtism\common\datatypes\QtiDirectedPair;
 use qtism\common\datatypes\Point;
 use qtism\common\datatypes\Identifier;
 use qtism\common\datatypes\QtiBoolean;
@@ -165,10 +165,10 @@ class LegacyStateOutputTest extends  PHPUnit_Framework_TestCase{
     
     public function testStateOutputDirectedPair() {
         $sO = new taoQtiCommon_helpers_LegacyStateOutput();
-        $sO->addVariable(new ResponseVariable('RESP1', Cardinality::SINGLE, BaseType::DIRECTED_PAIR, new DirectedPair('A', 'B')));
-        $sO->addVariable(new ResponseVariable('RESP2', Cardinality::MULTIPLE, BaseType::DIRECTED_PAIR, new MultipleContainer(BaseType::DIRECTED_PAIR, array(new DirectedPair('A', 'B'), new DirectedPair('C', 'D')))));
+        $sO->addVariable(new ResponseVariable('RESP1', Cardinality::SINGLE, BaseType::DIRECTED_PAIR, new QtiDirectedPair('A', 'B')));
+        $sO->addVariable(new ResponseVariable('RESP2', Cardinality::MULTIPLE, BaseType::DIRECTED_PAIR, new MultipleContainer(BaseType::DIRECTED_PAIR, array(new QtiDirectedPair('A', 'B'), new QtiDirectedPair('C', 'D')))));
         $sO->addVariable(new OutcomeVariable('OUT1', Cardinality::ORDERED, BaseType::DIRECTED_PAIR, new OrderedContainer(BaseType::DIRECTED_PAIR)));
-        $sO->addVariable(new OutcomeVariable('OUT2', Cardinality::MULTIPLE, BaseType::DIRECTED_PAIR, new MultipleContainer(BaseType::DIRECTED_PAIR, array(new DirectedPair('A', 'B'), null, new DirectedPair('E', 'F')))));
+        $sO->addVariable(new OutcomeVariable('OUT2', Cardinality::MULTIPLE, BaseType::DIRECTED_PAIR, new MultipleContainer(BaseType::DIRECTED_PAIR, array(new QtiDirectedPair('A', 'B'), null, new QtiDirectedPair('E', 'F')))));
     
         $expectedArray = array();
         $expectedArray['RESP1'] = array(array('A', 'B'));

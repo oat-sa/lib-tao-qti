@@ -41,7 +41,7 @@ use qtism\common\datatypes\QtiBoolean;
 use qtism\common\datatypes\QtiString;
 use qtism\common\datatypes\Point;
 use qtism\common\datatypes\Pair;
-use qtism\common\datatypes\DirectedPair;
+use qtism\common\datatypes\QtiDirectedPair;
 use qtism\common\datatypes\Duration;
 use qtism\common\datatypes\Uri;
 use qtism\common\datatypes\IntOrIdentifier;
@@ -138,7 +138,7 @@ class PciVariableFillerTest extends PHPUnit_Framework_TestCase {
         $returnValue[] = array($json, $expectedVariable);
         
         $json = array('base' => array('directedPair' => array('A', 'B')));
-        $expectedVariable = new OutcomeVariable('OUTCOME7', Cardinality::SINGLE, BaseType::DIRECTED_PAIR, new DirectedPair('A', 'B'));
+        $expectedVariable = new OutcomeVariable('OUTCOME7', Cardinality::SINGLE, BaseType::DIRECTED_PAIR, new QtiDirectedPair('A', 'B'));
         $returnValue[] = array($json, $expectedVariable);
         
         $json = array('base' => array('duration' => 'PT1S'));
@@ -170,7 +170,7 @@ class PciVariableFillerTest extends PHPUnit_Framework_TestCase {
         $returnValue[] = array($json, $expectedVariable);
         
         $json = array('list' => array('directedPair' => array(array('A', 'B'), array('C', 'D'))));
-        $expectedVariable = new ResponseVariable('RESPONSE3', Cardinality::ORDERED, BaseType::DIRECTED_PAIR, new OrderedContainer(BaseType::DIRECTED_PAIR, array(new DirectedPair('A', 'B'), new DirectedPair('C', 'D'))));
+        $expectedVariable = new ResponseVariable('RESPONSE3', Cardinality::ORDERED, BaseType::DIRECTED_PAIR, new OrderedContainer(BaseType::DIRECTED_PAIR, array(new QtiDirectedPair('A', 'B'), new QtiDirectedPair('C', 'D'))));
         $returnValue[] = array($json, $expectedVariable);
         
         $json = array('record' => array());
