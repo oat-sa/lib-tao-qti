@@ -1,7 +1,7 @@
 <?php
 
 use qtism\common\enums\BaseType;
-use qtism\common\datatypes\Boolean;
+use qtism\common\datatypes\QtiBoolean;
 use qtism\common\datatypes\QtiString;
 use qtism\data\expressions\operators\CustomOperator;
 use qtism\data\expressions\ExpressionCollection;
@@ -67,7 +67,7 @@ class StringToNumberTest extends PHPUnit_Framework_TestCase {
             new ExpressionCollection(array($baseValue)),
             '<customOperator class="qti.customOperators.text.StringToNumber"><baseValue baseType="boolean">false</baseValue></customOperator>'
         );
-        $operands = new OperandsCollection(array(new Boolean(false)));
+        $operands = new OperandsCollection(array(new QtiBoolean(false)));
         $operator = new StringToNumber($customOperator, $operands);
         $result = $operator->process();
         

@@ -24,7 +24,7 @@ use qtism\common\datatypes\QtiString;
 use qtism\common\datatypes\Identifier;
 use qtism\common\datatypes\QtiFloat;
 use qtism\common\datatypes\Integer;
-use qtism\common\datatypes\Boolean;
+use qtism\common\datatypes\QtiBoolean;
 use qtism\runtime\common\MultipleContainer;
 use qtism\runtime\common\OrderedContainer;
 use qtism\common\enums\Cardinality;

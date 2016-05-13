@@ -37,7 +37,7 @@ use qtism\common\enums\Cardinality;
 use qtism\common\datatypes\QtiFloat;
 use qtism\common\datatypes\Identifier;
 use qtism\common\datatypes\Integer;
-use qtism\common\datatypes\Boolean;
+use qtism\common\datatypes\QtiBoolean;
 use qtism\common\datatypes\QtiString;
 use qtism\common\datatypes\Point;
 use qtism\common\datatypes\Pair;
@@ -122,7 +122,7 @@ class PciVariableFillerTest extends PHPUnit_Framework_TestCase {
         $returnValue[] = array($json, $expectedVariable);
         
         $json = array('base' => array('boolean' => true));
-        $expectedVariable = new OutcomeVariable('OUTCOME3', Cardinality::SINGLE, BaseType::BOOLEAN, new Boolean(true));
+        $expectedVariable = new OutcomeVariable('OUTCOME3', Cardinality::SINGLE, BaseType::BOOLEAN, new QtiBoolean(true));
         $returnValue[] = array($json, $expectedVariable);
         
         $json = array('base' => array('string' => 'String!'));
@@ -186,11 +186,11 @@ class PciVariableFillerTest extends PHPUnit_Framework_TestCase {
         $returnValue[] = array($json, $expectedVariable);
         
         $json = array('record' => array(array('name' => 'A', 'base' => array('boolean' => true)), array('name' => 'B', 'base' => null), array('name' => 'C', 'base' => array('boolean' => false))));
-        $expectedVariable = new ResponseVariable('RESPONSE7', Cardinality::RECORD, -1, new RecordContainer(array('A' => new Boolean(true), 'B' => null, 'C' => new Boolean(false))));
+        $expectedVariable = new ResponseVariable('RESPONSE7', Cardinality::RECORD, -1, new RecordContainer(array('A' => new QtiBoolean(true), 'B' => null, 'C' => new QtiBoolean(false))));
         $returnValue[] = array($json, $expectedVariable);
         
         $json = array('list' => array('boolean' => array(true, null, false)));
-        $expectedVariable = new ResponseVariable('RESPONSE8', Cardinality::MULTIPLE, BaseType::BOOLEAN, new MultipleContainer(BaseType::BOOLEAN, array(new Boolean(true), null, new Boolean(false))));
+        $expectedVariable = new ResponseVariable('RESPONSE8', Cardinality::MULTIPLE, BaseType::BOOLEAN, new MultipleContainer(BaseType::BOOLEAN, array(new QtiBoolean(true), null, new QtiBoolean(false))));
         $returnValue[] = array($json, $expectedVariable);
         
         return $returnValue;
