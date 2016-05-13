@@ -44,7 +44,7 @@ use qtism\common\datatypes\Pair;
 use qtism\common\datatypes\QtiDirectedPair;
 use qtism\common\datatypes\QtiDuration;
 use qtism\common\datatypes\Uri;
-use qtism\common\datatypes\IntOrIdentifier;
+use qtism\common\datatypes\QtiIntOrIdentifier;
 
 /**
  *
@@ -154,7 +154,7 @@ class PciVariableFillerTest extends PHPUnit_Framework_TestCase {
         $returnValue[] = array($json, $expectedVariable);
         
         $json = array('base' => array('intOrIdentifier' => 255));
-        $expectedVariable = new OutcomeVariable('OUTCOME11', Cardinality::SINGLE, BaseType::INT_OR_IDENTIFIER, new IntOrIdentifier(255));
+        $expectedVariable = new OutcomeVariable('OUTCOME11', Cardinality::SINGLE, BaseType::INT_OR_IDENTIFIER, new QtiIntOrIdentifier(255));
         $returnValue[] = array($json, $expectedVariable);
         
         $json = array('base' => null);
