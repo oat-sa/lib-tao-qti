@@ -5,7 +5,7 @@ namespace qti\customOperators\math\graph;
 use qtism\common\enums\BaseType;
 use qtism\common\datatypes\QtiInteger as QtismInteger;
 use qtism\common\datatypes\QtiString as QtismString;
-use qtism\common\datatypes\Point;
+use qtism\common\datatypes\QtiPoint;
 use qtism\runtime\common\MultipleContainer;
 use qtism\runtime\common\OrderedContainer;
 use qtism\runtime\expressions\operators\CustomOperatorProcessor;
@@ -29,7 +29,7 @@ class CountPointsThatSatisfyEquation extends CustomOperatorProcessor
                 try {
                     foreach ($points as $point) {
                         
-                        if ($point instanceof Point) {
+                        if ($point instanceof QtiPoint) {
                             $x = floatval($point->getX());
                             $y = floatval($point->getY());
                         } else {

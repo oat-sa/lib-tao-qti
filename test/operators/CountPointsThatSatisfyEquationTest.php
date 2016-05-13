@@ -1,7 +1,7 @@
 <?php
 
 use qtism\common\enums\BaseType;
-use qtism\common\datatypes\Point;
+use qtism\common\datatypes\QtiPoint;
 use qtism\common\datatypes\QtiString;
 use qtism\common\datatypes\QtiInteger;
 use qtism\common\datatypes\QtiIdentifier;
@@ -46,14 +46,14 @@ class CountPointsThatSatisfyEquationTest extends PHPUnit_Framework_TestCase {
         $points = new Multiple(
             new ExpressionCollection(
                 array(
-                    new BaseValue(BaseType::POINT, new Point(0, 0)),
-                    new BaseValue(BaseType::POINT, new Point(1, 1)),
-                    new BaseValue(BaseType::POINT, new Point(2, 4)),
-                    new BaseValue(BaseType::POINT, new Point(3, 9)),
-                    new BaseValue(BaseType::POINT, new Point(4, 16)),
-                    new BaseValue(BaseType::POINT, new Point(5, 25)),
-                    new BaseValue(BaseType::POINT, new Point(6, 36)),
-                    new BaseValue(BaseType::POINT, new Point(7, 49)),
+                    new BaseValue(BaseType::POINT, new QtiPoint(0, 0)),
+                    new BaseValue(BaseType::POINT, new QtiPoint(1, 1)),
+                    new BaseValue(BaseType::POINT, new QtiPoint(2, 4)),
+                    new BaseValue(BaseType::POINT, new QtiPoint(3, 9)),
+                    new BaseValue(BaseType::POINT, new QtiPoint(4, 16)),
+                    new BaseValue(BaseType::POINT, new QtiPoint(5, 25)),
+                    new BaseValue(BaseType::POINT, new QtiPoint(6, 36)),
+                    new BaseValue(BaseType::POINT, new QtiPoint(7, 49)),
                 )
             )
         );
@@ -75,14 +75,14 @@ class CountPointsThatSatisfyEquationTest extends PHPUnit_Framework_TestCase {
                 new MultipleContainer(
                     BaseType::POINT,
                     array(
-                        new Point(0, 0),
-                        new Point(1, 1),
-                        new Point(2, 4),
-                        new Point(3, 9),
-                        new Point(4, 16),
-                        new Point(5, 25),
-                        new Point(6, 36),
-                        new Point(7, 49)
+                        new QtiPoint(0, 0),
+                        new QtiPoint(1, 1),
+                        new QtiPoint(2, 4),
+                        new QtiPoint(3, 9),
+                        new QtiPoint(4, 16),
+                        new QtiPoint(5, 25),
+                        new QtiPoint(6, 36),
+                        new QtiPoint(7, 49)
                     )
                 ),
                 new QtiString('y = x ^ 2')
@@ -154,14 +154,14 @@ class CountPointsThatSatisfyEquationTest extends PHPUnit_Framework_TestCase {
         $points = new Multiple(
             new ExpressionCollection(
                 array(
-                    new BaseValue(BaseType::POINT, new Point(0, 0)),
-                    new BaseValue(BaseType::POINT, new Point(-1, 1)),
-                    new BaseValue(BaseType::POINT, new Point(2, 4)),
-                    new BaseValue(BaseType::POINT, new Point(3, 9)),
-                    new BaseValue(BaseType::POINT, new Point(4, 16)),
-                    new BaseValue(BaseType::POINT, new Point(5, 25)),
-                    new BaseValue(BaseType::POINT, new Point(14, 35)),
-                    new BaseValue(BaseType::POINT, new Point(-5, 49)),
+                    new BaseValue(BaseType::POINT, new QtiPoint(0, 0)),
+                    new BaseValue(BaseType::POINT, new QtiPoint(-1, 1)),
+                    new BaseValue(BaseType::POINT, new QtiPoint(2, 4)),
+                    new BaseValue(BaseType::POINT, new QtiPoint(3, 9)),
+                    new BaseValue(BaseType::POINT, new QtiPoint(4, 16)),
+                    new BaseValue(BaseType::POINT, new QtiPoint(5, 25)),
+                    new BaseValue(BaseType::POINT, new QtiPoint(14, 35)),
+                    new BaseValue(BaseType::POINT, new QtiPoint(-5, 49)),
                 )
             )
         );
@@ -183,14 +183,14 @@ class CountPointsThatSatisfyEquationTest extends PHPUnit_Framework_TestCase {
                 new MultipleContainer(
                     BaseType::POINT,
                     array(
-                        new Point(0, 0),
-                        new Point(-1, 1),
-                        new Point(2, 4),
-                        new Point(3, 9),
-                        new Point(4, 16),
-                        new Point(5, 25),
-                        new Point(14, 35),
-                        new Point(-5, 49)
+                        new QtiPoint(0, 0),
+                        new QtiPoint(-1, 1),
+                        new QtiPoint(2, 4),
+                        new QtiPoint(3, 9),
+                        new QtiPoint(4, 16),
+                        new QtiPoint(5, 25),
+                        new QtiPoint(14, 35),
+                        new QtiPoint(-5, 49)
                     )
                 ),
                 new QtiString('y = x ^ 2')
@@ -208,14 +208,14 @@ class CountPointsThatSatisfyEquationTest extends PHPUnit_Framework_TestCase {
         $points = new Multiple(
             new ExpressionCollection(
                 array(
-                    new BaseValue(BaseType::POINT, new Point(0, 0)),
-                    new BaseValue(BaseType::POINT, new Point(-1, 1)),
-                    new BaseValue(BaseType::POINT, new Point(2, 4)),
-                    new BaseValue(BaseType::POINT, new Point(3, 9)),
-                    new BaseValue(BaseType::POINT, new Point(4, 16)),
-                    new BaseValue(BaseType::POINT, new Point(5, 25)),
-                    new BaseValue(BaseType::POINT, new Point(14, 35)),
-                    new BaseValue(BaseType::POINT, new Point(-5, 49)),
+                    new BaseValue(BaseType::POINT, new QtiPoint(0, 0)),
+                    new BaseValue(BaseType::POINT, new QtiPoint(-1, 1)),
+                    new BaseValue(BaseType::POINT, new QtiPoint(2, 4)),
+                    new BaseValue(BaseType::POINT, new QtiPoint(3, 9)),
+                    new BaseValue(BaseType::POINT, new QtiPoint(4, 16)),
+                    new BaseValue(BaseType::POINT, new QtiPoint(5, 25)),
+                    new BaseValue(BaseType::POINT, new QtiPoint(14, 35)),
+                    new BaseValue(BaseType::POINT, new QtiPoint(-5, 49)),
                 )
             )
         );
@@ -237,14 +237,14 @@ class CountPointsThatSatisfyEquationTest extends PHPUnit_Framework_TestCase {
                 new MultipleContainer(
                     BaseType::POINT,
                     array(
-                        new Point(0, 0),
-                        new Point(-1, 1),
-                        new Point(2, 4),
-                        new Point(3, 9),
-                        new Point(4, 16),
-                        new Point(5, 25),
-                        new Point(14, 35),
-                        new Point(-5, 49)
+                        new QtiPoint(0, 0),
+                        new QtiPoint(-1, 1),
+                        new QtiPoint(2, 4),
+                        new QtiPoint(3, 9),
+                        new QtiPoint(4, 16),
+                        new QtiPoint(5, 25),
+                        new QtiPoint(14, 35),
+                        new QtiPoint(-5, 49)
                     )
                 ),
                 new QtiString('y = x ^^^^^^ 4 \ vli 2')
@@ -262,7 +262,7 @@ class CountPointsThatSatisfyEquationTest extends PHPUnit_Framework_TestCase {
         $points = new Multiple(
             new ExpressionCollection(
                 array(
-                    new BaseValue(BaseType::POINT, new Point(0, 0))
+                    new BaseValue(BaseType::POINT, new QtiPoint(0, 0))
                 )
             )
         );
@@ -284,7 +284,7 @@ class CountPointsThatSatisfyEquationTest extends PHPUnit_Framework_TestCase {
                 new MultipleContainer(
                     BaseType::POINT,
                     array(
-                        new Point(0, 0)
+                        new QtiPoint(0, 0)
                     )
                 ),
                 new QtiInteger(3)
@@ -302,7 +302,7 @@ class CountPointsThatSatisfyEquationTest extends PHPUnit_Framework_TestCase {
         $points = new Multiple(
             new ExpressionCollection(
                 array(
-                    new BaseValue(BaseType::POINT, new Point(0, 0))
+                    new BaseValue(BaseType::POINT, new QtiPoint(0, 0))
                 )
             )
         );
@@ -324,7 +324,7 @@ class CountPointsThatSatisfyEquationTest extends PHPUnit_Framework_TestCase {
                 new MultipleContainer(
                     BaseType::POINT,
                     array(
-                        new Point(0, 0)
+                        new QtiPoint(0, 0)
                     )
                 ),
                 null

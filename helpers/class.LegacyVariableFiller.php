@@ -19,7 +19,7 @@
  */
 
 use qtism\data\IAssessmentItem;
-use qtism\common\datatypes\Point;
+use qtism\common\datatypes\QtiPoint;
 use qtism\common\datatypes\QtiString;
 use qtism\common\datatypes\QtiIdentifier;
 use qtism\common\datatypes\QtiFloat;
@@ -205,7 +205,7 @@ class taoQtiCommon_helpers_LegacyVariableFiller extends taoQtiCommon_helpers_Abs
                     throw new OutOfRangeException($msg);
                 }
                 else {
-                    return new Point(intval($value[0]), intval($value[1]));
+                    return new QtiPoint(intval($value[0]), intval($value[1]));
                 }
             break;
             

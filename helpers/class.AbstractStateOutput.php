@@ -22,7 +22,7 @@ use qtism\common\datatypes\QtiPair;
 use qtism\common\enums\BaseType;
 use qtism\common\enums\Cardinality;
 use qtism\runtime\common\Variable;
-use qtism\common\datatypes\Point;
+use qtism\common\datatypes\QtiPoint;
 
 /**
  * This helper class gives a way to build a State (a collection of variables)

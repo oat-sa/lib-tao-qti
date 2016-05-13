@@ -10,7 +10,7 @@ use qtism\common\datatypes\QtiIdentifier;
 use qtism\common\datatypes\QtiBoolean;
 use qtism\common\datatypes\QtiInteger;
 use qtism\common\datatypes\QtiFloat;
-use qtism\common\datatypes\Point;
+use qtism\common\datatypes\QtiPoint;
 use qtism\common\datatypes\QtiString;
 use qtism\common\datatypes\QtiPair;
 use qtism\common\datatypes\QtiDirectedPair;
@@ -117,10 +117,10 @@ class PciStateOutputTest extends PHPUnit_Framework_TestCase {
     
     public function testStateOutputPoint() {
         $sO = new taoQtiCommon_helpers_PciStateOutput();
-        $sO->addVariable(new ResponseVariable('RESP1', Cardinality::SINGLE, BaseType::POINT, new Point(0, 0)));
-        $sO->addVariable(new ResponseVariable('RESP2', Cardinality::MULTIPLE, BaseType::POINT, new MultipleContainer(BaseType::POINT, array(new Point(-3, 5), new Point(13, 37)))));
+        $sO->addVariable(new ResponseVariable('RESP1', Cardinality::SINGLE, BaseType::POINT, new QtiPoint(0, 0)));
+        $sO->addVariable(new ResponseVariable('RESP2', Cardinality::MULTIPLE, BaseType::POINT, new MultipleContainer(BaseType::POINT, array(new QtiPoint(-3, 5), new QtiPoint(13, 37)))));
         $sO->addVariable(new OutcomeVariable('OUT1', Cardinality::ORDERED, BaseType::POINT, new OrderedContainer(BaseType::POINT)));
-        $sO->addVariable(new OutcomeVariable('OUT2', Cardinality::MULTIPLE, BaseType::POINT, new MultipleContainer(BaseType::POINT, array(new Point(0, 0), null, new Point(2, 3)))));
+        $sO->addVariable(new OutcomeVariable('OUT2', Cardinality::MULTIPLE, BaseType::POINT, new MultipleContainer(BaseType::POINT, array(new QtiPoint(0, 0), null, new QtiPoint(2, 3)))));
     
         $expectedArray = array();
         $expectedArray['RESP1'] = array('base' => array('point' => array(0, 0)));
@@ -239,7 +239,7 @@ class PciStateOutputTest extends PHPUnit_Framework_TestCase {
         $sO = new taoQtiCommon_helpers_PciStateOutput();
         $sO->addVariable(new ResponseVariable('RESP1', Cardinality::RECORD, -1, new RecordContainer(array('A' => new QtiDuration('PT1S')))));
         $sO->addVariable(new ResponseVariable('RESP2', Cardinality::RECORD));
-        $sO->addVariable(new ResponseVariable('RESP3', Cardinality::RECORD, -1, new RecordContainer(array('A' => new Point(1, 2), 'B' => new QtiFloat(13.37)))));
+        $sO->addVariable(new ResponseVariable('RESP3', Cardinality::RECORD, -1, new RecordContainer(array('A' => new QtiPoint(1, 2), 'B' => new QtiFloat(13.37)))));
         $sO->addVariable(new OutcomeVariable('OUT1', Cardinality::RECORD, -1, new RecordContainer(array('A' => null, 'B' => new QtiInteger(23), 'C' => null,  'D' => new QtiInteger(23)))));
         
         $expectedArray = array();
