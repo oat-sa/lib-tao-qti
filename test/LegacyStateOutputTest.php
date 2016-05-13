@@ -7,7 +7,7 @@ use qtism\common\datatypes\Point;
 use qtism\common\datatypes\Identifier;
 use qtism\common\datatypes\Boolean;
 use qtism\common\datatypes\Integer;
-use qtism\common\datatypes\Float;
+use qtism\common\datatypes\QtiFloat;
 use qtism\common\datatypes\QtiString;
 use qtism\common\datatypes\Uri;
 use qtism\common\datatypes\IntOrIdentifier;
@@ -97,10 +97,10 @@ class LegacyStateOutputTest extends  PHPUnit_Framework_TestCase{
     
     public function testStateOutputFloat() {
         $sO = new taoQtiCommon_helpers_LegacyStateOutput();
-        $sO->addVariable(new ResponseVariable('RESP1', Cardinality::SINGLE, BaseType::FLOAT, new Float(0.0)));
-        $sO->addVariable(new ResponseVariable('RESP2', Cardinality::MULTIPLE, BaseType::FLOAT, new MultipleContainer(BaseType::FLOAT, array(new Float(-13.65), new Float(1337.1)))));
+        $sO->addVariable(new ResponseVariable('RESP1', Cardinality::SINGLE, BaseType::FLOAT, new QtiFloat(0.0)));
+        $sO->addVariable(new ResponseVariable('RESP2', Cardinality::MULTIPLE, BaseType::FLOAT, new MultipleContainer(BaseType::FLOAT, array(new QtiFloat(-13.65), new QtiFloat(1337.1)))));
         $sO->addVariable(new OutcomeVariable('OUT1', Cardinality::ORDERED, BaseType::FLOAT, new OrderedContainer(BaseType::FLOAT)));
-        $sO->addVariable(new OutcomeVariable('OUT2', Cardinality::MULTIPLE, BaseType::FLOAT, new MultipleContainer(BaseType::FLOAT, array(null, new Float(-466.3)))));
+        $sO->addVariable(new OutcomeVariable('OUT2', Cardinality::MULTIPLE, BaseType::FLOAT, new MultipleContainer(BaseType::FLOAT, array(null, new QtiFloat(-466.3)))));
         $sO->addVariable(new OutcomeVariable('OUT3', Cardinality::ORDERED, BaseType::FLOAT, null));
     
         $expectedArray = array();
