@@ -15,7 +15,7 @@ use qtism\common\datatypes\QtiString;
 use qtism\common\datatypes\QtiPair;
 use qtism\common\datatypes\QtiDirectedPair;
 use qtism\common\datatypes\QtiDuration;
-use qtism\common\datatypes\Uri;
+use qtism\common\datatypes\QtiUri;
 use qtism\common\datatypes\QtiIntOrIdentifier;
 use qtism\common\enums\Cardinality;
 use qtism\common\enums\BaseType;
@@ -201,11 +201,11 @@ class PciStateOutputTest extends PHPUnit_Framework_TestCase {
     
     public function testStateOutputUri() {
         $sO = new taoQtiCommon_helpers_PciStateOutput();
-        $sO->addVariable(new ResponseVariable('RESP1', Cardinality::SINGLE, BaseType::URI, new Uri('http://bit.ly')));
+        $sO->addVariable(new ResponseVariable('RESP1', Cardinality::SINGLE, BaseType::URI, new QtiUri('http://bit.ly')));
         $sO->addVariable(new ResponseVariable('RESP2', Cardinality::SINGLE, BaseType::URI, null));
-        $sO->addVariable(new ResponseVariable('RESP3', Cardinality::MULTIPLE, BaseType::URI, new MultipleContainer(BaseType::URI, array(new Uri('http://bit.lu'), new Uri('https://bit.ly')))));
+        $sO->addVariable(new ResponseVariable('RESP3', Cardinality::MULTIPLE, BaseType::URI, new MultipleContainer(BaseType::URI, array(new QtiUri('http://bit.lu'), new QtiUri('https://bit.ly')))));
         $sO->addVariable(new OutcomeVariable('OUT1', Cardinality::ORDERED, BaseType::URI, new OrderedContainer(BaseType::URI)));
-        $sO->addVariable(new OutcomeVariable('OUT2', Cardinality::MULTIPLE, BaseType::URI, new MultipleContainer(BaseType::URI, array(new Uri('http://bit.ly'), null))));
+        $sO->addVariable(new OutcomeVariable('OUT2', Cardinality::MULTIPLE, BaseType::URI, new MultipleContainer(BaseType::URI, array(new QtiUri('http://bit.ly'), null))));
     
         $expectedArray = array();
         $expectedArray['RESP1'] = array('base' => array('uri' => 'http://bit.ly'));
