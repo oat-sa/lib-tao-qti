@@ -6,7 +6,7 @@ use qtism\runtime\common\OrderedContainer;
 use qtism\runtime\common\RecordContainer;
 use qtism\runtime\common\ResponseVariable;
 use qtism\runtime\common\OutcomeVariable;
-use qtism\common\datatypes\Identifier;
+use qtism\common\datatypes\QtiIdentifier;
 use qtism\common\datatypes\QtiBoolean;
 use qtism\common\datatypes\Integer;
 use qtism\common\datatypes\QtiFloat;
@@ -51,10 +51,10 @@ class PciStateOutputTest extends PHPUnit_Framework_TestCase {
 	
     public function testStateOutputIdentifier() {
         $sO = new taoQtiCommon_helpers_PciStateOutput();
-        $sO->addVariable(new ResponseVariable('RESP1', Cardinality::SINGLE, BaseType::IDENTIFIER, new Identifier('ChoiceA')));
-        $sO->addVariable(new ResponseVariable('RESP2', Cardinality::MULTIPLE, BaseType::IDENTIFIER, new MultipleContainer(BaseType::IDENTIFIER, array(new Identifier('ChoiceA'), new Identifier('ChoiceB')))));
+        $sO->addVariable(new ResponseVariable('RESP1', Cardinality::SINGLE, BaseType::IDENTIFIER, new QtiIdentifier('ChoiceA')));
+        $sO->addVariable(new ResponseVariable('RESP2', Cardinality::MULTIPLE, BaseType::IDENTIFIER, new MultipleContainer(BaseType::IDENTIFIER, array(new QtiIdentifier('ChoiceA'), new QtiIdentifier('ChoiceB')))));
         $sO->addVariable(new OutcomeVariable('OUT1', Cardinality::ORDERED, BaseType::IDENTIFIER, new OrderedContainer(BaseType::IDENTIFIER)));
-        $sO->addVariable(new OutcomeVariable('OUT2', Cardinality::MULTIPLE, BaseType::IDENTIFIER, new MultipleContainer(BaseType::IDENTIFIER, array(null, new Identifier('ChoiceC')))));
+        $sO->addVariable(new OutcomeVariable('OUT2', Cardinality::MULTIPLE, BaseType::IDENTIFIER, new MultipleContainer(BaseType::IDENTIFIER, array(null, new QtiIdentifier('ChoiceC')))));
         
         $expectedArray = array();
         $expectedArray['RESP1'] = array('base' => array('identifier' => 'ChoiceA'));

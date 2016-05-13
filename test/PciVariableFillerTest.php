@@ -35,7 +35,7 @@ use qtism\data\state\ResponseDeclaration;
 use qtism\common\enums\BaseType;
 use qtism\common\enums\Cardinality;
 use qtism\common\datatypes\QtiFloat;
-use qtism\common\datatypes\Identifier;
+use qtism\common\datatypes\QtiIdentifier;
 use qtism\common\datatypes\Integer;
 use qtism\common\datatypes\QtiBoolean;
 use qtism\common\datatypes\QtiString;
@@ -150,7 +150,7 @@ class PciVariableFillerTest extends PHPUnit_Framework_TestCase {
         $returnValue[] = array($json, $expectedVariable);
         
         $json = array('base' => array('identifier' => 'ChoiceB'));
-        $expectedVariable = new OutcomeVariable('OUTCOME10', Cardinality::SINGLE, BaseType::IDENTIFIER, new Identifier('ChoiceB'));
+        $expectedVariable = new OutcomeVariable('OUTCOME10', Cardinality::SINGLE, BaseType::IDENTIFIER, new QtiIdentifier('ChoiceB'));
         $returnValue[] = array($json, $expectedVariable);
         
         $json = array('base' => array('intOrIdentifier' => 255));
@@ -162,11 +162,11 @@ class PciVariableFillerTest extends PHPUnit_Framework_TestCase {
         $returnValue[] = array($json, $expectedVariable);
         
         $json = array('base' => array('identifier' => 'ChoiceA'));
-        $expectedVariable = new ResponseVariable('RESPONSE1', Cardinality::SINGLE, BaseType::IDENTIFIER, new Identifier('ChoiceA'));
+        $expectedVariable = new ResponseVariable('RESPONSE1', Cardinality::SINGLE, BaseType::IDENTIFIER, new QtiIdentifier('ChoiceA'));
         $returnValue[] = array($json, $expectedVariable);
         
         $json = array('list' => array('identifier' => array('ChoiceA', 'ChoiceC')));
-        $expectedVariable = new ResponseVariable('RESPONSE2', Cardinality::MULTIPLE, BaseType::IDENTIFIER, new MultipleContainer(BaseType::IDENTIFIER, array(new Identifier('ChoiceA'), new Identifier('ChoiceC'))));
+        $expectedVariable = new ResponseVariable('RESPONSE2', Cardinality::MULTIPLE, BaseType::IDENTIFIER, new MultipleContainer(BaseType::IDENTIFIER, array(new QtiIdentifier('ChoiceA'), new QtiIdentifier('ChoiceC'))));
         $returnValue[] = array($json, $expectedVariable);
         
         $json = array('list' => array('directedPair' => array(array('A', 'B'), array('C', 'D'))));
@@ -178,7 +178,7 @@ class PciVariableFillerTest extends PHPUnit_Framework_TestCase {
         $returnValue[] = array($json, $expectedVariable);
         
         $json = array('record' => array(array('name' => 'A', 'base' => array('identifier' => 'ChoiceA')), array('name' => 'B', 'base' => array('identifier' => 'ChoiceB'))));
-        $expectedVariable = new ResponseVariable('RESPONSE5', Cardinality::RECORD, -1, new RecordContainer(array('A' => new Identifier('ChoiceA'), 'B' => new Identifier('ChoiceB'))));
+        $expectedVariable = new ResponseVariable('RESPONSE5', Cardinality::RECORD, -1, new RecordContainer(array('A' => new QtiIdentifier('ChoiceA'), 'B' => new QtiIdentifier('ChoiceB'))));
         $returnValue[] = array($json, $expectedVariable);
         
         $json = array('record' => array(array('name' => 'A', 'base' => null)));

@@ -4,7 +4,7 @@ use qtism\common\datatypes\QtiDuration;
 use qtism\common\datatypes\Pair;
 use qtism\common\datatypes\QtiDirectedPair;
 use qtism\common\datatypes\Point;
-use qtism\common\datatypes\Identifier;
+use qtism\common\datatypes\QtiIdentifier;
 use qtism\common\datatypes\QtiBoolean;
 use qtism\common\datatypes\Integer;
 use qtism\common\datatypes\QtiFloat;
@@ -49,10 +49,10 @@ class LegacyStateOutputTest extends  PHPUnit_Framework_TestCase{
 	
     public function testStateOutputIdentifier() {
         $sO = new taoQtiCommon_helpers_LegacyStateOutput();
-        $sO->addVariable(new ResponseVariable('RESP1', Cardinality::SINGLE, BaseType::IDENTIFIER, new Identifier('ChoiceA')));
-        $sO->addVariable(new ResponseVariable('RESP2', Cardinality::MULTIPLE, BaseType::IDENTIFIER, new MultipleContainer(BaseType::IDENTIFIER, array(new Identifier('ChoiceA'), new Identifier('ChoiceB')))));
+        $sO->addVariable(new ResponseVariable('RESP1', Cardinality::SINGLE, BaseType::IDENTIFIER, new QtiIdentifier('ChoiceA')));
+        $sO->addVariable(new ResponseVariable('RESP2', Cardinality::MULTIPLE, BaseType::IDENTIFIER, new MultipleContainer(BaseType::IDENTIFIER, array(new QtiIdentifier('ChoiceA'), new QtiIdentifier('ChoiceB')))));
         $sO->addVariable(new OutcomeVariable('OUT1', Cardinality::ORDERED, BaseType::IDENTIFIER, new OrderedContainer(BaseType::IDENTIFIER)));
-        $sO->addVariable(new OutcomeVariable('OUT2', Cardinality::MULTIPLE, BaseType::IDENTIFIER, new MultipleContainer(BaseType::IDENTIFIER, array(null, new Identifier('ChoiceC')))));
+        $sO->addVariable(new OutcomeVariable('OUT2', Cardinality::MULTIPLE, BaseType::IDENTIFIER, new MultipleContainer(BaseType::IDENTIFIER, array(null, new QtiIdentifier('ChoiceC')))));
 
         $expectedArray = array();
         $expectedArray['RESP1'] = array('ChoiceA');

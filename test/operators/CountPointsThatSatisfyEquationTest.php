@@ -4,7 +4,7 @@ use qtism\common\enums\BaseType;
 use qtism\common\datatypes\Point;
 use qtism\common\datatypes\QtiString;
 use qtism\common\datatypes\Integer;
-use qtism\common\datatypes\Identifier;
+use qtism\common\datatypes\QtiIdentifier;
 use qtism\data\expressions\BaseValue;
 use qtism\data\expressions\NullValue;
 use qtism\data\expressions\operators\CustomOperator;
@@ -364,7 +364,7 @@ class CountPointsThatSatisfyEquationTest extends PHPUnit_Framework_TestCase {
                 new MultipleContainer(
                     BaseType::IDENTIFIER,
                     array(
-                        new Identifier('0 0')
+                        new QtiIdentifier('0 0')
                     )
                 ),
                 new QtiString('x = y')
