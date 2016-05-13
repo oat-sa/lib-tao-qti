@@ -14,7 +14,7 @@ use qtism\common\datatypes\Point;
 use qtism\common\datatypes\QtiString;
 use qtism\common\datatypes\Pair;
 use qtism\common\datatypes\QtiDirectedPair;
-use qtism\common\datatypes\Duration;
+use qtism\common\datatypes\QtiDuration;
 use qtism\common\datatypes\Uri;
 use qtism\common\datatypes\IntOrIdentifier;
 use qtism\common\enums\Cardinality;
@@ -183,11 +183,11 @@ class PciStateOutputTest extends PHPUnit_Framework_TestCase {
     
     public function testStateOutputDuration() {
         $sO = new taoQtiCommon_helpers_PciStateOutput();
-        $sO->addVariable(new ResponseVariable('RESP1', Cardinality::SINGLE, BaseType::DURATION, new Duration('P3DT24M')));
+        $sO->addVariable(new ResponseVariable('RESP1', Cardinality::SINGLE, BaseType::DURATION, new QtiDuration('P3DT24M')));
         $sO->addVariable(new ResponseVariable('RESP2', Cardinality::SINGLE, BaseType::DURATION, null));
-        $sO->addVariable(new ResponseVariable('RESP3', Cardinality::MULTIPLE, BaseType::DURATION, new MultipleContainer(BaseType::DURATION, array(new Duration('PT0S'), new Duration('PT1M')))));
+        $sO->addVariable(new ResponseVariable('RESP3', Cardinality::MULTIPLE, BaseType::DURATION, new MultipleContainer(BaseType::DURATION, array(new QtiDuration('PT0S'), new QtiDuration('PT1M')))));
         $sO->addVariable(new OutcomeVariable('OUT1', Cardinality::ORDERED, BaseType::DURATION, new OrderedContainer(BaseType::DURATION)));
-        $sO->addVariable(new OutcomeVariable('OUT2', Cardinality::MULTIPLE, BaseType::DURATION, new MultipleContainer(BaseType::DURATION, array(null, new Duration('P3DT23S'), null))));
+        $sO->addVariable(new OutcomeVariable('OUT2', Cardinality::MULTIPLE, BaseType::DURATION, new MultipleContainer(BaseType::DURATION, array(null, new QtiDuration('P3DT23S'), null))));
     
         $expectedArray = array();
         $expectedArray['RESP1'] = array('base' => array('duration' => 'P3DT24M'));
@@ -237,7 +237,7 @@ class PciStateOutputTest extends PHPUnit_Framework_TestCase {
     
     public function testStateOutputRecord() {
         $sO = new taoQtiCommon_helpers_PciStateOutput();
-        $sO->addVariable(new ResponseVariable('RESP1', Cardinality::RECORD, -1, new RecordContainer(array('A' => new Duration('PT1S')))));
+        $sO->addVariable(new ResponseVariable('RESP1', Cardinality::RECORD, -1, new RecordContainer(array('A' => new QtiDuration('PT1S')))));
         $sO->addVariable(new ResponseVariable('RESP2', Cardinality::RECORD));
         $sO->addVariable(new ResponseVariable('RESP3', Cardinality::RECORD, -1, new RecordContainer(array('A' => new Point(1, 2), 'B' => new QtiFloat(13.37)))));
         $sO->addVariable(new OutcomeVariable('OUT1', Cardinality::RECORD, -1, new RecordContainer(array('A' => null, 'B' => new Integer(23), 'C' => null,  'D' => new Integer(23)))));

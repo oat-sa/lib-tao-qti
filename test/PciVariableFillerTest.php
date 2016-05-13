@@ -42,7 +42,7 @@ use qtism\common\datatypes\QtiString;
 use qtism\common\datatypes\Point;
 use qtism\common\datatypes\Pair;
 use qtism\common\datatypes\QtiDirectedPair;
-use qtism\common\datatypes\Duration;
+use qtism\common\datatypes\QtiDuration;
 use qtism\common\datatypes\Uri;
 use qtism\common\datatypes\IntOrIdentifier;
 
@@ -142,7 +142,7 @@ class PciVariableFillerTest extends PHPUnit_Framework_TestCase {
         $returnValue[] = array($json, $expectedVariable);
         
         $json = array('base' => array('duration' => 'PT1S'));
-        $expectedVariable = new OutcomeVariable('OUTCOME8', Cardinality::SINGLE, BaseType::DURATION, new Duration('PT1S'));
+        $expectedVariable = new OutcomeVariable('OUTCOME8', Cardinality::SINGLE, BaseType::DURATION, new QtiDuration('PT1S'));
         $returnValue[] = array($json, $expectedVariable);
         
         $json = array('base' => array('uri' => 'http://www.taotesting.com'));
