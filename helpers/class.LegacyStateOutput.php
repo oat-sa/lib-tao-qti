@@ -20,7 +20,7 @@
  *
  */
 
-use qtism\common\datatypes\Pair;
+use qtism\common\datatypes\QtiPair;
 use qtism\common\enums\BaseType;
 use qtism\common\enums\Cardinality;
 use qtism\runtime\common\Variable;
@@ -138,7 +138,7 @@ class taoQtiCommon_helpers_LegacyStateOutput extends taoQtiCommon_helpers_Abstra
             else if ($val instanceof Point) {
                 $output[$varName][] = array('' . $val->getX(), '' . $val->getY());
             }
-            else if ($val instanceof Pair) {
+            else if ($val instanceof QtiPair) {
                 $output[$varName][] = array($val->getFirst(), $val->getSecond());
             }
             else if (gettype($val) === 'object') {
