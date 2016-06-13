@@ -20,11 +20,11 @@
  *
  */
 
-use qtism\common\datatypes\Pair;
+use qtism\common\datatypes\QtiPair;
 use qtism\common\enums\BaseType;
 use qtism\common\enums\Cardinality;
 use qtism\runtime\common\Variable;
-use qtism\common\datatypes\Point;
+use qtism\common\datatypes\QtiPoint;
 
 /**
  * This helper class gives a way to build a State (a collection of variables)
@@ -135,10 +135,10 @@ class taoQtiCommon_helpers_LegacyStateOutput extends taoQtiCommon_helpers_Abstra
             else if (gettype($val) === 'boolean') {
                 $output[$varName][] = ($val === true) ? 'true' : 'false';
             }
-            else if ($val instanceof Point) {
+            else if ($val instanceof QtiPoint) {
                 $output[$varName][] = array('' . $val->getX(), '' . $val->getY());
             }
-            else if ($val instanceof Pair) {
+            else if ($val instanceof QtiPair) {
                 $output[$varName][] = array($val->getFirst(), $val->getSecond());
             }
             else if (gettype($val) === 'object') {

@@ -34,17 +34,17 @@ use qtism\data\state\ResponseDeclarationCollection;
 use qtism\data\state\ResponseDeclaration;
 use qtism\common\enums\BaseType;
 use qtism\common\enums\Cardinality;
-use qtism\common\datatypes\Float;
-use qtism\common\datatypes\Identifier;
-use qtism\common\datatypes\Integer;
-use qtism\common\datatypes\Boolean;
-use qtism\common\datatypes\String;
-use qtism\common\datatypes\Point;
-use qtism\common\datatypes\Pair;
-use qtism\common\datatypes\DirectedPair;
-use qtism\common\datatypes\Duration;
-use qtism\common\datatypes\Uri;
-use qtism\common\datatypes\IntOrIdentifier;
+use qtism\common\datatypes\QtiFloat;
+use qtism\common\datatypes\QtiIdentifier;
+use qtism\common\datatypes\QtiInteger;
+use qtism\common\datatypes\QtiBoolean;
+use qtism\common\datatypes\QtiString;
+use qtism\common\datatypes\QtiPoint;
+use qtism\common\datatypes\QtiPair;
+use qtism\common\datatypes\QtiDirectedPair;
+use qtism\common\datatypes\QtiDuration;
+use qtism\common\datatypes\QtiUri;
+use qtism\common\datatypes\QtiIntOrIdentifier;
 
 /**
  *
@@ -114,47 +114,47 @@ class PciVariableFillerTest extends PHPUnit_Framework_TestCase {
         $returnValue = array();
         
         $json = array('base' => array('float' => 13.37));
-        $expectedVariable = new OutcomeVariable('OUTCOME1', Cardinality::SINGLE, BaseType::FLOAT, new Float(13.37));
+        $expectedVariable = new OutcomeVariable('OUTCOME1', Cardinality::SINGLE, BaseType::FLOAT, new QtiFloat(13.37));
         $returnValue[] = array($json, $expectedVariable);
         
         $json = array('base' => array('integer' => 10));
-        $expectedVariable = new OutcomeVariable('OUTCOME2', Cardinality::SINGLE, BaseType::INTEGER, new Integer(10));
+        $expectedVariable = new OutcomeVariable('OUTCOME2', Cardinality::SINGLE, BaseType::INTEGER, new QtiInteger(10));
         $returnValue[] = array($json, $expectedVariable);
         
         $json = array('base' => array('boolean' => true));
-        $expectedVariable = new OutcomeVariable('OUTCOME3', Cardinality::SINGLE, BaseType::BOOLEAN, new Boolean(true));
+        $expectedVariable = new OutcomeVariable('OUTCOME3', Cardinality::SINGLE, BaseType::BOOLEAN, new QtiBoolean(true));
         $returnValue[] = array($json, $expectedVariable);
         
         $json = array('base' => array('string' => 'String!'));
-        $expectedVariable = new OutcomeVariable('OUTCOME4', Cardinality::SINGLE, BaseType::STRING, new String('String!'));
+        $expectedVariable = new OutcomeVariable('OUTCOME4', Cardinality::SINGLE, BaseType::STRING, new QtiString('String!'));
         $returnValue[] = array($json, $expectedVariable);
         
         $json = array('base' => array('point' => array(10, 10)));
-        $expectedVariable = new OutcomeVariable('OUTCOME5', Cardinality::SINGLE, BaseType::POINT, new Point(10, 10));
+        $expectedVariable = new OutcomeVariable('OUTCOME5', Cardinality::SINGLE, BaseType::POINT, new QtiPoint(10, 10));
         $returnValue[] = array($json, $expectedVariable);
         
         $json = array('base' => array('pair' => array('A', 'B')));
-        $expectedVariable = new OutcomeVariable('OUTCOME6', Cardinality::SINGLE, BaseType::PAIR, new Pair('A', 'B'));
+        $expectedVariable = new OutcomeVariable('OUTCOME6', Cardinality::SINGLE, BaseType::PAIR, new QtiPair('A', 'B'));
         $returnValue[] = array($json, $expectedVariable);
         
         $json = array('base' => array('directedPair' => array('A', 'B')));
-        $expectedVariable = new OutcomeVariable('OUTCOME7', Cardinality::SINGLE, BaseType::DIRECTED_PAIR, new DirectedPair('A', 'B'));
+        $expectedVariable = new OutcomeVariable('OUTCOME7', Cardinality::SINGLE, BaseType::DIRECTED_PAIR, new QtiDirectedPair('A', 'B'));
         $returnValue[] = array($json, $expectedVariable);
         
         $json = array('base' => array('duration' => 'PT1S'));
-        $expectedVariable = new OutcomeVariable('OUTCOME8', Cardinality::SINGLE, BaseType::DURATION, new Duration('PT1S'));
+        $expectedVariable = new OutcomeVariable('OUTCOME8', Cardinality::SINGLE, BaseType::DURATION, new QtiDuration('PT1S'));
         $returnValue[] = array($json, $expectedVariable);
         
         $json = array('base' => array('uri' => 'http://www.taotesting.com'));
-        $expectedVariable = new OutcomeVariable('OUTCOME9', Cardinality::SINGLE, BaseType::URI, new Uri('http://www.taotesting.com'));
+        $expectedVariable = new OutcomeVariable('OUTCOME9', Cardinality::SINGLE, BaseType::URI, new QtiUri('http://www.taotesting.com'));
         $returnValue[] = array($json, $expectedVariable);
         
         $json = array('base' => array('identifier' => 'ChoiceB'));
-        $expectedVariable = new OutcomeVariable('OUTCOME10', Cardinality::SINGLE, BaseType::IDENTIFIER, new Identifier('ChoiceB'));
+        $expectedVariable = new OutcomeVariable('OUTCOME10', Cardinality::SINGLE, BaseType::IDENTIFIER, new QtiIdentifier('ChoiceB'));
         $returnValue[] = array($json, $expectedVariable);
         
         $json = array('base' => array('intOrIdentifier' => 255));
-        $expectedVariable = new OutcomeVariable('OUTCOME11', Cardinality::SINGLE, BaseType::INT_OR_IDENTIFIER, new IntOrIdentifier(255));
+        $expectedVariable = new OutcomeVariable('OUTCOME11', Cardinality::SINGLE, BaseType::INT_OR_IDENTIFIER, new QtiIntOrIdentifier(255));
         $returnValue[] = array($json, $expectedVariable);
         
         $json = array('base' => null);
@@ -162,15 +162,15 @@ class PciVariableFillerTest extends PHPUnit_Framework_TestCase {
         $returnValue[] = array($json, $expectedVariable);
         
         $json = array('base' => array('identifier' => 'ChoiceA'));
-        $expectedVariable = new ResponseVariable('RESPONSE1', Cardinality::SINGLE, BaseType::IDENTIFIER, new Identifier('ChoiceA'));
+        $expectedVariable = new ResponseVariable('RESPONSE1', Cardinality::SINGLE, BaseType::IDENTIFIER, new QtiIdentifier('ChoiceA'));
         $returnValue[] = array($json, $expectedVariable);
         
         $json = array('list' => array('identifier' => array('ChoiceA', 'ChoiceC')));
-        $expectedVariable = new ResponseVariable('RESPONSE2', Cardinality::MULTIPLE, BaseType::IDENTIFIER, new MultipleContainer(BaseType::IDENTIFIER, array(new Identifier('ChoiceA'), new Identifier('ChoiceC'))));
+        $expectedVariable = new ResponseVariable('RESPONSE2', Cardinality::MULTIPLE, BaseType::IDENTIFIER, new MultipleContainer(BaseType::IDENTIFIER, array(new QtiIdentifier('ChoiceA'), new QtiIdentifier('ChoiceC'))));
         $returnValue[] = array($json, $expectedVariable);
         
         $json = array('list' => array('directedPair' => array(array('A', 'B'), array('C', 'D'))));
-        $expectedVariable = new ResponseVariable('RESPONSE3', Cardinality::ORDERED, BaseType::DIRECTED_PAIR, new OrderedContainer(BaseType::DIRECTED_PAIR, array(new DirectedPair('A', 'B'), new DirectedPair('C', 'D'))));
+        $expectedVariable = new ResponseVariable('RESPONSE3', Cardinality::ORDERED, BaseType::DIRECTED_PAIR, new OrderedContainer(BaseType::DIRECTED_PAIR, array(new QtiDirectedPair('A', 'B'), new QtiDirectedPair('C', 'D'))));
         $returnValue[] = array($json, $expectedVariable);
         
         $json = array('record' => array());
@@ -178,7 +178,7 @@ class PciVariableFillerTest extends PHPUnit_Framework_TestCase {
         $returnValue[] = array($json, $expectedVariable);
         
         $json = array('record' => array(array('name' => 'A', 'base' => array('identifier' => 'ChoiceA')), array('name' => 'B', 'base' => array('identifier' => 'ChoiceB'))));
-        $expectedVariable = new ResponseVariable('RESPONSE5', Cardinality::RECORD, -1, new RecordContainer(array('A' => new Identifier('ChoiceA'), 'B' => new Identifier('ChoiceB'))));
+        $expectedVariable = new ResponseVariable('RESPONSE5', Cardinality::RECORD, -1, new RecordContainer(array('A' => new QtiIdentifier('ChoiceA'), 'B' => new QtiIdentifier('ChoiceB'))));
         $returnValue[] = array($json, $expectedVariable);
         
         $json = array('record' => array(array('name' => 'A', 'base' => null)));
@@ -186,11 +186,11 @@ class PciVariableFillerTest extends PHPUnit_Framework_TestCase {
         $returnValue[] = array($json, $expectedVariable);
         
         $json = array('record' => array(array('name' => 'A', 'base' => array('boolean' => true)), array('name' => 'B', 'base' => null), array('name' => 'C', 'base' => array('boolean' => false))));
-        $expectedVariable = new ResponseVariable('RESPONSE7', Cardinality::RECORD, -1, new RecordContainer(array('A' => new Boolean(true), 'B' => null, 'C' => new Boolean(false))));
+        $expectedVariable = new ResponseVariable('RESPONSE7', Cardinality::RECORD, -1, new RecordContainer(array('A' => new QtiBoolean(true), 'B' => null, 'C' => new QtiBoolean(false))));
         $returnValue[] = array($json, $expectedVariable);
         
         $json = array('list' => array('boolean' => array(true, null, false)));
-        $expectedVariable = new ResponseVariable('RESPONSE8', Cardinality::MULTIPLE, BaseType::BOOLEAN, new MultipleContainer(BaseType::BOOLEAN, array(new Boolean(true), null, new Boolean(false))));
+        $expectedVariable = new ResponseVariable('RESPONSE8', Cardinality::MULTIPLE, BaseType::BOOLEAN, new MultipleContainer(BaseType::BOOLEAN, array(new QtiBoolean(true), null, new QtiBoolean(false))));
         $returnValue[] = array($json, $expectedVariable);
         
         return $returnValue;

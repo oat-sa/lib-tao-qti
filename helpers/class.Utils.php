@@ -19,7 +19,7 @@
  */
 
 use qtism\common\datatypes\files\FileSystemFileManager;
-use qtism\common\datatypes\File;
+use qtism\common\datatypes\QtiFile;
 use qtism\common\enums\BaseType;
 use qtism\common\enums\Cardinality;
 use qtism\runtime\common\Variable;
@@ -90,7 +90,7 @@ class taoQtiCommon_helpers_Utils {
      * @param File $file
      * @return string
      */
-    static public function qtiFileToString(File $file) {
+    static public function qtiFileToString(QtiFile $file) {
         $string = '';
         $filename = $file->getFilename();
         $mimetype = $file->getMimeType();

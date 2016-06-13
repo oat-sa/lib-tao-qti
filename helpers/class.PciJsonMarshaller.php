@@ -19,7 +19,7 @@
  */
 
 use qtism\runtime\pci\json\Marshaller;
-use qtism\common\datatypes\File;
+use qtism\common\datatypes\QtiFile;
 
 /**
  * This specialization of the QTISM JSON PCI Marshaller aims at marshalling
@@ -65,7 +65,7 @@ class taoQtiCommon_helpers_PciJsonMarshaller extends Marshaller {
      * @param File $file
      * @return array
      */
-    protected function marshallFile(File $file) {
+    protected function marshallFile(QtiFile $file) {
         return array('base' => array('file' => array('mime' => self::FILE_PLACEHOLDER_MIMETYPE, 'data' => base64_encode(self::FILE_PLACEHOLDER_DATA))));
     }
 }
