@@ -26,7 +26,7 @@
 	"require" : {
 		"php" : ">=5.3.10",
 		"qtism/qtism":"~0.10.0",
-        "oat-sa/lib-beeme": "0.0.0"
+	        "oat-sa/lib-beeme": "~0.0.0"
 	},
 	"require-dev": {
         "phpunit/PHPUnit": ">=3.7.20"
