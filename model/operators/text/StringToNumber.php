@@ -2,8 +2,8 @@
 
 namespace qti\customOperators\text;
 
-use qtism\common\datatypes\String as QtismString;
-use qtism\common\datatypes\Float as QtismFloat;
+use qtism\common\datatypes\QtiString as QtismString;
+use qtism\common\datatypes\QtiFloat as QtismFloat;
 use qtism\runtime\expressions\operators\CustomOperatorProcessor;
 
 class StringToNumber extends CustomOperatorProcessor

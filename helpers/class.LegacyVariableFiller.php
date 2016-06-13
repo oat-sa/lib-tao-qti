@@ -19,17 +19,17 @@
  */
 
 use qtism\data\IAssessmentItem;
-use qtism\common\datatypes\Point;
-use qtism\common\datatypes\String;
-use qtism\common\datatypes\Identifier;
-use qtism\common\datatypes\Float;
-use qtism\common\datatypes\Integer;
-use qtism\common\datatypes\Boolean;
+use qtism\common\datatypes\QtiPoint;
+use qtism\common\datatypes\QtiString;
+use qtism\common\datatypes\QtiIdentifier;
+use qtism\common\datatypes\QtiFloat;
+use qtism\common\datatypes\QtiInteger;
+use qtism\common\datatypes\QtiBoolean;
 use qtism\runtime\common\MultipleContainer;
 use qtism\runtime\common\OrderedContainer;
 use qtism\common\enums\Cardinality;
-use qtism\common\datatypes\Pair;
-use qtism\common\datatypes\DirectedPair;
+use qtism\common\datatypes\QtiPair;
+use qtism\common\datatypes\QtiDirectedPair;
 use qtism\common\enums\BaseType;
 use qtism\runtime\common\ResponseVariable;
 use qtism\runtime\common\OutcomeVariable;
@@ -154,7 +154,7 @@ class taoQtiCommon_helpers_LegacyVariableFiller extends taoQtiCommon_helpers_Abs
                     throw new OutOfRangeException($msg);
                 }
                 else {
-                    return new DirectedPair($value[0], $value[1]);
+                    return new QtiDirectedPair($value[0], $value[1]);
                 }
             break;
             
@@ -172,23 +172,23 @@ class taoQtiCommon_helpers_LegacyVariableFiller extends taoQtiCommon_helpers_Abs
                     throw new OutOfRangeException($msg);
                 }
                 else {
-                    return new Pair($value[0], $value[1]);
+                    return new QtiPair($value[0], $value[1]);
                 }
             break;
             
             case BaseType::STRING:
-                return new String($value);
+                return new QtiString($value);
             break;
             case BaseType::IDENTIFIER:
-                return ($value !== '') ? new Identifier($value) : null;
+                return ($value !== '') ? new QtiIdentifier($value) : null;
             break;
             
             case BaseType::INTEGER:
-                return ($value !== '') ? new Integer(intval($value)) : null;
+                return ($value !== '') ? new QtiInteger(intval($value)) : null;
             break;
             
             case BaseType::FLOAT:
-                return ($value !== '') ? new Float(floatval($value)) : null;
+                return ($value !== '') ? new QtiFloat(floatval($value)) : null;
             break;
             
             case BaseType::POINT:
@@ -205,7 +205,7 @@ class taoQtiCommon_helpers_LegacyVariableFiller extends taoQtiCommon_helpers_Abs
                     throw new OutOfRangeException($msg);
                 }
                 else {
-                    return new Point(intval($value[0]), intval($value[1]));
+                    return new QtiPoint(intval($value[0]), intval($value[1]));
                 }
             break;
             

@@ -21,7 +21,7 @@
 
 use qtism\common\enums\BaseType;
 use qtism\common\enums\Cardinality;
-use qtism\common\datatypes\File;
+use qtism\common\datatypes\QtiFile;
 use qtism\runtime\common\Variable;
 use qtism\runtime\common\OutcomeVariable;
 use qtism\runtime\common\ResponseVariable;
@@ -168,7 +168,7 @@ class taoQtiCommon_helpers_ResultTransmitter {
     private static function transformValue($value) {
         if (gettype($value) === 'object') {
             
-            if ($value instanceof File) {
+            if ($value instanceof QtiFile) {
                 return taoQtiCommon_helpers_Utils::qtiFileToString($value);
             }
             else {
