@@ -23,6 +23,7 @@ use qtism\common\datatypes\QtiFile;
 use qtism\common\datatypes\QtiIdentifier;
 use qtism\common\datatypes\QtiPair;
 use qtism\common\datatypes\QtiDirectedPair;
+use qtism\common\datatypes\QtiBoolean;
 use qtism\common\enums\BaseType;
 use qtism\common\enums\Cardinality;
 use qtism\runtime\common\Variable;
@@ -162,7 +163,7 @@ class taoQtiCommon_helpers_Utils {
      * on result's $cardinality and $baseType.
      * 
      * Note: at the present time, this implementation only supports 'single', 'multiple', and 'ordered' cardinality in conjunction
-     * with the 'identifier', 'pair' or 'directedPair' baseType.
+     * with the 'identifier', 'boolean', 'pair' or 'directedPair' baseType.
      * 
      * @param string $cardinality i.e. 'ordered', 'multiple' or 'single'.
      * @param string $basetype i.e. 'identifier'
@@ -174,7 +175,7 @@ class taoQtiCommon_helpers_Utils {
         // @todo support all baseTypes
         $datatype = null;
         
-        if (is_string($value) && empty($value) === false && $cardinality !== 'record' && ($basetype === 'identifier' || $basetype === 'pair' || $basetype === 'directedPair')) {
+        if (is_string($value) && empty($value) === false && $cardinality !== 'record' && ($basetype === 'identifier' || $basetype === 'pair' || $basetype === 'directedPair' || $basetype === 'boolean')) {
             if ($cardinality !== 'simple') {
                 $value = trim($value, "<>[]");
                 $value = explode(',', $value);
@@ -213,6 +214,16 @@ class taoQtiCommon_helpers_Utils {
                             $pair = explode("\x20", $val);
                             if (count($pair) === 2) {
                                 $datatype[] = new QtiDirectedPair($pair[0], $pair[1]);
+                            }
+                            break;
+                            
+                        case 'boolean':
+                            if ($val === 'true') {
+                                $datatype[] = new QtiBoolean(true);
+                            } elseif ($val === 'false') {
+                                $datatype[] = new QtiBoolean(false);
+                            } else {
+                                $datatype[] = new QtiBoolean($val);
                             }
                             break;
                     }
