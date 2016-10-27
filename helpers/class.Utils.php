@@ -14,15 +14,21 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  *
- * Copyright (c) 2014 (original work) Open Assessment Technologies SA (under the project TAO-PRODUCT);
+ * Copyright (c) 2014-2016 (original work) Open Assessment Technologies SA (under the project TAO-PRODUCT);
  *
  */
 
 use qtism\common\datatypes\files\FileSystemFileManager;
 use qtism\common\datatypes\QtiFile;
+use qtism\common\datatypes\QtiIdentifier;
+use qtism\common\datatypes\QtiPair;
+use qtism\common\datatypes\QtiDirectedPair;
+use qtism\common\datatypes\QtiBoolean;
 use qtism\common\enums\BaseType;
 use qtism\common\enums\Cardinality;
 use qtism\runtime\common\Variable;
+use qtism\runtime\common\MultipleContainer;
+use qtism\runtime\common\OrderedContainer;
 
 /**
  * A class aiming at providing utility methods for the taoQtiCommon
@@ -148,5 +154,88 @@ class taoQtiCommon_helpers_Utils {
         $nullConsideration = ($considerNull === true) ? true : $variable->getValue() !== null;
         
         return $correctBaseType === true && $correctCardinality === true && $nullConsideration === true;
+    }
+    
+    /**
+     * Transform a TAO serialized result value to its QtiDatatype equivalent.
+     * 
+     * This method transforms a TAO serialized result $value to a the equivalent QtiDatatype depending
+     * on result's $cardinality and $baseType.
+     * 
+     * Note: at the present time, this implementation only supports 'single', 'multiple', and 'ordered' cardinality in conjunction
+     * with the 'identifier', 'boolean', 'pair' or 'directedPair' baseType.
+     * 
+     * @param string $cardinality i.e. 'ordered', 'multiple' or 'single'.
+     * @param string $basetype i.e. 'identifier'
+     * @param string $value A TAO serialized result value e.g. '<choice1 choice2 choice3>'
+     * @return mixed A QtiDatatype object or null in case of no possibility to transform $value in the appropriate target $cardinality and $basetype.
+     */
+    static public function toQtiDatatype($cardinality, $basetype, $value)
+    {
+        // @todo support all baseTypes
+        $datatype = null;
+        
+        if (is_string($value) && empty($value) === false && $cardinality !== 'record' && ($basetype === 'identifier' || $basetype === 'pair' || $basetype === 'directedPair' || $basetype === 'boolean')) {
+            if ($cardinality !== 'simple') {
+                $value = trim($value, "<>[]");
+                $value = explode(',', $value);
+            } else {
+                $value = array($value);
+            }
+            
+            if (count($value) === 1 && empty($value[0]) === true) {
+                $value = array();
+            }
+            
+            $value = array_map(
+                function($val) {
+                    return trim($val);
+                },
+                $value
+            );
+            
+            $qtiBasetype = BaseType::getConstantByName($basetype);
+            $datatype = ($cardinality === 'ordered') ? new OrderedContainer($qtiBasetype) : new MultipleContainer($qtiBasetype);
+            foreach ($value as $val) {
+                try {
+                    switch ($basetype) {
+                        case 'identifier':
+                            $datatype[] = new QtiIdentifier($val);
+                            break;
+                            
+                        case 'pair':
+                            $pair = explode("\x20", $val);
+                            if (count($pair) === 2) {
+                                $datatype[] = new QtiPair($pair[0], $pair[1]);
+                            }
+                            break;
+                            
+                        case 'directedPair':
+                            $pair = explode("\x20", $val);
+                            if (count($pair) === 2) {
+                                $datatype[] = new QtiDirectedPair($pair[0], $pair[1]);
+                            }
+                            break;
+                            
+                        case 'boolean':
+                            if ($val === 'true') {
+                                $datatype[] = new QtiBoolean(true);
+                            } elseif ($val === 'false') {
+                                $datatype[] = new QtiBoolean(false);
+                            } else {
+                                $datatype[] = new QtiBoolean($val);
+                            }
+                            break;
+                    }
+                } catch (InvalidArgumentException $e) {
+                    $datatype = null;
+                    break;
+                }
+            }
+            
+            $datatype = ($cardinality === 'single') ? (isset($datatype[0]) ? $datatype[0] : null) : $datatype;
+        }
+        
+        return $datatype;
     }
 }
