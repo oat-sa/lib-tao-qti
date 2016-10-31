@@ -178,7 +178,7 @@ class taoQtiCommon_helpers_Utils {
         if (is_string($value) && empty($value) === false && $cardinality !== 'record' && ($basetype === 'identifier' || $basetype === 'pair' || $basetype === 'directedPair' || $basetype === 'boolean')) {
             if ($cardinality !== 'simple') {
                 $value = trim($value, "<>[]");
-                $value = explode(',', $value);
+                $value = explode(';', $value);
             } else {
                 $value = array($value);
             }
