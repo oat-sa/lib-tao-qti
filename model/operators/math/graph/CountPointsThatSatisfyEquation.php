@@ -23,7 +23,7 @@ class CountPointsThatSatisfyEquation extends CustomOperatorProcessor
             
             if (($points instanceof MultipleContainer || $points instanceof OrderedContainer) && ($points->getBaseType() === BaseType::POINT || $points->getBaseType() === BaseType::STRING) && $equation instanceof QtismString) {
                 // Check every Point X,Y against the equation...
-                $math = new \oat\beeme\Parser();
+                $math = new \oat\beeme\Parser(['comparisonPrecision' => 9]);
                 $math->setConstant('#pi', M_PI);
                 
                 try {
