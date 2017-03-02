@@ -18,7 +18,7 @@
  *
  */
 
-use qtism\common\datatypes\files\FileSystemFileManager;
+
 use qtism\common\datatypes\QtiFile;
 use qtism\common\datatypes\QtiIdentifier;
 use qtism\common\datatypes\QtiPair;
@@ -71,16 +71,6 @@ class taoQtiCommon_helpers_Utils {
         @fclose($fp);
         
         return @json_decode($payload, true);
-    }
-    
-    /**
-     * Get an instance of QTISM FileManager that makes you able
-     * to deal with the QTI File datatype in a persistent way.
-     * 
-     * @return \qtism\common\datatypes\files\FileManager
-     */
-    static public function getFileDatatypeManager() {
-        return new FileSystemFileManager();
     }
     
     /**

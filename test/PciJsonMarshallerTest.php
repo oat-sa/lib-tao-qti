@@ -1,6 +1,7 @@
 <?php
 
 use qtism\common\datatypes\QtiFile;
+use qtism\common\datatypes\files\FileSystemFileManager;
 
 /*  
  * This program is free software; you can redistribute it and/or
@@ -36,7 +37,7 @@ class PciJsonMarshallerTest extends PHPUnit_Framework_TestCase {
     public function setUp() {
         parent::setUp();
         
-        $fileManager = taoQtiCommon_helpers_Utils::getFileDatatypeManager();
+        $fileManager = new FileSystemFileManager();
         $file = $fileManager->createFromData('Some text', 'text/plain');
         $this->setFile($file);
     }
@@ -44,7 +45,7 @@ class PciJsonMarshallerTest extends PHPUnit_Framework_TestCase {
     public function tearDown() {
         parent::tearDown();
         
-        $fileManager = taoQtiCommon_helpers_Utils::getFileDatatypeManager();
+        $fileManager = new FileSystemFileManager();
         $file = $this->getFile();
         $fileManager->delete($file);
     }

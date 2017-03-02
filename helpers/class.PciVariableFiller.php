@@ -20,6 +20,7 @@
 
 use qtism\common\enums\BaseType;
 use qtism\common\enums\Cardinality;
+use qtism\common\datatypes\files\FileManager;
 use qtism\common\datatypes\files\FileSystemFileManager;
 use qtism\data\IAssessmentItem;
 use qtism\data\state\ResponseDeclaration;
@@ -39,13 +40,17 @@ use qtism\runtime\common\OrderedContainer;
  */
 class taoQtiCommon_helpers_PciVariableFiller extends taoQtiCommon_helpers_AbstractVariableFiller {
 
+
+    private $fileManager;
+
     /**
      * Create a new PciVariableFiller object.
      *
      * @param IAssessmentItem $itemRef The item the variables to deal with belong to.
      */
-    public function __construct(IAssessmentItem $itemRef) {
+    public function __construct(IAssessmentItem $itemRef, FileManager $fileManager = null) {
         parent::__construct($itemRef);
+        $this->fileManager = ($fileManager === null) ? new FileSystemFileManager() : $fileManager;
     }
 
     /**
@@ -72,7 +77,7 @@ class taoQtiCommon_helpers_PciVariableFiller extends taoQtiCommon_helpers_Abstra
         // Set the data into the runtime variable thanks to the PCI JSON Unmarshaller
         // from QTISM.
         try {
-            $unmarshaller = new PciJsonUnmarshaller(taoQtiCommon_helpers_Utils::getFileDatatypeManager());
+            $unmarshaller = new PciJsonUnmarshaller($this->fileManager);
             $value = $unmarshaller->unmarshall($clientSideValue);
 
             // Dev's note:
