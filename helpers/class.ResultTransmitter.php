@@ -81,10 +81,10 @@ class taoQtiCommon_helpers_ResultTransmitter {
      */
     public function transmitItemVariable($variables, $transmissionId, $itemUri = '', $testUri = '') {
         
-        $itemVariableSet = array();
+        $itemVariableSet = [];
         
         if (is_array($variables) === false) {
-            $variables = array($variables);
+            $variables = [$variables];
         }
         
         foreach ($variables as $variable) {
@@ -122,11 +122,11 @@ class taoQtiCommon_helpers_ResultTransmitter {
         }
         
         try {
-            common_Logger::d("Sending Variables to result server.");
+            common_Logger::d("Sending Item Variables to result server.");
             $this->getResultServer()->storeItemVariableSet($testUri, $itemUri, $itemVariableSet, $transmissionId);
         }
         catch (Exception $e) {
-            $msg = "An error occured while transmitting an Outcome Variable to the target result server.";
+            $msg = "An error occured while transmitting one or more Outcome/Response Variable(s) to the target result server.";
             $code = taoQtiCommon_helpers_ResultTransmissionException::OUTCOME;
             throw new taoQtiCommon_helpers_ResultTransmissionException($msg, $code);
         }
@@ -135,24 +135,36 @@ class taoQtiCommon_helpers_ResultTransmitter {
     /**
      * Transmit a test-level QtiSm Runtime Variable to the target Result Server as a test result.
      * 
-     * @param mixed $variable An OutcomeVariable object to be transmitted to the target Result Server.
+     * @param mixed $variables An OutcomeVariable object (or an OutcomeVariable array) to be transmitted to the target Result Server.
      * @param string $transmissionId A unique identifier that identifies uniquely the visited test.
      * @param string $testUri An optional URL that identifies uniquely the test the $variable comes from.
      */
-    public function transmitTestVariable($variable, $transmissionId, $testUri = '') {
-        $resultVariable = new taoResultServer_models_classes_OutcomeVariable();
-        $resultVariable->setIdentifier($variable->getIdentifier());
-        $resultVariable->setBaseType(BaseType::getNameByConstant($variable->getBaseType()));
-        $resultVariable->setCardinality(Cardinality::getNameByConstant($variable->getCardinality()));
+    public function transmitTestVariable($variables, $transmissionId, $testUri = '') {
         
-        $value = $variable->getValue();
-        $resultVariable->setValue(self::transformValue($value));
+        $testVariableSet = [];
+        
+        if (!is_array($variables)) {
+            $variables = [$variables];
+        }
+        
+        foreach ($variables as $variable) {
+            $resultVariable = new taoResultServer_models_classes_OutcomeVariable();
+            $resultVariable->setIdentifier($variable->getIdentifier());
+            $resultVariable->setBaseType(BaseType::getNameByConstant($variable->getBaseType()));
+            $resultVariable->setCardinality(Cardinality::getNameByConstant($variable->getCardinality()));
+            
+            $value = $variable->getValue();
+            $resultVariable->setValue(self::transformValue($value));
+            
+            $testVariableSet[] = $resultVariable;
+        }
         
         try {
-            $this->getResultServer()->storeTestVariable($testUri, $resultVariable, $transmissionId);
+            common_Logger::d("Sending Test Variables to result server.");
+            $this->getResultServer()->storeTestVariableSet($testUri, $testVariableSet, $transmissionId);
         }
         catch (Exception $e) {
-            $msg = "An error occured while transmitting a Response Variable to the target result server.";
+            $msg = "An error occured while transmitting one or more Outcome Variable(s) to the target result server.";
             $code = taoQtiCommon_helpers_ResultTransmissionException::OUTCOME;
             throw new taoQtiCommon_helpers_ResultTransmissionException($msg, $code);
         }
