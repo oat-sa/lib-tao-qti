@@ -47,7 +47,7 @@ class taoQtiCommon_helpers_ResultTransmitter {
      *
      * @param $service
      */
-    public function __construct($service) {
+    public function __construct(\oat\taoResultServer\models\classes\ResultServerService $service) {
         $this->setResultService($service);
     }
 
@@ -56,7 +56,7 @@ class taoQtiCommon_helpers_ResultTransmitter {
      *
      * @param  $resultService
      */
-    protected function setResultService($resultService) {
+    protected function setResultService(\oat\taoResultServer\models\classes\ResultServerService $resultService) {
         $this->resultService = $resultService;
     }
 
