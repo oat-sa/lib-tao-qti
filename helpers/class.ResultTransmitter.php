@@ -123,7 +123,7 @@ class taoQtiCommon_helpers_ResultTransmitter {
         try {
             common_Logger::d("Sending Item Variables to result server.");
             $executionIdentifier = $this->getSessionFromTransmission($transmissionId);
-            $this->getResultService()->getResultServer($executionIdentifier)->getStorageInterface()->storeItemVariables($executionIdentifier, $testUri, $itemUri, $itemVariableSet, $transmissionId);
+            $this->getResultService()->storeItemVariables($executionIdentifier, $testUri, $itemUri, $itemVariableSet, $transmissionId);
         }
         catch (Exception $e) {
             $msg = "An error occured while transmitting one or more Outcome/Response Variable(s) to the target result server.";
@@ -162,7 +162,7 @@ class taoQtiCommon_helpers_ResultTransmitter {
         try {
             common_Logger::d("Sending Test Variables to result server.");
             $executionIdentifier = $this->getSessionFromTransmission($transmissionId);
-            $this->getResultService()->getResultServer($executionIdentifier)->getStorageInterface()->storeTestVariables($executionIdentifier, $testUri, $testVariableSet, $transmissionId);
+            $this->getResultService()->storeTestVariables($executionIdentifier, $testUri, $testVariableSet, $transmissionId);
         }
         catch (Exception $e) {
             $msg = "An error occured while transmitting one or more Outcome Variable(s) to the target result server.";
