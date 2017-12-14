@@ -19,6 +19,7 @@
  *
  */
 
+use oat\taoResultServer\models\classes\ResultServerService;
 use qtism\common\enums\BaseType;
 use qtism\common\enums\Cardinality;
 use qtism\common\datatypes\QtiFile;
@@ -38,7 +39,7 @@ class taoQtiCommon_helpers_ResultTransmitter {
     /**
      * be transmitted to.
      *
-     * @var \oat\taoResultServer\models\classes\ResultServerService
+     * @var ResultServerService
      */
     private $resultService;
 
@@ -47,7 +48,7 @@ class taoQtiCommon_helpers_ResultTransmitter {
      *
      * @param $service
      */
-    public function __construct(\oat\taoResultServer\models\classes\ResultServerService $service) {
+    public function __construct(ResultServerService $service) {
         $this->setResultService($service);
     }
 
@@ -56,14 +57,14 @@ class taoQtiCommon_helpers_ResultTransmitter {
      *
      * @param  $resultService
      */
-    protected function setResultService(\oat\taoResultServer\models\classes\ResultServerService $resultService) {
+    protected function setResultService(ResultServerService $resultService) {
         $this->resultService = $resultService;
     }
 
     /**
      * Get the StateFull result server where the variables will be transmitted to.
      *
-     * @return \oat\taoResultServer\models\classes\ResultServerService
+     * @return ResultServerService
      */
     protected function getResultService() {
         return $this->resultService;
