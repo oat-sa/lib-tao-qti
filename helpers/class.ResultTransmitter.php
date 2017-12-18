@@ -19,12 +19,12 @@
  *
  */
 
+use oat\taoResultServer\models\classes\ResultStorageWrapper;
 use qtism\common\enums\BaseType;
 use qtism\common\enums\Cardinality;
 use qtism\common\datatypes\QtiFile;
 use qtism\runtime\common\OutcomeVariable;
 use qtism\runtime\common\ResponseVariable;
-use taoResultServer_models_classes_WritableResultStorage as WritableStorage;
 
 /**
  * The ResultTransmitter class provides a way to transmit easily
@@ -38,7 +38,7 @@ class taoQtiCommon_helpers_ResultTransmitter {
     /**
      * be transmitted to.
      *
-     * @var WritableStorage
+     * @var ResultStorageWrapper
      */
     private $resultStorage;
 
@@ -47,23 +47,23 @@ class taoQtiCommon_helpers_ResultTransmitter {
      *
      * @param $storage
      */
-    public function __construct(WritableStorage $storage) {
+    public function __construct(ResultStorageWrapper $storage) {
         $this->setResultStorage($storage);
     }
 
     /**
-     * Set the StateFull result server object where the variables will be transmitted to.
+     * Set the result server object where the variables will be transmitted to.
      *
      * @param $storage
      */
-    protected function setResultStorage(WritableStorage $storage) {
+    protected function setResultStorage(ResultStorageWrapper $storage) {
         $this->resultStorage = $storage;
     }
 
     /**
      * Get the StateFull result server where the variables will be transmitted to.
      *
-     * @return WritableStorage
+     * @return ResultStorageWrapper
      */
     protected function getResultStorage() {
         return $this->resultStorage;
@@ -122,8 +122,7 @@ class taoQtiCommon_helpers_ResultTransmitter {
 
         try {
             common_Logger::d("Sending Item Variables to result server.");
-            $executionIdentifier = $this->getSessionFromTransmission($transmissionId);
-            $this->getResultStorage()->storeItemVariables($executionIdentifier, $testUri, $itemUri, $itemVariableSet, $transmissionId);
+            $this->getResultStorage()->storeItemVariables('', $testUri, $itemUri, $itemVariableSet, $transmissionId);
         }
         catch (Exception $e) {
             $msg = "An error occured while transmitting one or more Outcome/Response Variable(s) to the target result server.";
@@ -161,8 +160,7 @@ class taoQtiCommon_helpers_ResultTransmitter {
 
         try {
             common_Logger::d("Sending Test Variables to result server.");
-            $executionIdentifier = $this->getSessionFromTransmission($transmissionId);
-            $this->getResultStorage()->storeTestVariables($executionIdentifier, $testUri, $testVariableSet, $transmissionId);
+            $this->getResultStorage()->storeTestVariables('', $testUri, $testVariableSet, $transmissionId);
         }
         catch (Exception $e) {
             $msg = "An error occured while transmitting one or more Outcome Variable(s) to the target result server.";
@@ -193,13 +191,4 @@ class taoQtiCommon_helpers_ResultTransmitter {
         }
     }
 
-    /**
-     * @param $transmission
-     * @return string
-     */
-    private function getSessionFromTransmission($transmission){
-        //@TODO replace compatible to \oat\taoQtiTest\models\runner\QtiRunnerService::getTransmissionId
-        $x = explode('.', $transmission);
-        return count($x) == 3 ? $x[0] : $x[0] . '.' . $x[1];
-    }
 }
