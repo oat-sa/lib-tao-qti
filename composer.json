@@ -25,7 +25,7 @@
     ],
     "require" : {
         "php" : ">=5.3.10",
-        "qtism/qtism":"0.14.1",
+        "qtism/qtism":"0.15.0",
         "oat-sa/lib-beeme": "~0.0.0"
     },
     "require-dev": {
