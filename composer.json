@@ -25,7 +25,7 @@
     ],
     "require" : {
         "php" : "~7.0",
-        "qtism/qtism": "dev-feature/tca-666/aria-attributes-legacy",
+        "qtism/qtism": "0.21.0",
         "oat-sa/lib-beeme": "~0.0.0"
     },
     "require-dev": {
