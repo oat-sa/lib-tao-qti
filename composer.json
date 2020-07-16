@@ -25,11 +25,11 @@
     ],
     "require" : {
         "php" : "~7.0",
-        "qtism/qtism": "0.19.4",
+        "qtism/qtism": "0.21.0",
         "oat-sa/lib-beeme": "~0.0.0"
     },
     "require-dev": {
-        "phpunit/PHPUnit": "<6.0.0"
+        "phpunit/phpunit": "<6.0.0"
     },
     "autoload": {
         "classmap": ["helpers/"],
