@@ -105,7 +105,7 @@ class LegacyStateOutputTest extends TestCase
         $sO->addVariable(new OutcomeVariable('OUT3', Cardinality::ORDERED, BaseType::FLOAT, null));
     
         $expectedArray = array();
-        $expectedArray['RESP1'] = array('0.0');
+        $expectedArray['RESP1'] = array('0');
         $expectedArray['RESP2'] = array('-13.65', '1337.1');
         $expectedArray['OUT1'] = array();
         $expectedArray['OUT2'] = array('', '-466.3');
