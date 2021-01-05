@@ -1,6 +1,6 @@
 <?php
 
-use qtism\runtime\common\Variable;
+use PHPUnit\Framework\TestCase;
 use qtism\runtime\common\MultipleContainer;
 use qtism\runtime\common\OrderedContainer;
 use qtism\runtime\common\RecordContainer;
@@ -47,8 +47,8 @@ use qtism\common\enums\BaseType;
  * @package taoQtiCommon
  
  */
-class PciStateOutputTest extends PHPUnit_Framework_TestCase {
-	
+class PciStateOutputTest extends TestCase
+{
     public function testStateOutputIdentifier() {
         $sO = new taoQtiCommon_helpers_PciStateOutput();
         $sO->addVariable(new ResponseVariable('RESP1', Cardinality::SINGLE, BaseType::IDENTIFIER, new QtiIdentifier('ChoiceA')));

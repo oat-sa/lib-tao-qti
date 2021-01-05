@@ -1,5 +1,6 @@
 <?php
 
+use PHPUnit\Framework\TestCase;
 use qtism\common\datatypes\QtiFile;
 use qtism\common\datatypes\files\FileSystemFileManager;
 
@@ -30,11 +31,12 @@ use qtism\common\datatypes\files\FileSystemFileManager;
  * @package taoQtiCommon
  * @subpackage test
  */
-class PciJsonMarshallerTest extends PHPUnit_Framework_TestCase {
-	
+class PciJsonMarshallerTest extends TestCase
+{
     private $file;
     
-    public function setUp() {
+    public function setUp(): void
+    {
         parent::setUp();
         
         $fileManager = new FileSystemFileManager();
@@ -42,7 +44,8 @@ class PciJsonMarshallerTest extends PHPUnit_Framework_TestCase {
         $this->setFile($file);
     }
     
-    public function tearDown() {
+    public function tearDown(): void
+    {
         parent::tearDown();
         
         $fileManager = new FileSystemFileManager();
