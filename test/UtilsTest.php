@@ -18,6 +18,7 @@
  *               
  */
 
+use PHPUnit\Framework\TestCase;
 use qtism\common\datatypes\QtiDatatype;
 use qtism\common\datatypes\QtiIdentifier;
 use qtism\common\datatypes\QtiPair;
@@ -27,8 +28,8 @@ use qtism\common\enums\BaseType;
 use qtism\runtime\common\MultipleContainer;
 use qtism\runtime\common\OrderedContainer;
 
-class UtilsTest extends PHPUnit_Framework_TestCase {
-	
+class UtilsTest extends TestCase
+{
     /**
      * @dataProvider toQtiDatatypeProvider
      */

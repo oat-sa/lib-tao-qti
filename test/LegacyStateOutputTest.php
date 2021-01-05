@@ -1,5 +1,6 @@
 <?php
 
+use PHPUnit\Framework\TestCase;
 use qtism\common\datatypes\QtiDuration;
 use qtism\common\datatypes\QtiPair;
 use qtism\common\datatypes\QtiDirectedPair;
@@ -45,8 +46,8 @@ use qtism\runtime\common\ResponseVariable;
  * @package taoQtiCommon
  
  */
-class LegacyStateOutputTest extends  PHPUnit_Framework_TestCase{
-	
+class LegacyStateOutputTest extends TestCase
+{
     public function testStateOutputIdentifier() {
         $sO = new taoQtiCommon_helpers_LegacyStateOutput();
         $sO->addVariable(new ResponseVariable('RESP1', Cardinality::SINGLE, BaseType::IDENTIFIER, new QtiIdentifier('ChoiceA')));
