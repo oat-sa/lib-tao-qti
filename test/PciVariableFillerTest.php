@@ -19,7 +19,7 @@
  * 
  */
 
-
+use PHPUnit\Framework\TestCase;
 use qtism\runtime\common\Variable;
 use qtism\runtime\common\ResponseVariable;
 use qtism\runtime\common\OutcomeVariable;
@@ -52,8 +52,8 @@ use qtism\common\datatypes\QtiIntOrIdentifier;
  * @package taoQtiCommon
  
  */
-class PciVariableFillerTest extends PHPUnit_Framework_TestCase {
-	
+class PciVariableFillerTest extends TestCase
+{
     /**
      * @dataProvider fillVariableProvider
      * 
