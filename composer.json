@@ -31,7 +31,7 @@
     ],
     "require" : {
         "php" : ">=7.1",
-        "qtism/qtism": "0.24.10"
+        "qtism/qtism": "dev-fix/TR-1432/move-to-last-test-item as 0.25.0"
     },
     "require-dev": {
         "phpunit/phpunit": "<9.0.0"
