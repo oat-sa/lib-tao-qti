@@ -31,7 +31,7 @@
     ],
     "require" : {
         "php" : ">=7.1",
-        "qtism/qtism": "dev-feature/legacy/TR-1499/support_qti_figure_figcaption_elements as 0.25.1"
+        "qtism/qtism": "dev-feature/legacy/TR-1499/support_qti_figure_figcaption_elements as 0.25.2"
     },
     "require-dev": {
         "phpunit/phpunit": "<9.0.0"
