@@ -29,6 +29,7 @@
     "license" : [
         "GPL-2.0-only"
     ],
+    "minimum-stability": "dev",
     "require" : {
         "php" : ">=7.1",
         "qtism/qtism": "~0"
