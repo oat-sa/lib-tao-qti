@@ -25,6 +25,8 @@ use qtism\common\enums\Cardinality;
 use qtism\common\datatypes\QtiFile;
 use qtism\runtime\common\OutcomeVariable;
 use qtism\runtime\common\ResponseVariable;
+use qtism\runtime\common\RecordContainer;
+
 
 /**
  * The ResultTransmitter class provides a way to transmit easily
@@ -182,6 +184,10 @@ class taoQtiCommon_helpers_ResultTransmitter {
             if ($value instanceof QtiFile) {
                 return taoQtiCommon_helpers_Utils::qtiFileToString($value);
             }
+            if ($value instanceof RecordContainer) {
+                return taoQtiCommon_helpers_RecordContainerJsonMarshaller::marshalRecordFileToJson($value);
+            }
+
             else {
                 return $value->__toString();
             }
