@@ -26,6 +26,7 @@ use qtism\common\datatypes\QtiFile;
 use qtism\runtime\common\OutcomeVariable;
 use qtism\runtime\common\ResponseVariable;
 use qtism\runtime\common\RecordContainer;
+use qtism\runtime\pci\json\Marshaller;
 
 
 /**
@@ -185,7 +186,8 @@ class taoQtiCommon_helpers_ResultTransmitter {
                 return taoQtiCommon_helpers_Utils::qtiFileToString($value);
             }
             if ($value instanceof RecordContainer) {
-                return taoQtiCommon_helpers_RecordContainerJsonMarshaller::marshalRecordFileToJson($value);
+                $marshaller = new Marshaller;
+                return $marshaller->marshall($value);
             }
 
             else {
