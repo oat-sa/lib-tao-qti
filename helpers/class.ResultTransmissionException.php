@@ -15,8 +15,6 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  *
  * Copyright (c) 2013 (original work) Open Assessment Technologies SA (under the project TAO-PRODUCT);
- *
- *
  */
 
 /**
@@ -24,9 +22,9 @@
  * cannot be transmitted correctly to a target Result Server.
  * 
  * @author Jérôme Bogaerts <jerome@taotesting.com>
- *
  */
-class taoQtiCommon_helpers_ResultTransmissionException extends common_Exception {
+class taoQtiCommon_helpers_ResultTransmissionException extends common_Exception
+{
     
     /**
      * Error code to be used when the cause of the error
@@ -57,10 +55,11 @@ class taoQtiCommon_helpers_ResultTransmissionException extends common_Exception 
     /**
      * Create a new ResultTransmissionException object.
      * 
-     * @param string $message A human-readable message describing the error.
-     * @param integer $code A computer-understandable message describing the error.
+     * @param string  $message A human-readable message describing the error.
+     * @param integer $code    A computer-understandable message describing the error.
      */
-    public function __construct($message, $code = 0) {
+    public function __construct($message, $code = 0)
+    {
         parent::__construct($message, $code = 0);
     }
 } 

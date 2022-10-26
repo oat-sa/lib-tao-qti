@@ -15,7 +15,6 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  *
  * Copyright (c) 2013-2014 (original work) Open Assessment Technologies SA (under the project TAO-PRODUCT);
- *
  */
 
 use qtism\data\IAssessmentItem;
@@ -42,16 +41,17 @@ use qtism\runtime\common\Variable;
  * QtiSm compliant variable values. This is the goal of this class.
  * 
  * @author Jérôme Bogaerts <jerome@taotesting.com>
- *
  */
-class taoQtiCommon_helpers_LegacyVariableFiller extends taoQtiCommon_helpers_AbstractVariableFiller {
+class taoQtiCommon_helpers_LegacyVariableFiller extends taoQtiCommon_helpers_AbstractVariableFiller
+{
     
     /**
      * Create a new LegacyVariableFiller object.
      * 
      * @param IAssessmentItem $itemRef The item the variables you want to fill belong to.
      */
-    public function __construct(IAssessmentItem $itemRef) {
+    public function __construct(IAssessmentItem $itemRef)
+    {
         parent::__construct($itemRef);
     }
     
@@ -59,13 +59,14 @@ class taoQtiCommon_helpers_LegacyVariableFiller extends taoQtiCommon_helpers_Abs
      * Fille the variable $variableName with a correctly transformed
      * $clientSideValue.
      * 
-     * @param string $variableName The variable identifier you want to fill.
-     * @param string $clientSideValue The value received from the client-side.
+     * @param  string $variableName    The variable identifier you want to fill.
+     * @param  string $clientSideValue The value received from the client-side.
      * @return Variable A Variable object filled with a correctly transformed $clientSideValue.
      * @throws OutOfBoundsException If no variable with $variableName is described in the item.
      * @throws OutOfRangeException If the $clientSideValue does not fit the target variable's baseType.
      */
-    public function fill($variableName, $clientSideValue) {
+    public function fill($variableName, $clientSideValue)
+    {
         $variable = null;
         
         $outcomeDeclarations = $this->getItemRef()->getOutcomeDeclarations();
@@ -122,96 +123,97 @@ class taoQtiCommon_helpers_LegacyVariableFiller extends taoQtiCommon_helpers_Abs
     /**
      * Transform $value in a $baseType datatype.
      * 
-     * @param integer $baseType
-     * @param mixed $value
+     * @param  integer $baseType
+     * @param  mixed   $value
      * @return mixed
      * @throws InvalidArgumentException If $baseType is unknown.
      * @throws OutOfRangeException If $value cannot be transformed into $baseType datatype.
      */
-    protected static function transform($baseType, $value) {
+    protected static function transform($baseType, $value)
+    {
         
         switch ($baseType) {
-            case BaseType::BOOLEAN:
-                if ($value === '') {
-                    return null;
-                }
-                else {
-                    return ($value === 'true') ? true : false;
-                }
+        case BaseType::BOOLEAN:
+            if ($value === '') {
+                return null;
+            }
+            else {
+                return ($value === 'true') ? true : false;
+            }
             break;
             
-            case BaseType::DIRECTED_PAIR:
-                if (is_array($value) === false) {
-                    $msg = "Cannot transform a value into a QTI directedPair, it is not an array, '" . gettype($value) . "' given";
-                    throw new OutOfRangeException($msg);
-                }
-                else if (empty($value[0])) {
-                    $msg = "Cannot transform a value into a QTI directedPair, the first identifier was not given.";
-                    throw new OutOfRangeException($msg);
-                }
-                else if (empty($value[1])) {
-                    $msg = "Cannot transform a value into a QTI directedPair, the second identifier was not given.";
-                    throw new OutOfRangeException($msg);
-                }
-                else {
-                    return new QtiDirectedPair($value[0], $value[1]);
-                }
+        case BaseType::DIRECTED_PAIR:
+            if (is_array($value) === false) {
+                $msg = "Cannot transform a value into a QTI directedPair, it is not an array, '" . gettype($value) . "' given";
+                throw new OutOfRangeException($msg);
+            }
+            else if (empty($value[0])) {
+                $msg = "Cannot transform a value into a QTI directedPair, the first identifier was not given.";
+                throw new OutOfRangeException($msg);
+            }
+            else if (empty($value[1])) {
+                $msg = "Cannot transform a value into a QTI directedPair, the second identifier was not given.";
+                throw new OutOfRangeException($msg);
+            }
+            else {
+                return new QtiDirectedPair($value[0], $value[1]);
+            }
             break;
             
-            case BaseType::PAIR:
-                if (is_array($value) === false) {
-                    $msg = "Cannot transform a value into a QTI pair, it is not an array, '" . gettype($value) . "' given";    
-                    throw new OutOfRangeException($msg);
-                }
-                else if (empty($value[0])) {
-                    $msg = "Cannot transform a value into a QTI pair, the first identifier was not given.";
-                    throw new OutOfRangeException($msg);
-                }
-                else if (empty($value[1])) {
-                    $msg = "Cannot transform a value into a QTI pair, the second identifier was not given.";
-                    throw new OutOfRangeException($msg);
-                }
-                else {
-                    return new QtiPair($value[0], $value[1]);
-                }
+        case BaseType::PAIR:
+            if (is_array($value) === false) {
+                $msg = "Cannot transform a value into a QTI pair, it is not an array, '" . gettype($value) . "' given";    
+                throw new OutOfRangeException($msg);
+            }
+            else if (empty($value[0])) {
+                $msg = "Cannot transform a value into a QTI pair, the first identifier was not given.";
+                throw new OutOfRangeException($msg);
+            }
+            else if (empty($value[1])) {
+                $msg = "Cannot transform a value into a QTI pair, the second identifier was not given.";
+                throw new OutOfRangeException($msg);
+            }
+            else {
+                return new QtiPair($value[0], $value[1]);
+            }
             break;
             
-            case BaseType::STRING:
-                return new QtiString($value);
+        case BaseType::STRING:
+            return new QtiString($value);
             break;
-            case BaseType::IDENTIFIER:
-                return ($value !== '') ? new QtiIdentifier($value) : null;
-            break;
-            
-            case BaseType::INTEGER:
-                return ($value !== '') ? new QtiInteger(intval($value)) : null;
+        case BaseType::IDENTIFIER:
+            return ($value !== '') ? new QtiIdentifier($value) : null;
             break;
             
-            case BaseType::FLOAT:
-                return ($value !== '') ? new QtiFloat(floatval($value)) : null;
+        case BaseType::INTEGER:
+            return ($value !== '') ? new QtiInteger(intval($value)) : null;
             break;
             
-            case BaseType::POINT:
-                if (is_array($value) === false) {
-                    $msg = "Cannot transform a value into a QTI point, it is not an array, '" . gettype($value) . "' given";
-                    throw new OutOfRangeException($msg);
-                }
-                else if (empty($value[0])) {
-                    $msg = "Cannot transform a value into a QTI point, X was not given.";
-                    throw new OutOfRangeException($msg);
-                }
-                else if (empty($value[1])) {
-                    $msg = "Cannot transform a value into a QTI point, Y was not given.";
-                    throw new OutOfRangeException($msg);
-                }
-                else {
-                    return new QtiPoint(intval($value[0]), intval($value[1]));
-                }
+        case BaseType::FLOAT:
+            return ($value !== '') ? new QtiFloat(floatval($value)) : null;
             break;
             
-            default:
-                $msg = "Not supported baseType constant '${baseType}'.";
-                throw new InvalidArgumentException($msg);
+        case BaseType::POINT:
+            if (is_array($value) === false) {
+                $msg = "Cannot transform a value into a QTI point, it is not an array, '" . gettype($value) . "' given";
+                throw new OutOfRangeException($msg);
+            }
+            else if (empty($value[0])) {
+                $msg = "Cannot transform a value into a QTI point, X was not given.";
+                throw new OutOfRangeException($msg);
+            }
+            else if (empty($value[1])) {
+                $msg = "Cannot transform a value into a QTI point, Y was not given.";
+                throw new OutOfRangeException($msg);
+            }
+            else {
+                return new QtiPoint(intval($value[0]), intval($value[1]));
+            }
+            break;
+            
+        default:
+            $msg = "Not supported baseType constant '${baseType}'.";
+            throw new InvalidArgumentException($msg);
             break;
         }
     }

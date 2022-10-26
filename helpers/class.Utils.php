@@ -15,7 +15,6 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  *
  * Copyright (c) 2014-2016 (original work) Open Assessment Technologies SA (under the project TAO-PRODUCT);
- *
  */
 
 
@@ -35,9 +34,9 @@ use qtism\runtime\common\OrderedContainer;
  * extension.
  * 
  * @author Jérôme Bogaerts <jerome@taotesting.com>
- *
  */
-class taoQtiCommon_helpers_Utils {
+class taoQtiCommon_helpers_Utils
+{
     
     /**
      * Amount of bytes to read for each 
@@ -55,7 +54,8 @@ class taoQtiCommon_helpers_Utils {
      * 
      * @return boolean|array An associative array representing the JSON payload or false if an error occurs.
      */
-    static public function readJsonPayload() {
+    static public function readJsonPayload()
+    {
         $fp = fopen('php://input', 'rb');
         
         if ($fp === false) {
@@ -83,10 +83,11 @@ class taoQtiCommon_helpers_Utils {
      * * The mime type, string.
      * * The binary content of the file, string.
      * 
-     * @param File $file
+     * @param  File $file
      * @return string
      */
-    static public function qtiFileToString(QtiFile $file) {
+    static public function qtiFileToString(QtiFile $file)
+    {
         $string = '';
         $filename = $file->getFilename();
         $mimetype = $file->getMimeType();
@@ -108,10 +109,11 @@ class taoQtiCommon_helpers_Utils {
     /**
      * Whether or not a given QTI Variable contains the QTI Placeholder File.
      * 
-     * @param Variable $variable
+     * @param  Variable $variable
      * @return boolean
      */
-    static public function isQtiFilePlaceHolder(Variable $variable) {
+    static public function isQtiFilePlaceHolder(Variable $variable)
+    {
         
         $correctBaseType = $variable->getBaseType() === BaseType::FILE;
         $correctCardinality = $variable->getCardinality() === Cardinality::SINGLE;
@@ -133,11 +135,12 @@ class taoQtiCommon_helpers_Utils {
     /**
      * Whether or not a given QTI Variable contains a QTI File value.
      * 
-     * @param Variable $variable
-     * @param boolean $considerNull Whether or not to consider File variables containing NULL variables.
+     * @param  Variable $variable
+     * @param  boolean  $considerNull Whether or not to consider File variables containing NULL variables.
      * @return boolean
      */
-    static public function isQtiFile(Variable $variable, $considerNull = true) {
+    static public function isQtiFile(Variable $variable, $considerNull = true)
+    {
         
         $correctBaseType = $variable->getBaseType() === BaseType::FILE;
         $correctCardinality = $variable->getCardinality() === Cardinality::SINGLE;
@@ -155,9 +158,9 @@ class taoQtiCommon_helpers_Utils {
      * Note: at the present time, this implementation only supports 'single', 'multiple', and 'ordered' cardinality in conjunction
      * with the 'identifier', 'boolean', 'pair' or 'directedPair' baseType.
      * 
-     * @param string $cardinality i.e. 'ordered', 'multiple' or 'single'.
-     * @param string $basetype i.e. 'identifier'
-     * @param string $value A TAO serialized result value e.g. '<choice1 choice2 choice3>'
+     * @param  string $cardinality i.e. 'ordered', 'multiple' or 'single'.
+     * @param  string $basetype    i.e. 'identifier'
+     * @param  string $value       A TAO serialized result value e.g. '<choice1 choice2 choice3>'
      * @return mixed A QtiDatatype object or null in case of no possibility to transform $value in the appropriate target $cardinality and $basetype.
      */
     static public function toQtiDatatype($cardinality, $basetype, $value)
@@ -178,7 +181,7 @@ class taoQtiCommon_helpers_Utils {
             }
             
             $value = array_map(
-                function($val) {
+                function ($val) {
                     return trim($val);
                 },
                 $value
@@ -189,33 +192,33 @@ class taoQtiCommon_helpers_Utils {
             foreach ($value as $val) {
                 try {
                     switch ($basetype) {
-                        case 'identifier':
-                            $datatype[] = new QtiIdentifier($val);
-                            break;
+                    case 'identifier':
+                        $datatype[] = new QtiIdentifier($val);
+                        break;
                             
-                        case 'pair':
-                            $pair = explode("\x20", $val);
-                            if (count($pair) === 2) {
-                                $datatype[] = new QtiPair($pair[0], $pair[1]);
-                            }
-                            break;
+                    case 'pair':
+                        $pair = explode("\x20", $val);
+                        if (count($pair) === 2) {
+                            $datatype[] = new QtiPair($pair[0], $pair[1]);
+                        }
+                        break;
                             
-                        case 'directedPair':
-                            $pair = explode("\x20", $val);
-                            if (count($pair) === 2) {
-                                $datatype[] = new QtiDirectedPair($pair[0], $pair[1]);
-                            }
-                            break;
+                    case 'directedPair':
+                        $pair = explode("\x20", $val);
+                        if (count($pair) === 2) {
+                            $datatype[] = new QtiDirectedPair($pair[0], $pair[1]);
+                        }
+                        break;
                             
-                        case 'boolean':
-                            if ($val === 'true') {
-                                $datatype[] = new QtiBoolean(true);
-                            } elseif ($val === 'false') {
-                                $datatype[] = new QtiBoolean(false);
-                            } else {
-                                $datatype[] = new QtiBoolean($val);
-                            }
-                            break;
+                    case 'boolean':
+                        if ($val === 'true') {
+                            $datatype[] = new QtiBoolean(true);
+                        } elseif ($val === 'false') {
+                            $datatype[] = new QtiBoolean(false);
+                        } else {
+                            $datatype[] = new QtiBoolean($val);
+                        }
+                        break;
                     }
                 } catch (InvalidArgumentException $e) {
                     $datatype = null;

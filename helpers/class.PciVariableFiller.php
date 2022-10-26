@@ -15,7 +15,6 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  *
  * Copyright (c) 2014 (original work) Open Assessment Technologies SA (under the project TAO-PRODUCT);
- *
  */
 
 use qtism\common\enums\BaseType;
@@ -36,9 +35,9 @@ use qtism\runtime\common\OrderedContainer;
  * to fill variables of a given item with values coming in a PCI JSON representation.
  *
  * @author Jérôme Bogaerts <jerome@taotesting.com>
- *
  */
-class taoQtiCommon_helpers_PciVariableFiller extends taoQtiCommon_helpers_AbstractVariableFiller {
+class taoQtiCommon_helpers_PciVariableFiller extends taoQtiCommon_helpers_AbstractVariableFiller
+{
 
 
     private $fileManager;
@@ -48,7 +47,8 @@ class taoQtiCommon_helpers_PciVariableFiller extends taoQtiCommon_helpers_Abstra
      *
      * @param IAssessmentItem $itemRef The item the variables to deal with belong to.
      */
-    public function __construct(IAssessmentItem $itemRef, FileManager $fileManager = null) {
+    public function __construct(IAssessmentItem $itemRef, FileManager $fileManager = null)
+    {
         parent::__construct($itemRef);
         $this->fileManager = ($fileManager === null) ? new FileSystemFileManager() : $fileManager;
     }
@@ -56,13 +56,14 @@ class taoQtiCommon_helpers_PciVariableFiller extends taoQtiCommon_helpers_Abstra
     /**
      * Fill the variable $variableName with a correctly transformed $clientSideValue.
      *
-     * @param string $variableName The variable identifier you want to fill.
-     * @param array $clientSideValue The value received from the client-side representing the value of the variable with identifier $variableName.
+     * @param  string $variableName    The variable identifier you want to fill.
+     * @param  array  $clientSideValue The value received from the client-side representing the value of the variable with identifier $variableName.
      * @return Variable A Variable object filled with a correctly transformed $clientSideValue.
      * @throws OutOfBoundsException If no variable with $variableName is described in the item.
      * @throws OutOfRangeException If the $clientSideValue does not fit the target variable's baseType.
      */
-    public function fill($variableName, $clientSideValue) {
+    public function fill($variableName, $clientSideValue)
+    {
         $variableDeclaration = $this->findVariableDeclaration($variableName);
 
         if ($variableDeclaration === false) {
@@ -102,10 +103,11 @@ class taoQtiCommon_helpers_PciVariableFiller extends taoQtiCommon_helpers_Abstra
      * Get the OutcomeDeclaration/ResponseDeclaration with identifier $variableIdentifier from
      * the item.
      *
-     * @param string $variableIdentifier A QTI identifier.
+     * @param  string $variableIdentifier A QTI identifier.
      * @return \qtism\data\state\VariableDeclaration|boolean The variable with identifier $variableIdentifier or false if it could not be found.
      */
-    protected function findVariableDeclaration($variableIdentifier) {
+    protected function findVariableDeclaration($variableIdentifier)
+    {
         $responseDeclarations = $this->getItemRef()->getResponseDeclarations();
 
         if (isset($responseDeclarations[$variableIdentifier]) === true) {

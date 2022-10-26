@@ -15,7 +15,6 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  *
  * Copyright (c) 2014 (original work) Open Assessment Technologies SA (under the project TAO-PRODUCT);
- *
  */
 
 use qtism\runtime\common\Variable;
@@ -24,15 +23,15 @@ use qtism\runtime\common\Variable;
  * Implementation of AbstractStateOutput for IMS PCI JSON Representation based output.
  * 
  * @author Jérôme Bogaerts <jerome@taotesting.com>
- *
  */
-class taoQtiCommon_helpers_PciStateOutput extends taoQtiCommon_helpers_AbstractStateOutput {
+class taoQtiCommon_helpers_PciStateOutput extends taoQtiCommon_helpers_AbstractStateOutput
+{
     
     /**
      * Create a new taoQtiCommon_helpers_PciStateOutput.
-     * 
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
     }
     
@@ -42,7 +41,8 @@ class taoQtiCommon_helpers_PciStateOutput extends taoQtiCommon_helpers_AbstractS
      * 
      * @param Variable $variable
      */
-    public function addVariable(Variable $variable) {
+    public function addVariable(Variable $variable)
+    {
         $output = &$this->getOutput();
         $varName = $variable->getIdentifier();
         $marshaller = new taoQtiCommon_helpers_PciJsonMarshaller();

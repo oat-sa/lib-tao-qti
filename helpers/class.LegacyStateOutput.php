@@ -16,8 +16,6 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  *
  * Copyright (c) 2013-2014 (original work) Open Assessment Technologies SA (under the project TAO-PRODUCT);
- *
- *
  */
 
 use qtism\common\datatypes\QtiPair;
@@ -35,16 +33,16 @@ use qtism\common\datatypes\QtiPoint;
  * to the client-side.
  * 
  * @author Jérôme Bogaerts <jerome@taotesting.com>
- *
  */
-class taoQtiCommon_helpers_LegacyStateOutput extends taoQtiCommon_helpers_AbstractStateOutput {
+class taoQtiCommon_helpers_LegacyStateOutput extends taoQtiCommon_helpers_AbstractStateOutput
+{
     
     
     /**
      * Create a new tao_helpers_StateOutput object.
-     * 
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
     }
     
@@ -91,7 +89,8 @@ class taoQtiCommon_helpers_LegacyStateOutput extends taoQtiCommon_helpers_Abstra
      * 
      * @return array An array of QTI Variables and their values formatted as explained supra.
      */
-    public function &getOutput() {
+    public function &getOutput()
+    {
         return parent::getOutput();
     }
     
@@ -101,7 +100,8 @@ class taoQtiCommon_helpers_LegacyStateOutput extends taoQtiCommon_helpers_Abstra
      * 
      * @param Variable $variable A QTI Runtime Variable
      */
-    public function addVariable(Variable $variable) {
+    public function addVariable(Variable $variable)
+    {
         $output = &$this->getOutput();
         $baseType = $variable->getBaseType();
         $cardinality = $variable->getCardinality();
