@@ -186,7 +186,7 @@ class taoQtiCommon_helpers_ResultTransmitter {
                 return taoQtiCommon_helpers_Utils::qtiFileToString($value);
             }
             if ($value instanceof RecordContainer) {
-                $marshaller = new Marshaller;
+                $marshaller = new Marshaller();
                 return $marshaller->marshall($value);
             }
 
@@ -198,5 +198,4 @@ class taoQtiCommon_helpers_ResultTransmitter {
             return $value;
         }
     }
-
 }
