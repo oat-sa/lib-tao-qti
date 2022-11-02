@@ -43,13 +43,13 @@ use qtism\common\enums\BaseType;
 
 /**
  *
- * @author Jérôme Bogaerts <jerome@taotesting.com>
+ * @author  Jérôme Bogaerts <jerome@taotesting.com>
  * @package taoQtiCommon
- 
  */
 class PciStateOutputTest extends TestCase
 {
-    public function testStateOutputIdentifier() {
+    public function testStateOutputIdentifier()
+    {
         $sO = new taoQtiCommon_helpers_PciStateOutput();
         $sO->addVariable(new ResponseVariable('RESP1', Cardinality::SINGLE, BaseType::IDENTIFIER, new QtiIdentifier('ChoiceA')));
         $sO->addVariable(new ResponseVariable('RESP2', Cardinality::MULTIPLE, BaseType::IDENTIFIER, new MultipleContainer(BaseType::IDENTIFIER, array(new QtiIdentifier('ChoiceA'), new QtiIdentifier('ChoiceB')))));
@@ -65,7 +65,8 @@ class PciStateOutputTest extends TestCase
         $this->assertEquals($expectedArray, $sO->getOutput());
     }
     
-    public function testStateOutputBoolean() {
+    public function testStateOutputBoolean()
+    {
         $sO = new taoQtiCommon_helpers_PciStateOutput();
         $sO->addVariable(new ResponseVariable('RESP1', Cardinality::SINGLE, BaseType::BOOLEAN, new QtiBoolean(true)));
         $sO->addVariable(new ResponseVariable('RESP2', Cardinality::MULTIPLE, BaseType::BOOLEAN, new MultipleContainer(BaseType::BOOLEAN, array(new QtiBoolean(false), new QtiBoolean(true)))));
@@ -81,7 +82,8 @@ class PciStateOutputTest extends TestCase
         $this->assertEquals($expectedArray, $sO->getOutput());
     }
     
-    public function testStateOutputInteger() {
+    public function testStateOutputInteger()
+    {
         $sO = new taoQtiCommon_helpers_PciStateOutput();
         $sO->addVariable(new ResponseVariable('RESP1', Cardinality::SINGLE, BaseType::INTEGER, new QtiInteger(0)));
         $sO->addVariable(new ResponseVariable('RESP2', Cardinality::MULTIPLE, BaseType::INTEGER, new MultipleContainer(BaseType::INTEGER, array(new QtiInteger(-13), new QtiInteger(1337)))));
@@ -97,7 +99,8 @@ class PciStateOutputTest extends TestCase
         $this->assertEquals($expectedArray, $sO->getOutput());
     }
     
-    public function testStateOutputFloat() {
+    public function testStateOutputFloat()
+    {
         $sO = new taoQtiCommon_helpers_PciStateOutput();
         $sO->addVariable(new ResponseVariable('RESP1', Cardinality::SINGLE, BaseType::FLOAT, new QtiFloat(0.0)));
         $sO->addVariable(new ResponseVariable('RESP2', Cardinality::MULTIPLE, BaseType::FLOAT, new MultipleContainer(BaseType::FLOAT, array(new QtiFloat(-13.65), new QtiFloat(1337.1)))));
@@ -115,7 +118,8 @@ class PciStateOutputTest extends TestCase
         $this->assertEquals($expectedArray, $sO->getOutput());
     }
     
-    public function testStateOutputPoint() {
+    public function testStateOutputPoint()
+    {
         $sO = new taoQtiCommon_helpers_PciStateOutput();
         $sO->addVariable(new ResponseVariable('RESP1', Cardinality::SINGLE, BaseType::POINT, new QtiPoint(0, 0)));
         $sO->addVariable(new ResponseVariable('RESP2', Cardinality::MULTIPLE, BaseType::POINT, new MultipleContainer(BaseType::POINT, array(new QtiPoint(-3, 5), new QtiPoint(13, 37)))));
@@ -131,7 +135,8 @@ class PciStateOutputTest extends TestCase
         $this->assertEquals($expectedArray, $sO->getOutput());
     }
     
-    public function testStateOutputString() {
+    public function testStateOutputString()
+    {
         $sO = new taoQtiCommon_helpers_PciStateOutput();
         $sO->addVariable(new ResponseVariable('RESP1', Cardinality::SINGLE, BaseType::STRING, new QtiString('String!')));
         $sO->addVariable(new ResponseVariable('RESP2', Cardinality::SINGLE, BaseType::STRING, null));
@@ -149,7 +154,8 @@ class PciStateOutputTest extends TestCase
         $this->assertEquals($expectedArray, $sO->getOutput());
     }
     
-    public function testStateOutputPair() {
+    public function testStateOutputPair()
+    {
         $sO = new taoQtiCommon_helpers_PciStateOutput();
         $sO->addVariable(new ResponseVariable('RESP1', Cardinality::SINGLE, BaseType::PAIR, new QtiPair('A', 'B')));
         $sO->addVariable(new ResponseVariable('RESP2', Cardinality::MULTIPLE, BaseType::PAIR, new MultipleContainer(BaseType::PAIR, array(new QtiPair('A', 'B'), new QtiPair('C', 'D')))));
@@ -165,7 +171,8 @@ class PciStateOutputTest extends TestCase
         $this->assertEquals($expectedArray, $sO->getOutput());
     }
     
-    public function testStateOutputDirectedPair() {
+    public function testStateOutputDirectedPair()
+    {
         $sO = new taoQtiCommon_helpers_PciStateOutput();
         $sO->addVariable(new ResponseVariable('RESP1', Cardinality::SINGLE, BaseType::DIRECTED_PAIR, new QtiDirectedPair('A', 'B')));
         $sO->addVariable(new ResponseVariable('RESP2', Cardinality::MULTIPLE, BaseType::DIRECTED_PAIR, new MultipleContainer(BaseType::DIRECTED_PAIR, array(new QtiDirectedPair('A', 'B'), new QtiDirectedPair('C', 'D')))));
@@ -181,7 +188,8 @@ class PciStateOutputTest extends TestCase
         $this->assertEquals($expectedArray, $sO->getOutput());
     }
     
-    public function testStateOutputDuration() {
+    public function testStateOutputDuration()
+    {
         $sO = new taoQtiCommon_helpers_PciStateOutput();
         $sO->addVariable(new ResponseVariable('RESP1', Cardinality::SINGLE, BaseType::DURATION, new QtiDuration('P3DT24M')));
         $sO->addVariable(new ResponseVariable('RESP2', Cardinality::SINGLE, BaseType::DURATION, null));
@@ -199,7 +207,8 @@ class PciStateOutputTest extends TestCase
         $this->assertEquals($expectedArray, $sO->getOutput());
     }
     
-    public function testStateOutputUri() {
+    public function testStateOutputUri()
+    {
         $sO = new taoQtiCommon_helpers_PciStateOutput();
         $sO->addVariable(new ResponseVariable('RESP1', Cardinality::SINGLE, BaseType::URI, new QtiUri('http://bit.ly')));
         $sO->addVariable(new ResponseVariable('RESP2', Cardinality::SINGLE, BaseType::URI, null));
@@ -217,7 +226,8 @@ class PciStateOutputTest extends TestCase
         $this->assertEquals($expectedArray, $sO->getOutput());
     }
     
-    public function testStateOutputIntOrIdentifier() {
+    public function testStateOutputIntOrIdentifier()
+    {
         $sO = new taoQtiCommon_helpers_PciStateOutput();
         $sO->addVariable(new ResponseVariable('RESP1', Cardinality::SINGLE, BaseType::INT_OR_IDENTIFIER, new QtiIntOrIdentifier(0)));
         $sO->addVariable(new ResponseVariable('RESP2', Cardinality::SINGLE, BaseType::INT_OR_IDENTIFIER, null));
@@ -235,7 +245,8 @@ class PciStateOutputTest extends TestCase
         $this->assertEquals($expectedArray, $sO->getOutput());
     }
     
-    public function testStateOutputRecord() {
+    public function testStateOutputRecord()
+    {
         $sO = new taoQtiCommon_helpers_PciStateOutput();
         $sO->addVariable(new ResponseVariable('RESP1', Cardinality::RECORD, -1, new RecordContainer(array('A' => new QtiDuration('PT1S')))));
         $sO->addVariable(new ResponseVariable('RESP2', Cardinality::RECORD));

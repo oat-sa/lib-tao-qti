@@ -48,21 +48,21 @@ use qtism\common\datatypes\QtiIntOrIdentifier;
 
 /**
  *
- * @author Jérôme Bogaerts <jerome@taotesting.com>
+ * @author  Jérôme Bogaerts <jerome@taotesting.com>
  * @package taoQtiCommon
- 
  */
 class PciVariableFillerTest extends TestCase
 {
     /**
      * @dataProvider fillVariableProvider
      * 
-     * @param IAssessmentItem $itemRef The reference item.
-     * @param string $variableIdentifier The identifier of the variable.
-     * @param array $data Client-side data.
-     * @param Variable $expectedVariable
+     * @param IAssessmentItem $itemRef            The reference item.
+     * @param string          $variableIdentifier The identifier of the variable.
+     * @param array           $data               Client-side data.
+     * @param Variable        $expectedVariable
      */
-    public function testFillVariable(array $data, Variable $expectedVariable) {
+    public function testFillVariable(array $data, Variable $expectedVariable)
+    {
         // Non-time dependent basic item in 'Yoda English'.
         $itemRef = new AssessmentItem('Q01', 'Question 01', false, 'en-YO');
         
@@ -109,7 +109,8 @@ class PciVariableFillerTest extends TestCase
         }
     }
     
-    public function fillVariableProvider() {
+    public function fillVariableProvider()
+    {
         
         $returnValue = array();
         

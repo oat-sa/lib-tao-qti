@@ -15,7 +15,6 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  *
  * Copyright (c) 2014 (original work) Open Assessment Technologies SA (under the project TAO-PRODUCT);
- *
  */
 
 use qtism\runtime\pci\json\Marshaller;
@@ -33,9 +32,9 @@ use qtism\common\datatypes\QtiFile;
  * { "base" : { "file" : { "mime" : "qti+application/octet-stream", "data" : "placeholder_data" } } }
  * 
  * @author Jérôme Bogaerts <jerome@taotesting.com>
- *
  */
-class taoQtiCommon_helpers_PciJsonMarshaller extends Marshaller {
+class taoQtiCommon_helpers_PciJsonMarshaller extends Marshaller
+{
     
     /**
      * An arbitrary QTI File Datatype MIME type.
@@ -53,19 +52,20 @@ class taoQtiCommon_helpers_PciJsonMarshaller extends Marshaller {
     
     /**
      * Create a new PciJsonMarshaller object.
-     * 
      */
-    protected function construct() {
+    protected function construct()
+    {
         parent::__construct();
     }
     
     /**
      * Marshall a file into a JSON placeholder.
      * 
-     * @param File $file
+     * @param  File $file
      * @return array
      */
-    protected function marshallFile(QtiFile $file) {
+    protected function marshallFile(QtiFile $file)
+    {
         return array('base' => array('file' => array('mime' => self::FILE_PLACEHOLDER_MIMETYPE, 'data' => base64_encode(self::FILE_PLACEHOLDER_DATA))));
     }
 }

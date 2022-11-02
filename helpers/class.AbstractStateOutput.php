@@ -15,7 +15,6 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  *
  * Copyright (c) 2014 (original work) Open Assessment Technologies SA (under the project TAO-PRODUCT);
- *
  */
 
 use qtism\common\datatypes\QtiPair;
@@ -33,9 +32,9 @@ use qtism\common\datatypes\QtiPoint;
  * to the client-side.
  *
  * @author Jérôme Bogaerts <jerome@taotesting.com>
- *
  */
-abstract class taoQtiCommon_helpers_AbstractStateOutput {
+abstract class taoQtiCommon_helpers_AbstractStateOutput
+{
 
     /**
      * The output associative array output.
@@ -46,9 +45,9 @@ abstract class taoQtiCommon_helpers_AbstractStateOutput {
 
     /**
      * Create a new tao_helpers_AbstractStateOutput object.
-     *
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->setOutput(array());
     }
 
@@ -57,7 +56,8 @@ abstract class taoQtiCommon_helpers_AbstractStateOutput {
      *
      * @param array $output An array.
      */
-    protected function setOutput(array $output) {
+    protected function setOutput(array $output)
+    {
         $this->output = $output;
     }
 
@@ -66,7 +66,8 @@ abstract class taoQtiCommon_helpers_AbstractStateOutput {
      *
      * @return array An array of QTI Variables and their values formatted.
      */
-    public function &getOutput() {
+    public function &getOutput()
+    {
         return $this->output;
     }
 

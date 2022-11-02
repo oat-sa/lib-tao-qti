@@ -27,8 +27,8 @@ use qtism\common\datatypes\files\FileSystemFileManager;
 
 /**
  *
- * @author Jérôme Bogaerts <jerome@taotesting.com>
- * @package taoQtiCommon
+ * @author     Jérôme Bogaerts <jerome@taotesting.com>
+ * @package    taoQtiCommon
  * @subpackage test
  */
 class PciJsonMarshallerTest extends TestCase
@@ -53,15 +53,18 @@ class PciJsonMarshallerTest extends TestCase
         $fileManager->delete($file);
     }
     
-    protected function getFile() {
+    protected function getFile()
+    {
         return $this->file;
     }
     
-    protected function setFile(QtiFile $file) {
+    protected function setFile(QtiFile $file)
+    {
         $this->file = $file;
     }
     
-    public function testMarshallFile() {
+    public function testMarshallFile()
+    {
         $file = $this->getFile();
         $marshaller = new taoQtiCommon_helpers_PciJsonMarshaller();
         $json = $marshaller->marshall($file);

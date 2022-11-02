@@ -15,8 +15,6 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  *
  * Copyright (c) 2013 (original work) Open Assessment Technologies SA (under the project TAO-PRODUCT);
- *
- *
  */
 
 use oat\taoResultServer\models\classes\ResultStorageWrapper;
@@ -25,15 +23,18 @@ use qtism\common\enums\Cardinality;
 use qtism\common\datatypes\QtiFile;
 use qtism\runtime\common\OutcomeVariable;
 use qtism\runtime\common\ResponseVariable;
+use qtism\runtime\common\RecordContainer;
+use qtism\runtime\pci\json\Marshaller;
+
 
 /**
  * The ResultTransmitter class provides a way to transmit easily
  * a QtiSm Runtime Variable objects to a given Result Server for storage.
  *
  * @author Jérôme Bogaerts <jerome@taotesting.com>
- *
  */
-class taoQtiCommon_helpers_ResultTransmitter {
+class taoQtiCommon_helpers_ResultTransmitter
+{
 
     /**
      * be transmitted to.
@@ -47,7 +48,8 @@ class taoQtiCommon_helpers_ResultTransmitter {
      *
      * @param $storage
      */
-    public function __construct(ResultStorageWrapper $storage) {
+    public function __construct(ResultStorageWrapper $storage)
+    {
         $this->setResultStorage($storage);
     }
 
@@ -56,7 +58,8 @@ class taoQtiCommon_helpers_ResultTransmitter {
      *
      * @param $storage
      */
-    protected function setResultStorage(ResultStorageWrapper $storage) {
+    protected function setResultStorage(ResultStorageWrapper $storage)
+    {
         $this->resultStorage = $storage;
     }
 
@@ -65,20 +68,22 @@ class taoQtiCommon_helpers_ResultTransmitter {
      *
      * @return ResultStorageWrapper
      */
-    protected function getResultStorage() {
+    protected function getResultStorage()
+    {
         return $this->resultStorage;
     }
 
     /**
      * Transmit a QtiSm Runtime Variable to the target Result Server as an Item Result.
      *
-     * @param mixed $variables QtiSm Runtime Variable(s).
-     * @param string $transmissionId A unique identifier that identifies uniquely the visited item.
-     * @param string $itemUri An optional URI that identifies uniquely the item the $variable comes from.
-     * @param string $testUri An optional URL that identifies uniquely the test the $variable comes from.
+     * @param  mixed  $variables      QtiSm Runtime Variable(s).
+     * @param  string $transmissionId A unique identifier that identifies uniquely the visited item.
+     * @param  string $itemUri        An optional URI that identifies uniquely the item the $variable comes from.
+     * @param  string $testUri        An optional URL that identifies uniquely the test the $variable comes from.
      * @throws taoQtiCommon_helpers_ResultTransmissionException If an error occurs while transmitting the Variable to the target Result Server.
      */
-    public function transmitItemVariable($variables, $transmissionId, $itemUri = '', $testUri = '') {
+    public function transmitItemVariable($variables, $transmissionId, $itemUri = '', $testUri = '')
+    {
 
         $itemVariableSet = [];
 
@@ -134,11 +139,12 @@ class taoQtiCommon_helpers_ResultTransmitter {
     /**
      * Transmit a test-level QtiSm Runtime Variable to the target Result Server as a test result.
      *
-     * @param mixed $variables An OutcomeVariable object (or an OutcomeVariable array) to be transmitted to the target Result Server.
+     * @param mixed  $variables      An OutcomeVariable object (or an OutcomeVariable array) to be transmitted to the target Result Server.
      * @param string $transmissionId A unique identifier that identifies uniquely the visited test.
-     * @param string $testUri An optional URL that identifies uniquely the test the $variable comes from.
+     * @param string $testUri        An optional URL that identifies uniquely the test the $variable comes from.
      */
-    public function transmitTestVariable($variables, $transmissionId, $testUri = '') {
+    public function transmitTestVariable($variables, $transmissionId, $testUri = '')
+    {
 
         $testVariableSet = [];
 
@@ -173,15 +179,21 @@ class taoQtiCommon_helpers_ResultTransmitter {
      * Transform a QTI Datatype value to a value compliant
      * with result server.
      *
-     * @param mixed $value
+     * @param  mixed $value
      * @return string
      */
-    private static function transformValue($value) {
+    private static function transformValue($value)
+    {
         if (gettype($value) === 'object') {
 
             if ($value instanceof QtiFile) {
                 return taoQtiCommon_helpers_Utils::qtiFileToString($value);
             }
+            if ($value instanceof RecordContainer) {
+                $marshaller = new Marshaller();
+                return $marshaller->marshall($value);
+            }
+
             else {
                 return $value->__toString();
             }
@@ -190,5 +202,4 @@ class taoQtiCommon_helpers_ResultTransmitter {
             return $value;
         }
     }
-
 }
